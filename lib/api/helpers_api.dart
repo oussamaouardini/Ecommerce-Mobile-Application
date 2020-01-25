@@ -19,7 +19,6 @@ class HelpersApi {
   Map<String, String> _headers = {'Accept': 'application/json'};
 
   Future<List<ProductCategory>> fetchCategories(int page) async {
-    print("cte");
     String url = ApiUtl.CATEGORIES + '?page=' + page.toString();
 
     http.Response response = await http.get(url, headers: _headers);

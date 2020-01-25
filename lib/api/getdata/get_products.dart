@@ -64,6 +64,7 @@ class _get_productsState extends State<get_products> {
         product_old_price: item.product_price,
         product_pic: item.featured_image(),
         product_description: item.product_description,
+        product_id: item.product_id,
       )
 
      /* child: Padding(padding: EdgeInsets.all(16.0),
@@ -125,7 +126,7 @@ class _get_productsState extends State<get_products> {
 
 class Single_product extends StatelessWidget {
   final product_name;
-
+  final product_id;
   final product_pic;
 
   final product_price;
@@ -140,7 +141,8 @@ class Single_product extends StatelessWidget {
         this.product_pic,
         this.product_price,
         this.product_old_price,
-      this.product_description
+      this.product_description,
+        this.product_id
       });
 
 
@@ -164,6 +166,7 @@ class Single_product extends StatelessWidget {
                     product_details_price: product_price,
                     product_details_oldPrice: product_old_price,
                     product_description: product_description,
+                    product_id: product_id,
 
                   )));
 

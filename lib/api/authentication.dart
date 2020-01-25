@@ -63,7 +63,7 @@ class Authentication {
   Future<void>_saveUser(int userID,String apiToken) async{
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setInt('user_id', userID);
-    sharedPreferences.setString('user_id', apiToken);
+    sharedPreferences.setString('api_token', apiToken);
   }
 
 

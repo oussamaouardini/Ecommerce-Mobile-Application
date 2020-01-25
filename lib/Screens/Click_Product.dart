@@ -5,8 +5,8 @@ import 'package:pfe/Component/horisontale_list.dart';
 import 'package:pfe/Screens/logIn_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:titled_navigation_bar/titled_navigation_bar.dart';
-import 'Home.dart';
 
+import 'package:pfe/api/cart_api.dart';
 double baseHeight = 640.0;
 
 double screenAwareSize(double size, BuildContext context) {
@@ -45,6 +45,7 @@ const appBarColor = Color(0xFF01B2C4);
 
 class Product_details extends StatefulWidget {
   final product_details_name;
+  final product_id ;
 
   final product_details_price;
 
@@ -57,7 +58,9 @@ class Product_details extends StatefulWidget {
       {this.product_details_name,
         this.product_details_picture,
         this.product_details_oldPrice,
-        this.product_details_price,this.product_description});
+        this.product_details_price,this.product_description,
+        this.product_id
+      });
 
   static String id = 'Product_details';
 
@@ -113,6 +116,8 @@ class _Product_detailsState extends State<Product_details> {
     return colorItemList;
   }
 
+  CartApi _cartApi = CartApi() ;
+   bool _addingToCart = false ;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -515,15 +520,23 @@ class _Product_detailsState extends State<Product_details> {
                   )),
               Expanded(
                   child: IconButton(
-                      icon: Icon(Icons.shopping_cart),
+                      icon: (_addingToCart == false ) ? Icon(Icons.shopping_cart):CircularProgressIndicator(),
                       color: Color(0xFF01B2C4),
                       onPressed: () async {
                         SharedPreferences pref = await SharedPreferences.getInstance();
                         int userId = pref.getInt('user_id');
-                        if(userId == null){
+                        String api_token = pref.get('api_token');
+                        if(userId == null || api_token ==null ){
                           Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginScreen() ));
                         }else{
-                          // TODO : Add to cart
+                          print(userId);
+                          setState(() {
+                            _addingToCart = true ;
+                          });
+                          await _cartApi.addProductTocart(widget.product_id, _counter);
+                          setState(() {
+                            _addingToCart = false ;
+                          });
                         }
 
 
@@ -539,7 +552,7 @@ class _Product_detailsState extends State<Product_details> {
           Divider(),
  /// ====================================================================================Related Products row ==============*********************
           Padding(
-            padding: EdgeInsets.all(appPadding+10),
+            padding: EdgeInsets.all(10),
             child:Row(
               children: <Widget>[
 
@@ -567,6 +580,9 @@ class _Product_detailsState extends State<Product_details> {
     );
   }
 }
+
+
+
 
 
 Widget colorItem(

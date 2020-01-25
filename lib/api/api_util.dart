@@ -22,4 +22,12 @@ class ApiUtl {
 
   static const String CATEGORIES = MAIN_API_URL + 'categories';
   static const String TAGS = MAIN_API_URL + 'tags';
+  static const String CART = MAIN_API_URL + 'carts';
+
+  static const String REMOVE_FROM_CART = MAIN_API_URL + 'carts';
+
+
+
+
+
 }

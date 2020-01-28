@@ -180,7 +180,8 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         _loading = false ;
       });
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>home_screen()));
+      Navigator.of(context).pop();
+    //  Navigator.push(context, MaterialPageRoute(builder: (context)=>home_screen()));
     }else{
       setState(() {
         _loading = false ;

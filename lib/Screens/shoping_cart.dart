@@ -15,13 +15,14 @@ class _CartState extends State<Cart> {
   CartApi cartApi = CartApi() ;
   bool isloading = false ;
 
+  dynamic total ;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: appBarColor,
-
         title: ListTile(
           title: InkWell(child: Text('Shoping Cart',style: TextStyle(
             color: Colors.white,
@@ -76,7 +77,7 @@ class _CartState extends State<Cart> {
             children: <Widget>[
               Expanded(child: ListTile(
                 title: Text('Total :'),
-                subtitle: Text("\$230"),
+                subtitle: (isloading == true)? CircularProgressIndicator(): Text("\$"+total.toString()),
               )),
               Expanded(
                   child: MaterialButton(onPressed: (){},
@@ -104,7 +105,7 @@ class _CartState extends State<Cart> {
 
   Widget _drawProduct(CartItem cartItem){
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(left:8.0),
       child: Row(
         mainAxisAlignment:MainAxisAlignment.spaceBetween ,
         children: <Widget>[
@@ -112,50 +113,70 @@ class _CartState extends State<Cart> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                  //  color: Colors.red,
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                     // image: NetworkImage(cartItem.product.featured_image()),
-                    image: AssetImage(
-                      'images/IMG_1266.JPG',
+                Row(
+                  children: <Widget>[
+                    Container(
+                      width: 90,
+                      height: 90,
+                      decoration: BoxDecoration(
+                      //  color: Colors.red,
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                         // image: NetworkImage(cartItem.product.featured_image()),
+                        image: AssetImage(
+                          'images/IMG_1266.JPG',
 
+                        ),
+                        )
+                      ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(cartItem.product.product_title),
+                          SizedBox(height: 5.0,),
+                          Text(
+                              '\$ '+cartItem.product.product_price.toString()
+                          )
+                        ],
+                      ),
                     )
-                  ),
+                  ],
                 ),
-                Text(cartItem.product.product_title)
               ],
             ),
           ),
           Row(
             children: <Widget>[
-              IconButton(icon: Icon(Icons.add_circle_outline),
-                  onPressed: () async{
-                setState(() {
-                  isloading = true ;
-                });
-                await cartApi.addProductTocart(cartItem.product.product_id, 1);
-                setState(() {
-                  isloading = false ;
-                });
+              Column(
+                children: <Widget>[
+                  IconButton(icon: Icon(Icons.add_circle_outline),
+                      onPressed: () async{
+                        setState(() {
+                          isloading = true ;
+                        });
+                        await cartApi.addProductTocart(cartItem.product.product_id, 1);
+                        setState(() {
+                          isloading = false ;
+                        });
 
 
-              }),
-              Text(cartItem.quantity.toString()),
-              IconButton(icon: Icon(Icons.remove_circle_outline),
-                  onPressed: () async{
-                    setState(() {
-                      isloading = true ;
-                    });
-                    await cartApi.RemoveProductFromCart(cartItem.product.product_id, 1);
-                    setState(() {
-                      isloading = false ;
-                    });
-              }),
+                      }),
+                  Text(cartItem.quantity.toString()),
+                  IconButton(icon: Icon(Icons.remove_circle_outline),
+                      onPressed: () async{
+                        setState(() {
+                          isloading = true ;
+                        });
+                        await cartApi.RemoveProductFromCart(cartItem.product.product_id, 1);
+                        setState(() {
+                          isloading = false ;
+                        });
+                      }),
+                ],
+              )
             ],
           )
         ],

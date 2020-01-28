@@ -1,10 +1,10 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml:1:1-36:12
-INJECTED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml:1:1-36:12
-INJECTED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml:1:1-36:12
-INJECTED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml:1:1-36:12
-MERGED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml:1:1-36:12
+ADDED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml:1:1-35:12
+INJECTED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml:1:1-35:12
+INJECTED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml:1:1-35:12
+INJECTED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml:1:1-35:12
+MERGED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml:1:1-35:12
 MERGED from [:shared_preferences] D:\Project_Android_Studio\Ecome\build\shared_preferences\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:2:1-7:12
 MERGED from [:shared_preferences_web] D:\Project_Android_Studio\Ecome\build\shared_preferences_web\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:2:1-7:12
 MERGED from [:shared_preferences_macos] D:\Project_Android_Studio\Ecome\build\shared_preferences_macos\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:2:1-7:12
@@ -40,11 +40,11 @@ INJECTED from D:\Project_Android_Studio\Ecome\android\app\src\debug\AndroidManif
 		INJECTED from D:\Project_Android_Studio\Ecome\android\app\src\debug\AndroidManifest.xml
 	android:versionName
 		INJECTED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml
-		ADDED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml:1:1-36:12
+		ADDED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml:1:1-35:12
 		INJECTED from D:\Project_Android_Studio\Ecome\android\app\src\debug\AndroidManifest.xml
 	android:versionCode
 		INJECTED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml
-		ADDED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml:1:1-36:12
+		ADDED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml:1:1-35:12
 		INJECTED from D:\Project_Android_Studio\Ecome\android\app\src\debug\AndroidManifest.xml
 	xmlns:android
 		ADDED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml:1:11-69
@@ -92,12 +92,6 @@ category#android.intent.category.LAUNCHER
 ADDED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml:31:17-76
 	android:name
 		ADDED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml:31:27-74
-uses-permission#android.permission.INTERNET
-ADDED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml:35:5-67
-MERGED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml:35:5-67
-MERGED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml:35:5-67
-	android:name
-		ADDED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml:35:22-64
 uses-sdk
 INJECTED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml
@@ -162,3 +156,7 @@ INJECTED from D:\Project_Android_Studio\Ecome\android\app\src\debug\AndroidManif
 	android:minSdkVersion
 		INJECTED from D:\Project_Android_Studio\Ecome\android\app\src\main\AndroidManifest.xml
 		INJECTED from D:\Project_Android_Studio\Ecome\android\app\src\debug\AndroidManifest.xml
+uses-permission#android.permission.INTERNET
+ADDED from D:\Project_Android_Studio\Ecome\android\app\src\debug\AndroidManifest.xml:6:5-66
+	android:name
+		ADDED from D:\Project_Android_Studio\Ecome\android\app\src\debug\AndroidManifest.xml:6:22-64

@@ -26,7 +26,7 @@ class Cart{
 
 List<CartItem> cartItems ;
 int id ;
-double  total ;
+var  total ;
 
 Cart(this.cartItems, this.id, this.total);
 
@@ -34,13 +34,13 @@ Cart(this.cartItems, this.id, this.total);
 Cart.fromJson( Map<String,dynamic> jsonObject ){
   cartItems = [];
   var items = jsonObject['cart_items'];
-// print(items);
+
   for(var item in items ){
-  //  print(CartItem.fromJson(item));
     cartItems.add(CartItem.fromJson(item));
   }
   this.id = jsonObject['id'];
-  this.total = double.tryParse(jsonObject['total']);
+  this.total = jsonObject['total'];
+
 
 
 }

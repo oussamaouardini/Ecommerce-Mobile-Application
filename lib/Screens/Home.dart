@@ -5,10 +5,13 @@ import 'package:pfe/Component/image_caroussel.dart';
 import 'package:pfe/Component/AllSports_list.dart';
 import 'package:pfe/Component/gridViewList.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pfe/general_config/size_config.dart';
 import 'Account.dart';
 import 'shoping_cart.dart';
 import 'package:titled_navigation_bar/titled_navigation_bar.dart';
 import 'package:pfe/api/getdata/get_products.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:pfe/Component/drawer.dart';
 
 //import 'package:pfe/custom_widgets.dart';
 const AppColor = Color(0xF2EEEF);
@@ -22,15 +25,20 @@ class home_screen extends StatefulWidget {
 class _home_screenState extends State<home_screen> {
 
   final PageController _pageController = new PageController();
+  final PageController _secondpageController = new PageController();
 
   int changePage = 0;
 
   int currentIndex = 0;
 
-
+  int userId ;
+  String api_token ;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Color(0xFFF0EDED),
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
@@ -81,7 +89,7 @@ class _home_screenState extends State<home_screen> {
               TitledNavigationBarItem(title: 'Profile', icon: Icons.person_outline),
             ]
         ),
-      drawer: _drawer(),
+      drawer: drawerr(),
       body: Padding(
 
         padding: const EdgeInsets.only(top:5),
@@ -204,20 +212,19 @@ class _home_screenState extends State<home_screen> {
                 Bar(first: 'Man',second: 'Women',third: 'Kids',firstIcon: FontAwesomeIcons.male,secondIcon: FontAwesomeIcons.female,thirdIcon: FontAwesomeIcons.child,pageController: _pageController,),
               SizedBox(height: 20,),
               Container(
-                height: 400,
+                height: SizeConfig.blockSizeVertical*54,
                 child: PageView(
                   physics: NeverScrollableScrollPhysics(),
                   controller: _pageController,
                   children: <Widget>[
                     Container(
-                      color: Colors.red,
-                      child: Products(tagSection: 'recommended for you',),
+                      child: get_products(),
                     ),
                     Container(
-                      color: Colors.green,
+                      child: get_products(),
                     ),
                     Container(
-                      color: Colors.blue,
+                      child: get_products(),
                     ),
                   ],
                 ),
@@ -247,11 +254,25 @@ class _home_screenState extends State<home_screen> {
                 ),
               ),
               ///  BAR---Recommended For You Section =========
-              Bar(first: 'Shirts',second: 'Pants',third: 'Accesories',),
+              Bar(first: 'Man',second: 'Women',third: 'Kids',firstIcon: FontAwesomeIcons.male,secondIcon: FontAwesomeIcons.female,thirdIcon: FontAwesomeIcons.child,pageController: _secondpageController,),
               SizedBox(height: 20,),
               Container(
-                height: 400,
-                child: Products(tagSection: 'brand',),
+                height: SizeConfig.blockSizeVertical*54,
+                child: PageView(
+                  physics: NeverScrollableScrollPhysics(),
+                  controller: _secondpageController,
+                  children: <Widget>[
+                    Container(
+                      child: get_products(),
+                    ),
+                    Container(
+                      child: get_products(),
+                    ),
+                    Container(
+                      child: get_products(),
+                    ),
+                  ],
+                ),
               ),
               Padding(
                 padding: EdgeInsets.all(appPadding+10),
@@ -304,149 +325,4 @@ class _home_screenState extends State<home_screen> {
   }
 }
 
-
-
-
-class _drawer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Drawer(
-        child: ListView(
-          children: <Widget>[
-            UserAccountsDrawerHeader(
-              accountName: Text("ouballa mohamed"),
-              accountEmail: Text("hamid.ikchawn@ouballa.com"),
-              currentAccountPicture: GestureDetector(
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: Icon(
-                    Icons.person,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              decoration: BoxDecoration(color: Colors.grey),
-            ),
-            InkWell(
-              onTap: () {},
-              child: ListTile(
-                title: Text("Home"),
-                leading: Icon(
-                  Icons.home,
-                 // color: Colors.red,
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () {},
-              child: ListTile(
-                title: Text("Notifications"),
-                leading: Icon(
-                  Icons.notifications,
-              //    color: Colors.red,
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () {},
-              child: ListTile(
-                title: Text("My orders"),
-                leading: Icon(
-                  Icons.shopping_basket ,
-                //  color: Colors.red,
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () {},
-              child: ListTile(
-                title: Text("Wish List"),
-                leading: Icon(
-                  Icons.favorite,
-                //  color: Colors.red,
-                ),
-              ),
-            ),
-            ListTile(
-              title: Row(
-                children: <Widget>[
-                  Text("Products",style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w700,
-
-                  ),),
-
-                ],
-              ),
-            ),
-            InkWell(
-              onTap: () {},
-              child: ListTile(
-                title: Text("Categories"),
-                leading: Icon(
-                  Icons.dashboard,
-                //  color: Colors.red,
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () {},
-              child: ListTile(
-                title: Text("Brands"),
-                leading: Icon(
-                  Icons.flag,
-                  //  color: Colors.red,
-                ),
-              ),
-            ),
-            ListTile(
-              title: Row(
-                children: <Widget>[
-                  Text("Application preferences",style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-
-                  ),),
-
-                ],
-              ),
-            ),
-            InkWell(
-              onTap: () {},
-              child: ListTile(
-                title: Text("Settings"),
-                leading: Icon(
-                  Icons.settings,
-                  color: Colors.grey,
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () {},
-              child: ListTile(
-                title: Text("Log Out"),
-                leading: Icon(
-                  Icons.exit_to_app,
-                  color: Colors.blue,
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () {},
-              child: ListTile(
-                title: Text("About"),
-                leading: Icon(
-                  Icons.format_paint,
-                  color: Colors.blue,
-                ),
-              ),
-            )
-          ],
-
-        ),
-      ),
-    );
-  }
-}
 

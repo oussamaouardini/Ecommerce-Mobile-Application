@@ -148,7 +148,7 @@ class _Product_detailsState extends State<Product_details> {
           Stack(
             children: <Widget>[
               Container(
-                child: Image.network(widget.product_details_picture, width: double.infinity, fit: BoxFit.cover) != null ? CircularProgressIndicator():Image.network(widget.product_details_picture, width: double.infinity, fit: BoxFit.cover),
+                child: Image.network(widget.product_details_picture, width: double.infinity, fit: BoxFit.cover) == null ? CircularProgressIndicator():Image.network(widget.product_details_picture, width: double.infinity, fit: BoxFit.cover),
               ),
               Positioned(
                 left: screenAwareSize(18.0, context),

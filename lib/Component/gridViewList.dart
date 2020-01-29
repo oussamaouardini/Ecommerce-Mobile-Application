@@ -142,7 +142,6 @@ class Single_product extends StatelessWidget {
             child: Material(
               child: InkWell(
                 onTap: () {
-                  print("oubella");
                   hassan = false ;
 
                   Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Product_details(product_details_name: product_name,

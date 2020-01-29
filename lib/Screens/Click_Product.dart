@@ -3,6 +3,8 @@ import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pfe/Component/horisontale_list.dart';
 import 'package:pfe/Screens/logIn_screen.dart';
+import 'package:pfe/api/like_api.dart';
+import 'package:pfe/like/like.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:titled_navigation_bar/titled_navigation_bar.dart';
 
@@ -117,9 +119,42 @@ class _Product_detailsState extends State<Product_details> {
   }
 
   CartApi _cartApi = CartApi() ;
+  LikeApi _likeApi = LikeApi() ;
+  bool isLiked = false ;
+
+
+  static SharedPreferences pref ;
+  static int userId ;
+  static String api_token ;
+  checkliked() async{
+
+    pref = await SharedPreferences.getInstance() ;
+    userId = pref.getInt('user_id');
+    api_token = pref.get('api_token');
+    if(userId!=null){
+
+      List<Like> userLikes = [] ;
+      userLikes = await _likeApi.fetchUserLikes(userId);
+      var temp = false ;
+      for(int i=0;i<userLikes.length ; i++){
+        if( widget.product_id == userLikes[i].product.product_id ){
+          isLiked = true ;
+          temp = true ;
+        }
+      }
+      if((isLiked == true) && (temp == false)){
+        isLiked = false ;
+      }
+    }
+  }
+
    bool _addingToCart = false ;
+  bool loading = false ;
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      checkliked();
+    });
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -133,7 +168,6 @@ class _Product_detailsState extends State<Product_details> {
        bottomNavigationBar: TitledBottomNavigationBar(
         currentIndex: -1, // Use this to update the Bar giving a position
         onTap: (index){
-          print("Selected Index: $index");
         },
         items: [
           TitledNavigationBarItem(title: 'Home', icon: Icons.home),
@@ -143,7 +177,7 @@ class _Product_detailsState extends State<Product_details> {
           TitledNavigationBarItem(title: 'Profile', icon: Icons.person_outline),
         ]
     ),
-      body: ListView(
+      body:(loading == false)? ListView(
         children: <Widget>[
           Stack(
             children: <Widget>[
@@ -391,117 +425,75 @@ class _Product_detailsState extends State<Product_details> {
             child: Row(
              // children: colorSelector(),
               children: <Widget>[
-                Container(
-                  height: 35.0,
-                  width: 35.0,
-                  color: first_color,
-                  child: RawMaterialButton(
-                    child:Radio(value: 1, groupValue: groupValue, onChanged: (int T){
-                      print(T);
-                      setState(() {
-                        groupValue= T ;
-                      }); },activeColor: Colors.white,) ,
-                    elevation: 6.0,
-                    constraints: BoxConstraints.tightFor(
-                        width: 56.0,
-                        height: 56.0
-                    ),
-                    shape: CircleBorder(),
-                    fillColor: first_color ,
-                    onPressed: (){},
+                RawMaterialButton(
+                  child:Radio(value: 1, groupValue: groupValue, onChanged: (int T){
+                    setState(() {
+                      groupValue= T ;
+                    }); },activeColor: Colors.white,) ,
+                  elevation: 6.0,
+                  constraints: BoxConstraints.tightFor(
+                      width: 56.0,
+                      height: 56.0
                   ),
+                  shape: CircleBorder(),
+                  fillColor: first_color ,
+                  onPressed: (){},
                 ),
-                SizedBox(
-                  width: 8.0,
-                ),
-                Container(
-                  height: 35.0,
-                  width: 35.0,
-                  color: second_color,
-                  child: RawMaterialButton(
-                    child:Radio(value: 2, groupValue: groupValue, onChanged: (int T){
-                      print(T);
-                      setState(() {
-                        groupValue= T ;
-                      }); },activeColor: Colors.white,) ,
-                    elevation: 6.0,
-                    constraints: BoxConstraints.tightFor(
-                        width: 56.0,
-                        height: 56.0
-                    ),
-                    shape: CircleBorder(),
-                    fillColor: second_color ,
-                    onPressed: (){},
+                RawMaterialButton(
+                  child:Radio(value: 2, groupValue: groupValue, onChanged: (int T){
+                    setState(() {
+                      groupValue= T ;
+                    }); },activeColor: Colors.white,) ,
+                  elevation: 6.0,
+                  constraints: BoxConstraints.tightFor(
+                      width: 56.0,
+                      height: 56.0
                   ),
+                  shape: CircleBorder(),
+                  fillColor: second_color ,
+                  onPressed: (){},
                 ),
-                SizedBox(
-                  width: 8.0,
-                ),
-                Container(
-                  height: 35.0,
-                  width: 35.0,
-                  color: third_color,
-                  child: RawMaterialButton(
-                    child:Radio(value: 3, groupValue: groupValue, onChanged: (int T){
-                      print(T);
-                      setState(() {
-                        groupValue= T ;
-                      }); },activeColor: Colors.white,) ,
-                    elevation: 6.0,
-                    constraints: BoxConstraints.tightFor(
-                        width: 56.0,
-                        height: 56.0
-                    ),
-                    shape: CircleBorder(),
-                    fillColor: third_color ,
-                    onPressed: (){},
+                RawMaterialButton(
+                  child:Radio(value: 3, groupValue: groupValue, onChanged: (int T){
+                    setState(() {
+                      groupValue= T ;
+                    }); },activeColor: Colors.white,) ,
+                  elevation: 6.0,
+                  constraints: BoxConstraints.tightFor(
+                      width: 56.0,
+                      height: 56.0
                   ),
+                  shape: CircleBorder(),
+                  fillColor: third_color ,
+                  onPressed: (){},
                 ),
-                SizedBox(
-                  width: 8.0,
-                ),
-                Container(
-                  height: 35.0,
-                  width: 35.0,
-                  color: fourth_color,
-                  child: RawMaterialButton(
-                    child:Radio(value: 4, groupValue: groupValue, onChanged: (int T){
-                      print(T);
-                      setState(() {
-                        groupValue= T ;
-                      }); },activeColor: Colors.white,) ,
-                    elevation: 6.0,
-                    constraints: BoxConstraints.tightFor(
-                        width: 56.0,
-                        height: 56.0
-                    ),
-                    shape: CircleBorder(),
-                    fillColor: fourth_color ,
-                    onPressed: (){},
+                RawMaterialButton(
+                  child:Radio(value: 4, groupValue: groupValue, onChanged: (int T){
+                    setState(() {
+                      groupValue= T ;
+                    }); },activeColor: Colors.white,) ,
+                  elevation: 6.0,
+                  constraints: BoxConstraints.tightFor(
+                      width: 56.0,
+                      height: 56.0
                   ),
+                  shape: CircleBorder(),
+                  fillColor: fourth_color ,
+                  onPressed: (){},
                 ),
-                SizedBox(
-                  width: 8.0,
-                ),
-                Container(
-                  height: 35.0,
-                  width: 35.0,
-                  color: fifth_color,
-                  child: RawMaterialButton(
-                    child:Radio(value: 5, groupValue: groupValue, onChanged: (int T){
-                      print(T);
-                      setState(() {
-                        groupValue= T ;
-                      }); },activeColor: Colors.white,) ,
-                    elevation: 6.0,
-                    constraints: BoxConstraints.tightFor(
-                        width: 56.0,
-                        height: 56.0
-                    ),
-                    shape: CircleBorder(),
-                    fillColor: fifth_color ,
-                    onPressed: (){},
+                RawMaterialButton(
+                  child:Radio(value: 5, groupValue: groupValue, onChanged: (int T){
+                    setState(() {
+                      groupValue= T ;
+                    }); },activeColor: Colors.white,) ,
+                  elevation: 6.0,
+                  constraints: BoxConstraints.tightFor(
+                      width: 56.0,
+                      height: 56.0
                   ),
+                  shape: CircleBorder(),
+                  fillColor: fifth_color ,
+                  onPressed: (){},
                 ),
               ],
             ),
@@ -509,45 +501,59 @@ class _Product_detailsState extends State<Product_details> {
           SizedBox(
             height: screenAwareSize(8.0, context),
           ),
-          Row(
-            children: <Widget>[
-              Expanded(
-                  child: MaterialButton(
-                    onPressed: () {},
-                    color: Color(0xFF01B2C4),
-                    textColor: Colors.white,
-                    child: Text('By now'),
-                  )),
-              Expanded(
-                  child: IconButton(
-                      icon: (_addingToCart == false ) ? Icon(Icons.shopping_cart):CircularProgressIndicator(),
+          Padding(
+            padding: const EdgeInsets.only(left:18.0),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                    child: MaterialButton(
+                      onPressed: () {},
                       color: Color(0xFF01B2C4),
-                      onPressed: () async {
-                        SharedPreferences pref = await SharedPreferences.getInstance();
-                        int userId = pref.getInt('user_id');
-                        String api_token = pref.get('api_token');
-                        if(userId == null || api_token ==null ){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginScreen() ));
-                        }else{
-                          print(userId);
-                          setState(() {
-                            _addingToCart = true ;
-                          });
-                          await _cartApi.addProductTocart(widget.product_id, _counter);
-                          setState(() {
-                            _addingToCart = false ;
-                          });
+                      textColor: Colors.white,
+                      child: Text('By now'),
+                    )),
+                Expanded(
+                    child: IconButton(
+                        icon: (_addingToCart == false ) ? Icon(Icons.shopping_cart):CircularProgressIndicator(),
+                        color: Color(0xFF01B2C4),
+                        onPressed: () async {
+                          SharedPreferences pref = await SharedPreferences.getInstance();
+                          int userId = pref.getInt('user_id');
+                          String api_token = pref.get('api_token');
+                          if(userId == null || api_token ==null ){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginScreen() ));
+                          }else{
+                            setState(() {
+                              _addingToCart = true ;
+                            });
+                            await _cartApi.addProductTocart(widget.product_id, _counter);
+                            setState(() {
+                              _addingToCart = false ;
+                            });
+                          }
                         }
-
-
-                      }
-                      )),
-              Expanded(
-                  child: IconButton(
-                      icon: Icon(Icons.favorite_border),
-                      color: Colors.red,
-                      onPressed: () {}))
-            ],
+                        )),
+                Expanded(
+                    child: IconButton(
+                        icon: ( isLiked == true ) ? Icon(Icons.favorite_border)  : Icon(Icons.favorite),
+                        color:  Colors.red,
+                        onPressed: () async {
+                          if(isLiked == true){
+                            await _likeApi.removeUserLike(userId, widget.product_id);
+                            setState(() {
+                              checkliked();
+                            });
+                          }else{
+                            await _likeApi.addUserLike(userId,widget.product_id);
+                            setState(() {
+                              checkliked();
+                            });
+                          }
+                        }
+                        )
+                )
+              ],
+            ),
           ),
           Divider(),
  /// ====================================================================================Related Products row ==============*********************
@@ -576,13 +582,19 @@ class _Product_detailsState extends State<Product_details> {
           ),
           Horizintal_list(),
         ],
-      ),
+      ):_showLoading(),
     );
   }
 }
 
 
-
+Widget _showLoading(){
+  return Container(
+    child:Center(
+      child: CircularProgressIndicator(),
+    ) ,
+  );
+}
 
 
 Widget colorItem(

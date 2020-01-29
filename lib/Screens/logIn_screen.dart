@@ -176,17 +176,14 @@ class _LoginScreenState extends State<LoginScreen> {
     String password = _passwordController.text;
     User user = await authentication.login(email, password);
     if(user.user_id != null){
-      print('yes');
       setState(() {
         _loading = false ;
       });
       Navigator.of(context).pop();
-    //  Navigator.push(context, MaterialPageRoute(builder: (context)=>home_screen()));
     }else{
       setState(() {
         _loading = false ;
       });
-      print('not loggged');
     }
 
   }

@@ -60,7 +60,6 @@ class Item extends StatelessWidget {
   Widget build(BuildContext context) {
     return  InkWell(
       onTap: (){
-        print(name);
       },
       child: Container(
         margin: EdgeInsets.all(10.0),

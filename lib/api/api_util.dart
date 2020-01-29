@@ -27,10 +27,17 @@ class ApiUtl {
   static const String REMOVE_FROM_CART = MAIN_API_URL + 'carts';
 
   static String FullUser(int id) {
-    return MAIN_API_URL +'currentuser/1';
+    return MAIN_API_URL +'currentuser/'+id.toString();
   }
-
-
+  static String USERLIKES(int id) {
+    return MAIN_API_URL +'wishuser/'+id.toString();
+  }
+  static String ADDLIKE(int id , int product_id) {
+    return MAIN_API_URL +'addwishuser/'+id.toString()+'/'+product_id.toString();
+  }
+  static String REMOVELIKE(int id , int product_id) {
+    return MAIN_API_URL +'removewishuser/'+id.toString()+'/'+product_id.toString();
+  }
 
 
 

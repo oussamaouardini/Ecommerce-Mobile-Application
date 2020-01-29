@@ -5,6 +5,7 @@ import 'package:pfe/Component/image_caroussel.dart';
 import 'package:pfe/Component/AllSports_list.dart';
 import 'package:pfe/Component/gridViewList.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pfe/Screens/favorite_screen.dart';
 import 'package:pfe/general_config/size_config.dart';
 import 'Account.dart';
 import 'shoping_cart.dart';
@@ -73,12 +74,16 @@ class _home_screenState extends State<home_screen> {
       ),*/
         bottomNavigationBar: TitledBottomNavigationBar(
             currentIndex: 0, // Use this to update the Bar giving a position
-            onTap: (index){
+            onTap: (index) async {
               print("Selected Index: $index");
               if(index==4){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>new Account()));
               }else if(index==3){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>new Cart()));
+              }else if(index==2){
+                SharedPreferences pref = await SharedPreferences.getInstance();
+                 int user_id =  pref.getInt('user_id');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>new Favorite(user_id:user_id) ));
               }
             },
             items: [

@@ -44,7 +44,6 @@ class _drawerrState extends State<drawerr> {
               accountName: Text("Welcome"),
               accountEmail: InkWell(child: Text("Enter your account"),onTap: (){
                 // TODO: send to login
-                print('login');
               },),
               currentAccountPicture: GestureDetector(
                 child: CircleAvatar(
@@ -292,7 +291,6 @@ class _drawerState extends State<drawer> {
               accountName: Text("Welcome"),
               accountEmail: InkWell(child: Text("Enter your account"),onTap: (){
                 // TODO: send to login
-                print('login');
               },),
               currentAccountPicture: GestureDetector(
                 child: CircleAvatar(

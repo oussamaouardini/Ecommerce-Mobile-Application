@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-
+import 'package:pfe/Screens/Home.dart';
 
 
 class logout extends StatefulWidget {
@@ -16,7 +16,7 @@ class _logoutState extends State<logout> {
     Future.delayed(
       const Duration(seconds: 2),
         (){
-          Navigator.of(context).pop();
+          Navigator.push(context, new MaterialPageRoute(builder: (context)=> new home_screen() ));
         }
     );
   }

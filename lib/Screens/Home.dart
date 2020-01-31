@@ -6,6 +6,7 @@ import 'package:pfe/Component/AllSports_list.dart';
 import 'package:pfe/Component/gridViewList.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pfe/Screens/favorite_screen.dart';
+import 'package:pfe/Screens/logIn_screen.dart';
 import 'package:pfe/general_config/size_config.dart';
 import 'Account.dart';
 import 'shoping_cart.dart';
@@ -38,219 +39,266 @@ class _home_screenState extends State<home_screen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Scaffold(
-      key: _scaffoldKey,
-      backgroundColor: Color(0xFFF0EDED),
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        elevation: 0.0,
-        backgroundColor: AppColor,
-        title: Text('HOME',style:TextStyle(
-          color: Colors.black87,
-        ),),
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.shopping_cart,color: Colors.black87), onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>new Cart()));
+    return WillPopScope(
+      onWillPop: (){
+       return moveToLastScreen();
+      },
+      child: Scaffold(
+        key: _scaffoldKey,
+        backgroundColor: Color(0xFFF0EDED),
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.black),
+          leading: IconButton(icon: Icon(Icons.menu), onPressed: ()async{
+            SharedPreferences pref = await SharedPreferences.getInstance();
+            int user_id =  pref.getInt('user_id');
+            String api_token = pref.getString('api_token');
+            if((user_id != null ) || (api_token != null) ){
+              _scaffoldKey.currentState.openDrawer();
+            }else{
+              showDialog(context: context,
+                  builder: (context){
+                    return alert();
+                  }
+              );
+            }
+
           }),
-          CircleAvatar(
-            backgroundColor: Color(0xF2EEEF),
-            child: IconButton(icon: Icon(Icons.person,color: Colors.black,),onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>new Account()));
+          elevation: 0.0,
+          backgroundColor: AppColor,
+          title: Text('HOME',style:TextStyle(
+            color: Colors.black87,
+          ),),
+          actions: <Widget>[
+            IconButton(icon: Icon(Icons.shopping_cart,color: Colors.black87), onPressed: () async {
 
-            },),
-          ),
-        ],
-      ),
-      /*
-      bottomNavigationBar: Container(
-        child:  BottomNavigationDotBar (// Usar -> "BottomNavigationDotBar"
 
-            items: <BottomNavigationDotBarItem>[
-              BottomNavigationDotBarItem(icon: Icons.home, onTap: () { /* Cualquier funcion - [abrir nueva venta] */ }),
-              BottomNavigationDotBarItem(icon: Icons.person, onTap: () { /* Cualquier funcion - [abrir nueva venta] */ }),
-              BottomNavigationDotBarItem(icon: Icons.favorite, onTap: () { /* Cualquier funcion - [abrir nueva venta] */ }),
-            ]
-        ),
-      ),*/
-        bottomNavigationBar: TitledBottomNavigationBar(
-            currentIndex: 0, // Use this to update the Bar giving a position
-            onTap: (index) async {
-              print("Selected Index: $index");
-              if(index==4){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>new Account()));
-              }else if(index==3){
+              SharedPreferences pref = await SharedPreferences.getInstance();
+              int user_id =  pref.getInt('user_id');
+              String api_token = pref.getString('api_token');
+              if((user_id != null ) || (api_token != null) ){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>new Cart()));
-              }else if(index==2){
-                SharedPreferences pref = await SharedPreferences.getInstance();
-                 int user_id =  pref.getInt('user_id');
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>new Favorite(user_id:user_id) ));
+              }else{
+                showDialog(context: context,
+                    builder: (context){
+                      return alert();
+                    }
+                );
               }
-            },
-            items: [
-              TitledNavigationBarItem(title: 'Home', icon: Icons.home),
-              TitledNavigationBarItem(title: 'Search', icon: Icons.search),
-              TitledNavigationBarItem(title: 'Favorite', icon: Icons.favorite),
-              TitledNavigationBarItem(title: 'Orders', icon: Icons.shopping_cart),
-              TitledNavigationBarItem(title: 'Profile', icon: Icons.person_outline),
-            ]
-        ),
-      drawer: drawerr(),
-      body: Padding(
 
-        padding: const EdgeInsets.only(top:5),
-        child: Container(
-          color: Color(0xF2EEEF),
-          child: ListView(
-           // physics:NeverScrollableScrollPhysics(),
-            children: <Widget>[
-              Container(
-                height: 70,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                    color: Colors.white,
-                    child: Row(
-                      children: <Widget>[
-                        IconButton(
-                          splashColor: Colors.grey,
-                          icon: Icon(Icons.search, color: Colors.black87),
-                          onPressed: () {},
-                        ),
-                        Expanded(
-                          child: TextField(
-                            cursorColor: Colors.black,
-                            keyboardType: TextInputType.text,
-                            textInputAction: TextInputAction.go,
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                contentPadding:
-                                EdgeInsets.symmetric(horizontal: 15),
-                                hintText: "Search..."),
+
+
+            }),
+            CircleAvatar(
+              backgroundColor: Color(0xF2EEEF),
+              child: IconButton(icon: Icon(Icons.person,color: Colors.black,),onPressed: ()async{
+                SharedPreferences pref = await SharedPreferences.getInstance();
+                int user_id =  pref.getInt('user_id');
+                String api_token = pref.getString('api_token');
+                if((user_id != null ) || (api_token != null) ){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>new Account()));
+                }else{
+                  showDialog(context: context,
+                      builder: (context){
+                        return alert();
+                      }
+                  );
+                }
+
+
+              },),
+            ),
+          ],
+        ),
+        /*
+        bottomNavigationBar: Container(
+          child:  BottomNavigationDotBar (// Usar -> "BottomNavigationDotBar"
+
+              items: <BottomNavigationDotBarItem>[
+                BottomNavigationDotBarItem(icon: Icons.home, onTap: () { /* Cualquier funcion - [abrir nueva venta] */ }),
+                BottomNavigationDotBarItem(icon: Icons.person, onTap: () { /* Cualquier funcion - [abrir nueva venta] */ }),
+                BottomNavigationDotBarItem(icon: Icons.favorite, onTap: () { /* Cualquier funcion - [abrir nueva venta] */ }),
+              ]
+          ),
+        ),*/
+          bottomNavigationBar: TitledBottomNavigationBar(
+              currentIndex: 0, // Use this to update the Bar giving a position
+              onTap: (index) async {
+                print("Selected Index: $index");
+                if(index==4){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>new Account()));
+                }else if(index==3){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>new Cart()));
+                }else if(index==2){
+                  SharedPreferences pref = await SharedPreferences.getInstance();
+                   int user_id =  pref.getInt('user_id');
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>new Favorite(user_id:user_id) ));
+                }
+              },
+              items: [
+                TitledNavigationBarItem(title: 'Home', icon: Icons.home),
+                TitledNavigationBarItem(title: 'Search', icon: Icons.search),
+                TitledNavigationBarItem(title: 'Favorite', icon: Icons.favorite),
+                TitledNavigationBarItem(title: 'Orders', icon: Icons.shopping_cart),
+                TitledNavigationBarItem(title: 'Profile', icon: Icons.person_outline),
+              ]
+          ),
+        drawer: drawerr(),
+        body: Padding(
+
+          padding: const EdgeInsets.only(top:5),
+          child: Container(
+            color: Color(0xF2EEEF),
+            child: ListView(
+             // physics:NeverScrollableScrollPhysics(),
+              children: <Widget>[
+                Container(
+                  height: 70,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                      color: Colors.white,
+                      child: Row(
+                        children: <Widget>[
+                          IconButton(
+                            splashColor: Colors.grey,
+                            icon: Icon(Icons.search, color: Colors.black87),
+                            onPressed: () {},
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: MaterialButton(
-                            onPressed: () {
-                              showDialog(context: context,
-                                  builder: (context){
-                                    return AlertDialog(title: Text("All Filters"),
-                                      content: Text('chose the Quantity'),
-                                      actions: <Widget>[
-                                        MaterialButton(
-                                          onPressed: (){
-                                            Navigator.of(context).pop(context);
-                                          },
-                                          child: Text('Close'),
-                                        )
-                                      ],
-                                    );
-                                  }
-                              );
-                            },
-                            child:Icon(FontAwesomeIcons.slidersH,) ,
+                          Expanded(
+                            child: TextField(
+                              cursorColor: Colors.black,
+                              keyboardType: TextInputType.text,
+                              textInputAction: TextInputAction.go,
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  contentPadding:
+                                  EdgeInsets.symmetric(horizontal: 15),
+                                  hintText: "Search..."),
+                            ),
                           ),
-                        ),
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: MaterialButton(
+                              onPressed: () {
+                                showDialog(context: context,
+                                    builder: (context){
+                                      return AlertDialog(title: Text("All Filters"),
+                                        content: Text('chose the Quantity'),
+                                        actions: <Widget>[
+                                          MaterialButton(
+                                            onPressed: (){
+                                              Navigator.of(context).pop(context);
+                                            },
+                                            child: Text('Close'),
+                                          )
+                                        ],
+                                      );
+                                    }
+                                );
+                              },
+                              child:Icon(FontAwesomeIcons.slidersH,) ,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: appPadding,left: appPadding),
-                child: ImageCarousel,
-              ),
-              /// Flash Seles Section  ==========================================================
-              Padding(
-                padding: EdgeInsets.all(appPadding),
-                child:Row(
-                  children: <Widget>[
-                    Expanded(child: Row(
-                      children: <Widget>[
-
-                        Icon(FontAwesomeIcons.bullhorn,
-                          size: 30.0,
-                        ),
-                        Text('  Flash Seles',
-                          style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold
-                          ),)
-                      ],
-                    )
-                    ),
-                    Expanded(child: Text(
-                      'End in 07:56:00',
-                      textAlign: TextAlign.right,
-                    ))
-                    ,
-                  ],
-
+                Padding(
+                  padding: const EdgeInsets.only(right: appPadding,left: appPadding),
+                  child: ImageCarousel,
                 ),
-              ),
-            Horizintal_list(),
-              /// Recommended For You Section ==========================================================
-              Padding(
-                padding: EdgeInsets.all(appPadding+10),
-                child:Row(
-                  children: <Widget>[
+                /// Flash Seles Section  ==========================================================
+                Padding(
+                  padding: EdgeInsets.all(appPadding),
+                  child:Row(
+                    children: <Widget>[
+                      Expanded(child: Row(
+                        children: <Widget>[
 
-                    Expanded(child: Row(
-                      children: <Widget>[
-
-                        Icon(Icons.star,
-                          color: Colors.amber,
-                          size: 30.0,
-                        ),
-                        Text('Recommended For You',
-                          style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold
-                          ),)
-                      ],
-                    )
-                    ),
-                  ],
-                ),
-              ),
-              ///  BAR---Recommended For You Section =========
-                Bar(first: 'Man',second: 'Women',third: 'Kids',firstIcon: FontAwesomeIcons.male,secondIcon: FontAwesomeIcons.female,thirdIcon: FontAwesomeIcons.child,pageController: _pageController,),
-              SizedBox(height: 20,),
-              Container(
-                height: SizeConfig.blockSizeVertical*54,
-                child: PageView(
-                  physics: NeverScrollableScrollPhysics(),
-                  controller: _pageController,
-                  children: <Widget>[
-                    Container(
-                      child: get_products(),
-                    ),
-                    Container(
-                    //  child: get_products(),
-                      child: CustomScrollView(
-                     //   controller: ScrollController.initialScrollOffset,
-                        slivers: <Widget>[
-                          SliverGrid(
-                            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 200.0,
-                              mainAxisSpacing: 10.0,
-                              crossAxisSpacing: 10.0,
-                              childAspectRatio: 4.0,
-                            ),
-                            delegate: SliverChildBuilderDelegate(
-                                  (BuildContext context, int index) {
-                                return Container(
-                                  alignment: Alignment.center,
-                                  color: Colors.teal[100 * (index % 9)],
-                                  child: Text('grid item $index'),
-                                );
-                              },
-                              childCount: 20,
-                            ),
-                          )
+                          Icon(FontAwesomeIcons.bullhorn,
+                            size: 30.0,
+                          ),
+                          Text('  Flash Seles',
+                            style: TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold
+                            ),)
                         ],
                       )
-                    ),
+                      ),
+                      Expanded(child: Text(
+                        'End in 07:56:00',
+                        textAlign: TextAlign.right,
+                      ))
+                      ,
+                    ],
+
+                  ),
+                ),
+              Horizintal_list(),
+                /// Recommended For You Section ==========================================================
+                Padding(
+                  padding: EdgeInsets.all(appPadding+10),
+                  child:Row(
+                    children: <Widget>[
+
+                      Expanded(child: Row(
+                        children: <Widget>[
+
+                          Icon(Icons.star,
+                            color: Colors.amber,
+                            size: 30.0,
+                          ),
+                          Text('Recommended For You',
+                            style: TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold
+                            ),)
+                        ],
+                      )
+                      ),
+                    ],
+                  ),
+                ),
+                ///  BAR---Recommended For You Section =========
+                  Bar(first: 'Man',second: 'Women',third: 'Kids',firstIcon: FontAwesomeIcons.male,secondIcon: FontAwesomeIcons.female,thirdIcon: FontAwesomeIcons.child,pageController: _pageController,),
+                SizedBox(height: 20,),
+                Container(
+                  height: SizeConfig.blockSizeVertical*54,
+                  child: PageView(
+                    physics: NeverScrollableScrollPhysics(),
+                    controller: _pageController,
+                    children: <Widget>[
+                      Container(
+                        child: get_products(),
+                      ),
+                      Container(
+                      //  child: get_products(),
+                        child: CustomScrollView(
+                       //   controller: ScrollController.initialScrollOffset,
+                          slivers: <Widget>[
+                            SliverGrid(
+                              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 200.0,
+                                mainAxisSpacing: 10.0,
+                                crossAxisSpacing: 10.0,
+                                childAspectRatio: 4.0,
+                              ),
+                              delegate: SliverChildBuilderDelegate(
+                                    (BuildContext context, int index) {
+                                  return Container(
+                                    alignment: Alignment.center,
+                                    color: Colors.teal[100 * (index % 9)],
+                                    child: Text('grid item $index'),
+                                  );
+                                },
+                                childCount: 20,
+                              ),
+                            )
+                          ],
+                        )
+                      ),
 //                    SliverGrid(
 //                      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
 //                        maxCrossAxisExtent: 200.0,
@@ -269,102 +317,154 @@ class _home_screenState extends State<home_screen> {
 //                        childCount: 20,
 //                      ),
 //                    ),
-                    Container(
-                      child: get_products(),
-                    ),
-                  ],
+                      Container(
+                        child: get_products(),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              /// Brands Section ==========================================================
-              Padding(
-                padding: EdgeInsets.all(appPadding+10),
-                child:Row(
-                  children: <Widget>[
+                /// Brands Section ==========================================================
+                Padding(
+                  padding: EdgeInsets.all(appPadding+10),
+                  child:Row(
+                    children: <Widget>[
 
-                    Expanded(child: Row(
-                      children: <Widget>[
+                      Expanded(child: Row(
+                        children: <Widget>[
 
-                        Icon(FontAwesomeIcons.flag,
-                          color: Colors.amber,
-                          size: 30.0,
-                        ),
-                        Text('  Brands',
-                          style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold
-                          ),)
-                      ],
-                    )
-                    ),
-                  ],
-                ),
-              ),
-              ///  BAR---Recommended For You Section =========
-              Bar(first: 'Man',second: 'Women',third: 'Kids',firstIcon: FontAwesomeIcons.male,secondIcon: FontAwesomeIcons.female,thirdIcon: FontAwesomeIcons.child,pageController: _secondpageController,),
-              SizedBox(height: 20,),
-              Container(
-                height: SizeConfig.blockSizeVertical*54,
-                child: PageView(
-                  physics: NeverScrollableScrollPhysics(),
-                  controller: _secondpageController,
-                  children: <Widget>[
-                    Container(
-                      child: get_products(),
-                    ),
-                    Container(
-                      child: get_products(),
-                    ),
-                    Container(
-                      child: get_products(),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(appPadding+10),
-                child:Row(
-                  children: <Widget>[
-
-                    Expanded(child: Row(
-                      children: <Widget>[
-
-                        Icon(Icons.outlined_flag,
-                         // color: Colors.amber,
-                          size: 30.0,
-                        ),
-                        RichText(
-                          text: TextSpan(
-
-                            children: <TextSpan>[
-                              TextSpan(text: 'ALL',style: TextStyle(
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black
-                              )),
-                              TextSpan(text: ' Sports',style:TextStyle(
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black
-                              ) ),
-                            ],
+                          Icon(FontAwesomeIcons.flag,
+                            color: Colors.amber,
+                            size: 30.0,
                           ),
-                        ),
-                      ],
-                    )
-                    ),
-                  ],
+                          Text('  Brands',
+                            style: TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold
+                            ),)
+                        ],
+                      )
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-               All_Sports_List(),
-              SizedBox(
-                height: 20.0,
-              ),
+                ///  BAR---Recommended For You Section =========
+                Bar(first: 'Man',second: 'Women',third: 'Kids',firstIcon: FontAwesomeIcons.male,secondIcon: FontAwesomeIcons.female,thirdIcon: FontAwesomeIcons.child,pageController: _secondpageController,),
+                SizedBox(height: 20,),
+                Container(
+                  height: SizeConfig.blockSizeVertical*54,
+                  child: PageView(
+                    physics: NeverScrollableScrollPhysics(),
+                    controller: _secondpageController,
+                    children: <Widget>[
+                      Container(
+                        child: get_products(),
+                      ),
+                      Container(
+                        child: get_products(),
+                      ),
+                      Container(
+                        child: get_products(),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(appPadding+10),
+                  child:Row(
+                    children: <Widget>[
+
+                      Expanded(child: Row(
+                        children: <Widget>[
+
+                          Icon(Icons.outlined_flag,
+                           // color: Colors.amber,
+                            size: 30.0,
+                          ),
+                          RichText(
+                            text: TextSpan(
+
+                              children: <TextSpan>[
+                                TextSpan(text: 'ALL',style: TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black
+                                )),
+                                TextSpan(text: ' Sports',style:TextStyle(
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black
+                                ) ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      )
+                      ),
+                    ],
+                  ),
+                ),
+                 All_Sports_List(),
+                SizedBox(
+                  height: 20.0,
+                ),
 
 
-            ],
+              ],
+            ),
           ),
         ),
       ),
+    );
+  }
+  Future<void> moveToLastScreen()
+  {
+    return null;
+  }
+}
+
+class alert extends StatelessWidget {
+  const alert({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(title: Text(" Welcome"),
+      content: SizedBox(
+        height: 40.0,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text('don\'t have an account ?'),
+            Row(
+              children: <Widget>[
+                InkWell(child: Text('Sign in  ',style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: Colors.teal
+                ),),onTap:(){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>new LoginScreen()));
+                } ,),
+                Text('or  '),
+                InkWell(child: Text('Sign up ',style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: Colors.teal
+                ),),onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>new LoginScreen()));
+                },)
+              ],
+            )
+          ],
+        ),
+      ),
+      actions: <Widget>[
+        MaterialButton(
+          onPressed: (){
+            Navigator.of(context).pop(context);
+          },
+          child: Text('Close'),
+        )
+      ],
     );
   }
 }

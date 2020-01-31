@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pfe/Component/horisontale_list.dart';
+import 'package:pfe/Screens/Home.dart';
 import 'package:pfe/Screens/logIn_screen.dart';
 import 'package:pfe/api/like_api.dart';
 import 'package:pfe/like/like.dart';
+import 'package:pfe/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:titled_navigation_bar/titled_navigation_bar.dart';
 
@@ -64,6 +66,8 @@ class Product_details extends StatefulWidget {
         this.product_id
       });
 
+
+
   static String id = 'Product_details';
 
   @override
@@ -71,9 +75,11 @@ class Product_details extends StatefulWidget {
 }
 
 class Post extends StatefulWidget{
-  int id ;
+  final id ;
+  final product_name  ,product_description , product_picture  ;
+  final  product_price , product_old ;
 
-  Post(this.id);
+  Post({this.id,this.product_name,this.product_description,this.product_picture,this.product_price,this.product_old});
 
   @override
   PostState createState() => new PostState();
@@ -105,14 +111,11 @@ class PostState extends State<Post>{
         setState(() {
           liked = false;
         });
-        print(liked.toString()+'gggggggggggggggggggggg');
       }
       else
       {setState(() {
         liked = true;
       });
-
-      print(liked.toString()+'ttttttttttttttttttttttt');
       }
     }
   }
@@ -128,7 +131,10 @@ class PostState extends State<Post>{
         liked = !liked;
       });
     }else{
-      Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginScreen() ));
+      Navigator.push(context, MaterialPageRoute(builder: (context)=> login(product_id: widget.id,
+      product_description: widget.product_description,product_details_name: widget.product_name,product_details_price: widget.product_price,
+        product_details_picture: widget.product_picture,product_details_oldPrice: widget.product_old,
+      )));
     }
 
 
@@ -147,9 +153,12 @@ class PostState extends State<Post>{
     super.initState();
     __llikes();
   }
+
+
+
   @override
-  Widget build (BuildContext context)
-  {
+  Widget build (BuildContext context) {
+
     return Container(
       child: IconButton(
         icon: Icon(liked ? Icons.favorite : Icons.favorite_border,),
@@ -242,204 +251,227 @@ class _Product_detailsState extends State<Product_details> {
   bool loading = false ;
   @override
   Widget build(BuildContext context) {
-      print(isLiked.toString());
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: appBarColor,
-        title: InkWell(child: Text('Shoping App'),onTap: (){},),
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.search), onPressed: () {}),
-          IconButton(icon: Icon(Icons.shopping_cart), onPressed: () {})
-        ],
+
+
+    return WillPopScope(
+      onWillPop: (){
+        return moveToLastScreen();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0.0,
+          backgroundColor: appBarColor,
+          leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: (){
+            moveToLastScreen();
+          }),
+          title: InkWell(child: Text('Shoping App'),onTap: (){},),
+          actions: <Widget>[
+            IconButton(icon: Icon(Icons.search), onPressed: () {}),
+            IconButton(icon: Icon(Icons.shopping_cart), onPressed: () {})
+          ],
+        ),
+         bottomNavigationBar: TitledBottomNavigationBar(
+          currentIndex: -1, // Use this to update the Bar giving a position
+          onTap: (index){
+          },
+          items: [
+            TitledNavigationBarItem(title: 'Home', icon: Icons.home),
+            TitledNavigationBarItem(title: 'Search', icon: Icons.search),
+            TitledNavigationBarItem(title: 'Favorite', icon: Icons.favorite),
+            TitledNavigationBarItem(title: 'Orders', icon: Icons.shopping_cart),
+            TitledNavigationBarItem(title: 'Profile', icon: Icons.person_outline),
+          ]
       ),
-       bottomNavigationBar: TitledBottomNavigationBar(
-        currentIndex: -1, // Use this to update the Bar giving a position
-        onTap: (index){
-        },
-        items: [
-          TitledNavigationBarItem(title: 'Home', icon: Icons.home),
-          TitledNavigationBarItem(title: 'Search', icon: Icons.search),
-          TitledNavigationBarItem(title: 'Favorite', icon: Icons.favorite),
-          TitledNavigationBarItem(title: 'Orders', icon: Icons.shopping_cart),
-          TitledNavigationBarItem(title: 'Profile', icon: Icons.person_outline),
-        ]
-    ),
-      body:(loading == false)? ListView(
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              Container(
-                child: Image.network(widget.product_details_picture, width: double.infinity, fit: BoxFit.cover) == null ? CircularProgressIndicator():Image.network(widget.product_details_picture, width: double.infinity, fit: BoxFit.cover),
-              ),
-              Positioned(
-                left: screenAwareSize(18.0, context),
-                bottom: screenAwareSize(15.0, context),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text("Rating",
+        body:(loading == false)? ListView(
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                Container(
+                  child: Image.network(widget.product_details_picture, width: double.infinity, fit: BoxFit.cover) == null ? CircularProgressIndicator():Image.network(widget.product_details_picture, width: double.infinity, fit: BoxFit.cover),
+                ),
+                Positioned(
+                  left: screenAwareSize(18.0, context),
+                  bottom: screenAwareSize(15.0, context),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("Rating",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: screenAwareSize(10.0, context),
+                              fontFamily: "Montserrat-SemiBold")),
+                      SizedBox(
+                        height: screenAwareSize(8.0, context),
+                      ),
+                      Row(
+                        children: <Widget>[
+                          SizedBox(
+                            width: 8.0,
+                          ),
+                          Icon(Icons.star, color: Colors.amber),
+                          SizedBox(
+                            width: screenAwareSize(5.0, context),
+                          ),
+                          Text("4.5", style: TextStyle(color: Colors.amber,fontWeight: FontWeight.bold, fontSize: 16.0)),
+                          SizedBox(
+                            width: screenAwareSize(5.0, context),
+                          ),
+                          Text("(378 People)",
+                              style: TextStyle(color: Colors.black, fontSize: 16.0))
+                        ],
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),Padding(
+              padding: EdgeInsets.only(left: screenAwareSize(18.0, context),top:5.0),
+              child: Row(
+                children: <Widget>[
+                    Padding(
+                        padding: EdgeInsets.only( right: 5 ),
+                      child: Text(
+                        "Product Description",
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: screenAwareSize(10.0, context),
-                            fontFamily: "Montserrat-SemiBold")),
-                    SizedBox(
-                      height: screenAwareSize(8.0, context),
+                            fontWeight: FontWeight.w700
+                          //   fontSize: screenAwareSize(10.0, context),
+                          // fontFamily: "Montserrat-SemiBold"
+                        ),
+                      ),
+
                     ),
-                    Row(
-                      children: <Widget>[
-                        SizedBox(
-                          width: 8.0,
-                        ),
-                        Icon(Icons.star, color: Colors.amber),
-                        SizedBox(
-                          width: screenAwareSize(5.0, context),
-                        ),
-                        Text("4.5", style: TextStyle(color: Colors.amber,fontWeight: FontWeight.bold, fontSize: 16.0)),
-                        SizedBox(
-                          width: screenAwareSize(5.0, context),
-                        ),
-                        Text("(378 People)",
-                            style: TextStyle(color: Colors.black, fontSize: 16.0))
-                      ],
-                    )
-                  ],
+                  Expanded(child: Divider())
+                ],
+              ),
+            ),
+            SizedBox(
+              height: screenAwareSize(8.0, context),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                  left: screenAwareSize(26.0, context),
+                  right: screenAwareSize(18.0, context)),
+              child: AnimatedCrossFade(
+                firstChild: Text(
+                  widget.product_description,
+                  maxLines: 2,
+                  style: TextStyle(
+                      color: Colors.black,
+                  fontSize: 15.0
+                  //    fontSize: screenAwareSize(10.0, context),
+                    //  fontFamily: "Montserrat-Medium"
+                  ),
                 ),
-              )
-            ],
-          ),Padding(
-            padding: EdgeInsets.only(left: screenAwareSize(18.0, context),top:5.0),
-            child: Row(
-              children: <Widget>[
-                  Padding(
-                      padding: EdgeInsets.only( right: 5 ),
-                    child: Text(
-                      "Product Description",
+                secondChild: Text(
+                  widget.product_description,
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 15.0
+                     // fontFamily: "Montserrat-Medium"
+                  ),
+                ),
+                crossFadeState: isExpanded
+                    ? CrossFadeState.showSecond
+                    : CrossFadeState.showFirst,
+                duration: kThemeAnimationDuration,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                  left: screenAwareSize(26.0, context),
+                  right: screenAwareSize(18.0, context)),
+              child: GestureDetector(
+                  onTap: _expand,
+                  child: Text(
+                    isExpanded ? "less" : "more..",
+                    style: TextStyle(
+                        color: Color(0xFF01B2C4), fontWeight: FontWeight.w700),
+                  )),
+            ),
+            SizedBox(
+              height: screenAwareSize(12.0, context),
+            ), Padding(
+              padding: EdgeInsets.only(
+                  left: screenAwareSize(15.0, context),
+                  right: screenAwareSize(75.0, context)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text("Size",
                       style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w700
-                        //   fontSize: screenAwareSize(10.0, context),
-                        // fontFamily: "Montserrat-SemiBold"
-                      ),
-                    ),
-
+                      )
                   ),
-                Expanded(child: Divider())
-              ],
-            ),
-          ),
-          SizedBox(
-            height: screenAwareSize(8.0, context),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-                left: screenAwareSize(26.0, context),
-                right: screenAwareSize(18.0, context)),
-            child: AnimatedCrossFade(
-              firstChild: Text(
-                widget.product_description,
-                maxLines: 2,
-                style: TextStyle(
-                    color: Colors.black,
-                fontSize: 15.0
-                //    fontSize: screenAwareSize(10.0, context),
-                  //  fontFamily: "Montserrat-Medium"
-                ),
+                  Text("Quantity",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w700
+                      )
+                  )
+                ],
               ),
-              secondChild: Text(
-                widget.product_description,
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 15.0
-                   // fontFamily: "Montserrat-Medium"
-                ),
-              ),
-              crossFadeState: isExpanded
-                  ? CrossFadeState.showSecond
-                  : CrossFadeState.showFirst,
-              duration: kThemeAnimationDuration,
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-                left: screenAwareSize(26.0, context),
-                right: screenAwareSize(18.0, context)),
-            child: GestureDetector(
-                onTap: _expand,
-                child: Text(
-                  isExpanded ? "less" : "more..",
-                  style: TextStyle(
-                      color: Color(0xFF01B2C4), fontWeight: FontWeight.w700),
-                )),
-          ),
-          SizedBox(
-            height: screenAwareSize(12.0, context),
-          ), Padding(
-            padding: EdgeInsets.only(
-                left: screenAwareSize(15.0, context),
-                right: screenAwareSize(75.0, context)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text("Size",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w700
-                    )
-                ),
-                Text("Quantity",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w700
-                    )
-                )
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-                left: screenAwareSize(20.0, context),
-                right: screenAwareSize(10.0, context)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Container(
-                  height: screenAwareSize(38.0, context),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: sizeNumlist.map((item) {
-                      var index = sizeNumlist.indexOf(item);
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            currentSizeIndex = index;
-                          });
-                        },
-                        child:
-                        sizeItem(item, index == currentSizeIndex, context),
-                      );
-                    }).toList(),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Container(
-                    width: screenAwareSize(100.0, context),
-                    height: screenAwareSize(30.0, context),
-                    decoration: BoxDecoration(
-                        color: Color(0xFF525663),
-                        borderRadius: BorderRadius.circular(5.0)),
+            Padding(
+              padding: EdgeInsets.only(
+                  left: screenAwareSize(20.0, context),
+                  right: screenAwareSize(10.0, context)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    height: screenAwareSize(38.0, context),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Flexible(
-                          flex: 3,
-                          child: GestureDetector(
-                            onTap: _decrease,
+                      children: sizeNumlist.map((item) {
+                        var index = sizeNumlist.indexOf(item);
+                        return GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              currentSizeIndex = index;
+                            });
+                          },
+                          child:
+                          sizeItem(item, index == currentSizeIndex, context),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Container(
+                      width: screenAwareSize(100.0, context),
+                      height: screenAwareSize(30.0, context),
+                      decoration: BoxDecoration(
+                          color: Color(0xFF525663),
+                          borderRadius: BorderRadius.circular(5.0)),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Flexible(
+                            flex: 3,
+                            child: GestureDetector(
+                              onTap: _decrease,
+                              child: Container(
+                                height: double.infinity,
+                                child: Center(
+                                  child: Text("-",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20.0,
+                                          fontFamily: "Montserrat-Bold")),
+                                ),
+                              ),
+                            ),
+                          ),
+                          divider(),
+                          Flexible(
+                            flex: 3,
                             child: Container(
                               height: double.infinity,
                               child: Center(
-                                child: Text("-",
+                                child: Text(_counter.toString(),
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 20.0,
@@ -447,215 +479,213 @@ class _Product_detailsState extends State<Product_details> {
                               ),
                             ),
                           ),
-                        ),
-                        divider(),
-                        Flexible(
-                          flex: 3,
-                          child: Container(
-                            height: double.infinity,
-                            child: Center(
-                              child: Text(_counter.toString(),
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20.0,
-                                      fontFamily: "Montserrat-Bold")),
-                            ),
-                          ),
-                        ),
-                        divider(),
-                        Flexible(
-                          flex: 3,
-                          child: GestureDetector(
-                            onTap: _increase,
-                            child: Container(
-                              height: double.infinity,
-                              child: Center(
-                                child: Text("+",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20.0,
-                                        fontFamily: "Montserrat-Bold")),
+                          divider(),
+                          Flexible(
+                            flex: 3,
+                            child: GestureDetector(
+                              onTap: _increase,
+                              child: Container(
+                                height: double.infinity,
+                                child: Center(
+                                  child: Text("+",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20.0,
+                                          fontFamily: "Montserrat-Bold")),
+                                ),
                               ),
                             ),
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          SizedBox(
-            height: 8.0,
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: screenAwareSize(18.0, context)),
-            child: Row(
-              children: <Widget>[
-                Text("Select Color",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w700
-                    )
-                ),
-                Expanded(child: Divider())
-              ],
-            )
-          ),
-          SizedBox(
-            height: screenAwareSize(8.0, context),
-          ),
-          Container(
-            width: double.infinity,
-            margin: EdgeInsets.only(left: screenAwareSize(20.0, context)),
-            height: screenAwareSize(34.0, context),
-            child: Row(
-             // children: colorSelector(),
-              children: <Widget>[
-                RawMaterialButton(
-                  child:Radio(value: 1, groupValue: groupValue, onChanged: (int T){
-                    setState(() {
-                      groupValue= T ;
-                    }); },activeColor: Colors.white,) ,
-                  elevation: 6.0,
-                  constraints: BoxConstraints.tightFor(
-                      width: 56.0,
-                      height: 56.0
-                  ),
-                  shape: CircleBorder(),
-                  fillColor: first_color ,
-                  onPressed: (){},
-                ),
-                RawMaterialButton(
-                  child:Radio(value: 2, groupValue: groupValue, onChanged: (int T){
-                    setState(() {
-                      groupValue= T ;
-                    }); },activeColor: Colors.white,) ,
-                  elevation: 6.0,
-                  constraints: BoxConstraints.tightFor(
-                      width: 56.0,
-                      height: 56.0
-                  ),
-                  shape: CircleBorder(),
-                  fillColor: second_color ,
-                  onPressed: (){},
-                ),
-                RawMaterialButton(
-                  child:Radio(value: 3, groupValue: groupValue, onChanged: (int T){
-                    setState(() {
-                      groupValue= T ;
-                    }); },activeColor: Colors.white,) ,
-                  elevation: 6.0,
-                  constraints: BoxConstraints.tightFor(
-                      width: 56.0,
-                      height: 56.0
-                  ),
-                  shape: CircleBorder(),
-                  fillColor: third_color ,
-                  onPressed: (){},
-                ),
-                RawMaterialButton(
-                  child:Radio(value: 4, groupValue: groupValue, onChanged: (int T){
-                    setState(() {
-                      groupValue= T ;
-                    }); },activeColor: Colors.white,) ,
-                  elevation: 6.0,
-                  constraints: BoxConstraints.tightFor(
-                      width: 56.0,
-                      height: 56.0
-                  ),
-                  shape: CircleBorder(),
-                  fillColor: fourth_color ,
-                  onPressed: (){},
-                ),
-                RawMaterialButton(
-                  child:Radio(value: 5, groupValue: groupValue, onChanged: (int T){
-                    setState(() {
-                      groupValue= T ;
-                    }); },activeColor: Colors.white,) ,
-                  elevation: 6.0,
-                  constraints: BoxConstraints.tightFor(
-                      width: 56.0,
-                      height: 56.0
-                  ),
-                  shape: CircleBorder(),
-                  fillColor: fifth_color ,
-                  onPressed: (){},
-                ),
-              ],
+            SizedBox(
+              height: 8.0,
             ),
-          ),
-          SizedBox(
-            height: screenAwareSize(8.0, context),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left:18.0),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                    child: MaterialButton(
-                      onPressed: () {},
-                      color: Color(0xFF01B2C4),
-                      textColor: Colors.white,
-                      child: Text('By now'),
-                    )),
-                Expanded(
-                    child: IconButton(
-                        icon: (_addingToCart == false ) ? Icon(Icons.shopping_cart):CircularProgressIndicator(),
-                        color: Color(0xFF01B2C4),
-                        onPressed: () async {
-                          SharedPreferences pref = await SharedPreferences.getInstance();
-                          int userId = pref.getInt('user_id');
-                          String api_token = pref.get('api_token');
-                          if(userId == null || api_token ==null ){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginScreen() ));
-                          }else{
-                            setState(() {
-                              _addingToCart = true ;
-                            });
-                            await _cartApi.addProductTocart(widget.product_id, _counter);
-                            setState(() {
-                              _addingToCart = false ;
-                            });
-                          }
-                        }
-                        )),
-                Expanded(
-                    child: Post(widget.product_id),
-                )
-              ],
-            ),
-          ),
-          Divider(),
- /// ====================================================================================Related Products row ==============*********************
-          Padding(
-            padding: EdgeInsets.all(10),
-            child:Row(
-              children: <Widget>[
-
-                Expanded(child: Row(
-                  children: <Widget>[
-
-                    Icon(FontAwesomeIcons.shoppingCart,
-                      color: Colors.black87,
-                      size: 30.0,
-                    ),
-                    Text('  Related Products',
+            Padding(
+              padding: EdgeInsets.only(left: screenAwareSize(18.0, context)),
+              child: Row(
+                children: <Widget>[
+                  Text("Select Color",
                       style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold
-                      ),)
-                  ],
-                )
-                ),
-              ],
+                          color: Colors.black,
+                          fontWeight: FontWeight.w700
+                      )
+                  ),
+                  Expanded(child: Divider())
+                ],
+              )
             ),
-          ),
-          Horizintal_list(),
-        ],
-      ):_showLoading(),
+            SizedBox(
+              height: screenAwareSize(8.0, context),
+            ),
+            Container(
+              width: double.infinity,
+              margin: EdgeInsets.only(left: screenAwareSize(20.0, context)),
+              height: screenAwareSize(34.0, context),
+              child: Row(
+               // children: colorSelector(),
+                children: <Widget>[
+                  RawMaterialButton(
+                    child:Radio(value: 1, groupValue: groupValue, onChanged: (int T){
+                      setState(() {
+                        groupValue= T ;
+                      }); },activeColor: Colors.white,) ,
+                    elevation: 6.0,
+                    constraints: BoxConstraints.tightFor(
+                        width: 56.0,
+                        height: 56.0
+                    ),
+                    shape: CircleBorder(),
+                    fillColor: first_color ,
+                    onPressed: (){},
+                  ),
+                  RawMaterialButton(
+                    child:Radio(value: 2, groupValue: groupValue, onChanged: (int T){
+                      setState(() {
+                        groupValue= T ;
+                      }); },activeColor: Colors.white,) ,
+                    elevation: 6.0,
+                    constraints: BoxConstraints.tightFor(
+                        width: 56.0,
+                        height: 56.0
+                    ),
+                    shape: CircleBorder(),
+                    fillColor: second_color ,
+                    onPressed: (){},
+                  ),
+                  RawMaterialButton(
+                    child:Radio(value: 3, groupValue: groupValue, onChanged: (int T){
+                      setState(() {
+                        groupValue= T ;
+                      }); },activeColor: Colors.white,) ,
+                    elevation: 6.0,
+                    constraints: BoxConstraints.tightFor(
+                        width: 56.0,
+                        height: 56.0
+                    ),
+                    shape: CircleBorder(),
+                    fillColor: third_color ,
+                    onPressed: (){},
+                  ),
+                  RawMaterialButton(
+                    child:Radio(value: 4, groupValue: groupValue, onChanged: (int T){
+                      setState(() {
+                        groupValue= T ;
+                      }); },activeColor: Colors.white,) ,
+                    elevation: 6.0,
+                    constraints: BoxConstraints.tightFor(
+                        width: 56.0,
+                        height: 56.0
+                    ),
+                    shape: CircleBorder(),
+                    fillColor: fourth_color ,
+                    onPressed: (){},
+                  ),
+                  RawMaterialButton(
+                    child:Radio(value: 5, groupValue: groupValue, onChanged: (int T){
+                      setState(() {
+                        groupValue= T ;
+                      }); },activeColor: Colors.white,) ,
+                    elevation: 6.0,
+                    constraints: BoxConstraints.tightFor(
+                        width: 56.0,
+                        height: 56.0
+                    ),
+                    shape: CircleBorder(),
+                    fillColor: fifth_color ,
+                    onPressed: (){},
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: screenAwareSize(8.0, context),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left:18.0),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                      child: MaterialButton(
+                        onPressed: () {},
+                        color: Color(0xFF01B2C4),
+                        textColor: Colors.white,
+                        child: Text('By now'),
+                      )),
+                  Expanded(
+                      child: IconButton(
+                          icon: (_addingToCart == false ) ? Icon(Icons.shopping_cart):CircularProgressIndicator(),
+                          color: Color(0xFF01B2C4),
+                          onPressed: () async {
+                            SharedPreferences pref = await SharedPreferences.getInstance();
+                            int userId = pref.getInt('user_id');
+                            String api_token = pref.get('api_token');
+                            if(userId == null || api_token ==null ){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginScreen() ));
+                            }else{
+                              setState(() {
+                                _addingToCart = true ;
+                              });
+                              await _cartApi.addProductTocart(widget.product_id, _counter);
+                              setState(() {
+                                _addingToCart = false ;
+                              });
+                            }
+                          }
+                          )),
+                  Expanded(
+                      child: Post(product_description: widget.product_description,
+                      product_name: widget.product_details_name,
+                        id: widget.product_id,
+                        product_price: widget.product_details_price,
+                        product_old: widget.product_details_oldPrice,
+                        product_picture: widget.product_details_picture,
+                      ),
+                  )
+                ],
+              ),
+            ),
+            Divider(),
+ /// ====================================================================================Related Products row ==============*********************
+            Padding(
+              padding: EdgeInsets.all(10),
+              child:Row(
+                children: <Widget>[
+
+                  Expanded(child: Row(
+                    children: <Widget>[
+
+                      Icon(FontAwesomeIcons.shoppingCart,
+                        color: Colors.black87,
+                        size: 30.0,
+                      ),
+                      Text('  Related Products',
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold
+                        ),)
+                    ],
+                  )
+                  ),
+                ],
+              ),
+            ),
+            Horizintal_list(),
+          ],
+        ):_showLoading(),
+      ),
+
     );
+  }
+  Future<void> moveToLastScreen()
+  {
+    Navigator.push(context, new MaterialPageRoute(builder: (context)=> new home_screen() ));
+    return null;
   }
 }
 

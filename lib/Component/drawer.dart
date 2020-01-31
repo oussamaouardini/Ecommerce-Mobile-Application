@@ -10,6 +10,7 @@ import 'package:pfe/general_config/size_config.dart';
 
 
 class drawerr extends StatefulWidget {
+
   @override
   _drawerrState createState() => _drawerrState();
 }
@@ -36,32 +37,11 @@ class _drawerrState extends State<drawerr> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    setState(() {
-      checkUser();
-      print(userId.toString());
-      print(api_token.toString());
-    });
     return Drawer(
       child: Column(
         children: <Widget>[
           Container(
-            child: ((api_token == null) && (userId == null) ) ? UserAccountsDrawerHeader(
-              accountName: Text("Welcome"),
-              accountEmail: InkWell(child: Text("Enter your account"),onTap: (){
-                // TODO: send to login
-              },),
-              currentAccountPicture: GestureDetector(
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: Icon(
-                    Icons.person,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              decoration: BoxDecoration(color: Colors.grey),
-            ):FutureBuilder(
-
+            child: ((api_token == null) && (userId == null) ) ? _drawNoUser():FutureBuilder(
                 future: userApi.fetchUser(userId),
                 builder: (BuildContext context, AsyncSnapshot<User> snapShot) {
                   switch (snapShot.connectionState) {
@@ -236,6 +216,30 @@ class _drawerrState extends State<drawerr> {
     return UserAccountsDrawerHeader(
       accountName: Text( user.first_name +''+user.last_name ),
       accountEmail: Text(user.email),
+      currentAccountPicture: GestureDetector(
+        child: CircleAvatar(
+          backgroundColor: Colors.white,
+          child: Icon(
+            Icons.person,
+            color: Colors.black,
+          ),
+        ),
+      ),
+      decoration: BoxDecoration(color: Colors.grey),
+    );
+  }
+  Widget _drawNoUser(){
+    return UserAccountsDrawerHeader(
+      accountName: Text( 'Welcome '),
+      accountEmail: RichText(
+          text: TextSpan(
+            children: <TextSpan>[
+              TextSpan(text :'Sign in   ',style: TextStyle(fontWeight: FontWeight.bold)),
+              TextSpan(text :'or   '),
+              TextSpan(text :'Sign up ',style: TextStyle(fontWeight: FontWeight.bold)),
+            ],
+          )
+      ),
       currentAccountPicture: GestureDetector(
         child: CircleAvatar(
           backgroundColor: Colors.white,

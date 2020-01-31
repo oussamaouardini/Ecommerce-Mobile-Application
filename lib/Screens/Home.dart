@@ -226,8 +226,49 @@ class _home_screenState extends State<home_screen> {
                       child: get_products(),
                     ),
                     Container(
-                      child: get_products(),
+                    //  child: get_products(),
+                      child: CustomScrollView(
+                     //   controller: ScrollController.initialScrollOffset,
+                        slivers: <Widget>[
+                          SliverGrid(
+                            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent: 200.0,
+                              mainAxisSpacing: 10.0,
+                              crossAxisSpacing: 10.0,
+                              childAspectRatio: 4.0,
+                            ),
+                            delegate: SliverChildBuilderDelegate(
+                                  (BuildContext context, int index) {
+                                return Container(
+                                  alignment: Alignment.center,
+                                  color: Colors.teal[100 * (index % 9)],
+                                  child: Text('grid item $index'),
+                                );
+                              },
+                              childCount: 20,
+                            ),
+                          )
+                        ],
+                      )
                     ),
+//                    SliverGrid(
+//                      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+//                        maxCrossAxisExtent: 200.0,
+//                        mainAxisSpacing: 10.0,
+//                        crossAxisSpacing: 10.0,
+//                        childAspectRatio: 4.0,
+//                      ),
+//                      delegate: SliverChildBuilderDelegate(
+//                            (BuildContext context, int index) {
+//                          return Container(
+//                            alignment: Alignment.center,
+//                            color: Colors.teal[100 * (index % 9)],
+//                            child: Text('grid item $index'),
+//                          );
+//                        },
+//                        childCount: 20,
+//                      ),
+//                    ),
                     Container(
                       child: get_products(),
                     ),
@@ -318,9 +359,7 @@ class _home_screenState extends State<home_screen> {
               SizedBox(
                 height: 20.0,
               ),
-              Container(
-                child: get_products(),
-              )
+
 
             ],
           ),

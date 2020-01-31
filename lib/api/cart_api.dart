@@ -14,8 +14,8 @@ class CartApi {
     String apiToken = sharedPreferences.getString('api_token');
 
     Map<String, String> _Authheaders = {
-      'Accept': 'application/json',
-      'Authorization':'Bearer '+apiToken
+    'Accept': 'application/json',
+    'Authorization':'Bearer '+apiToken
     };
 
     String url = ApiUtl.CART;

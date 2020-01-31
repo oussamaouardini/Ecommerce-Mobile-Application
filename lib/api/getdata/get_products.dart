@@ -34,7 +34,7 @@ class _get_productsState extends State<get_products> {
                   return __error(snapShot.error.toString());
                 } else {
                   return GridView.builder(
-                    addAutomaticKeepAlives: false,
+                    addAutomaticKeepAlives: true,
                     itemCount: snapShot.data.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2
@@ -88,19 +88,16 @@ class _get_productsState extends State<get_products> {
 
   __drawProduct(Product product) {
     return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
-            Text(product.product_title),
-            Image(
-              image: product.images.length > 0
-                  ? NetworkImage(product.images[0])
-                  : NetworkImage(
-                      'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'),
-            )
-          ],
-        ),
+      child: Column(
+        children: <Widget>[
+          Text(product.product_title),
+          Image(
+            image: product.images.length > 0
+                ? NetworkImage(product.images[0])
+                : NetworkImage(
+                    'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'),
+          )
+        ],
       ),
     );
   }
@@ -150,7 +147,7 @@ class Single_product extends StatelessWidget {
                 },
                 child: GridTile(
                   footer: Container(
-                    height: 30.0,
+                   // height: 30.0,
                     color: Colors.white70,
                     child: ListTile(
                       title: Padding(
@@ -158,16 +155,20 @@ class Single_product extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Text(
-                              "\$$product_price",
-                              style: TextStyle(
-                                color: Colors.redAccent,
-                                fontWeight: FontWeight.w800,
+                            Expanded(
+                              child: Text(
+                                "\$$product_price",
+                                style: TextStyle(
+                                  color: Colors.redAccent,
+                                  fontWeight: FontWeight.w800,
+                                ),
                               ),
                             ),
-                            Text(
-                              product_name,
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                            Expanded(
+                              child: Text(
+                                product_name,
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             )
                           ],
                         ),

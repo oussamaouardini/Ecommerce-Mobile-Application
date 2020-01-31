@@ -70,6 +70,96 @@ class Product_details extends StatefulWidget {
   _Product_detailsState createState() => _Product_detailsState();
 }
 
+class Post extends StatefulWidget{
+  int id ;
+
+  Post(this.id);
+
+  @override
+  PostState createState() => new PostState();
+}
+
+class PostState extends State<Post>{
+
+  bool liked = false;
+
+  __llikes() async {
+
+    pref = await SharedPreferences.getInstance() ;
+    userId = pref.getInt('user_id');
+    api_token = pref.get('api_token');
+    if(userId!=null){
+
+      List<Like> userLikes = [] ;
+      userLikes = await _likeApi.fetchUserLikes(userId);
+      var temp = false ;
+      int counter = 0;
+      for(int i=0;i<userLikes.length ; i++){
+        if(widget.id == userLikes[i].product.product_id ){
+          break;
+        }
+        counter++;
+      }
+      if(counter == userLikes.length)
+      {
+        setState(() {
+          liked = false;
+        });
+        print(liked.toString()+'gggggggggggggggggggggg');
+      }
+      else
+      {setState(() {
+        liked = true;
+      });
+
+      print(liked.toString()+'ttttttttttttttttttttttt');
+      }
+    }
+  }
+  __pressed() async{
+
+    if(userId!=null){
+      if (liked == true) {
+        await _likeApi.removeUserLike(userId, widget.id);
+      } else {
+        await _likeApi.addUserLike(userId, widget.id);
+      }
+      setState((){
+        liked = !liked;
+      });
+    }else{
+      Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginScreen() ));
+    }
+
+
+  }
+
+  LikeApi _likeApi = LikeApi() ;
+
+
+  static SharedPreferences pref ;
+  static int userId ;
+  static String api_token;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    __llikes();
+  }
+  @override
+  Widget build (BuildContext context)
+  {
+    return Container(
+      child: IconButton(
+        icon: Icon(liked ? Icons.favorite : Icons.favorite_border,),
+        color:  Colors.red,
+        onPressed: () => __pressed(),
+      )
+    );
+  }
+}
+
 class _Product_detailsState extends State<Product_details> {
 
   var first_color = Color(0xFF0E397E);
@@ -120,14 +210,14 @@ class _Product_detailsState extends State<Product_details> {
 
   CartApi _cartApi = CartApi() ;
   LikeApi _likeApi = LikeApi() ;
-  bool isLiked = false ;
+  bool isLiked = false;
 
 
   static SharedPreferences pref ;
   static int userId ;
   static String api_token ;
   checkliked() async{
-
+    print('3aitana');
     pref = await SharedPreferences.getInstance() ;
     userId = pref.getInt('user_id');
     api_token = pref.get('api_token');
@@ -138,8 +228,8 @@ class _Product_detailsState extends State<Product_details> {
       var temp = false ;
       for(int i=0;i<userLikes.length ; i++){
         if( widget.product_id == userLikes[i].product.product_id ){
-          isLiked = true ;
-          temp = true ;
+           isLiked = true ;
+           temp = true ;
         }
       }
       if((isLiked == true) && (temp == false)){
@@ -152,9 +242,7 @@ class _Product_detailsState extends State<Product_details> {
   bool loading = false ;
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      checkliked();
-    });
+      print(isLiked.toString());
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -534,23 +622,7 @@ class _Product_detailsState extends State<Product_details> {
                         }
                         )),
                 Expanded(
-                    child: IconButton(
-                        icon: ( isLiked == true ) ? Icon(Icons.favorite_border)  : Icon(Icons.favorite),
-                        color:  Colors.red,
-                        onPressed: () async {
-                          if(isLiked == true){
-                            await _likeApi.removeUserLike(userId, widget.product_id);
-                            setState(() {
-                              checkliked();
-                            });
-                          }else{
-                            await _likeApi.addUserLike(userId,widget.product_id);
-                            setState(() {
-                              checkliked();
-                            });
-                          }
-                        }
-                        )
+                    child: Post(widget.product_id),
                 )
               ],
             ),

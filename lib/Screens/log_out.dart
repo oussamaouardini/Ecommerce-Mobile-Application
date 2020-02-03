@@ -16,7 +16,7 @@ class _logoutState extends State<logout> {
     Future.delayed(
       const Duration(seconds: 2),
         (){
-          Navigator.push(context, new MaterialPageRoute(builder: (context)=> new home_screen() ));
+          Navigator.push(context, new MaterialPageRoute(builder: (context)=> new HomeScreen() ));
         }
     );
   }

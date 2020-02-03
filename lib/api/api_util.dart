@@ -38,6 +38,12 @@ class ApiUtl {
   static String REMOVELIKE(int id , int product_id) {
     return MAIN_API_URL +'removewishuser/'+id.toString()+'/'+product_id.toString();
   }
+  static String PRODUCTBYCATEGORYID(int id) {
+    return MAIN_API_URL +'categories/' + id.toString() + '/products';
+  }
+  static String PRODUCTREVIEWS(int id) {
+    return MAIN_API_URL +'product/' + id.toString() + '/review';
+  }
 
 
 

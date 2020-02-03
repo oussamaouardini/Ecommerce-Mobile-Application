@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 //import 'package:pfe/Component/horisontal_list_with_litle_card.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:pfe/api/products_api.dart';
 const CardColor = Color(0xFFF6F6F6);
 const litleCardColor = Colors.white;
 const litleCardTextColor = Colors.black;
@@ -186,3 +187,9 @@ class LittleCard extends StatelessWidget
     );
   }
 }
+
+
+
+
+
+

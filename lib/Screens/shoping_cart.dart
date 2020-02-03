@@ -29,7 +29,7 @@ class _CartState extends State<Cart> {
             fontSize: 20.0
           ),),
             onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>new home_screen()));
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>new HomeScreen()));
           },),
         ),
 

@@ -47,7 +47,8 @@ class _get_productsState extends State<get_products> {
                 break;
             }
             return Container();
-          }),
+          }
+          ),
     );
   }
 
@@ -60,6 +61,8 @@ class _get_productsState extends State<get_products> {
       product_pic: item.featured_image(),
       product_description: item.product_description,
       product_id: item.product_id,
+          productCountReview: item.productReviewCount,
+
     ));
   }
 
@@ -112,17 +115,20 @@ class Single_product extends StatelessWidget {
 
   final product_old_price;
   final product_description;
+  final productCountReview ;
 
   static Random random = new Random();
   int randNb = random.nextInt(100);
 
-  Single_product(
-      {this.product_name,
-      this.product_pic,
-      this.product_price,
-      this.product_old_price,
-      this.product_description,
-      this.product_id});
+  Single_product({
+        this.product_name,
+        this.product_pic,
+        this.product_price,
+        this.product_old_price,
+        this.product_description,
+        this.product_id,
+        this.productCountReview ,
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +139,8 @@ class Single_product extends StatelessWidget {
             tag: product_name + '$randNb',
             child: Material(
               child: InkWell(
-                onTap: () {
+                onTap: () async {
+
                   hassan = false;
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => Product_details(
@@ -143,6 +150,8 @@ class Single_product extends StatelessWidget {
                             product_details_oldPrice: product_old_price,
                             product_description: product_description,
                             product_id: product_id,
+                            productReviewCount: productCountReview,
+
                           )));
                 },
                 child: GridTile(

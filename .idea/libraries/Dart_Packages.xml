@@ -205,6 +205,13 @@
             </list>
           </value>
         </entry>
+        <entry key="rating_bar">
+          <value>
+            <list>
+              <option value="C:/flutter/.pub-cache/hosted/pub.dartlang.org/rating_bar-0.2.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="shared_preferences">
           <value>
             <list>
@@ -346,6 +353,7 @@
       <root url="file://C:/flutter/.pub-cache/hosted/pub.dartlang.org/percent_indicator-2.1.1+1/lib" />
       <root url="file://C:/flutter/.pub-cache/hosted/pub.dartlang.org/petitparser-2.4.0/lib" />
       <root url="file://C:/flutter/.pub-cache/hosted/pub.dartlang.org/quiver-2.0.5/lib" />
+      <root url="file://C:/flutter/.pub-cache/hosted/pub.dartlang.org/rating_bar-0.2.0/lib" />
       <root url="file://C:/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.5.6+1/lib" />
       <root url="file://C:/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_macos-0.0.1+4/lib" />
       <root url="file://C:/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_platform_interface-1.0.1/lib" />

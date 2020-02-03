@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:pfe/Screens/Click_Product.dart';
 import 'package:pfe/api/authentication.dart';
 import 'package:pfe/custom_widgets.dart';
-import 'package:pfe/main.dart';
 import 'package:pfe/Screens/Home.dart';
 
 
@@ -12,9 +11,10 @@ import 'package:pfe/Screens/Home.dart';
 
 
 
-class login extends StatefulWidget {
+class Login extends StatefulWidget {
   final product_details_name;
   final product_id ;
+  final productReviewCount ;
 
   final product_details_price;
 
@@ -23,15 +23,16 @@ class login extends StatefulWidget {
   final product_details_oldPrice;
   final product_description;
 
-  login({this.product_details_name, this.product_id, this.product_details_price,
+
+  Login({this.product_details_name, this.product_id, this.product_details_price,
       this.product_details_picture, this.product_details_oldPrice,
-      this.product_description});
+      this.product_description,this.productReviewCount});
 
   @override
-  _loginState createState() => _loginState();
+  _LoginState createState() => _LoginState();
 }
 
-class _loginState extends State<login> {
+class _LoginState extends State<Login> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   Authentication authentication = Authentication();
@@ -203,6 +204,7 @@ class _loginState extends State<login> {
         product_details_picture: widget.product_details_picture,
         product_details_price: widget.product_details_price,
         product_details_oldPrice: widget.product_details_oldPrice,
+        productReviewCount: widget.productReviewCount,
       ) ));
     }else{
       setState(() {
@@ -211,9 +213,7 @@ class _loginState extends State<login> {
     }
 
   }
-  void _logout() {
-    Navigator.pushNamedAndRemoveUntil(context, "/newRouteName", (r) => false);
-  }
+
 }
 
 
@@ -392,8 +392,7 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         _loading = false ;
       });
-    //  Navigator.of(context).pop();
-      Navigator.push(context, new MaterialPageRoute(builder: (context)=> new home_screen() ));
+      Navigator.push(context, new MaterialPageRoute(builder: (context)=> new HomeScreen() ));
     }else{
       setState(() {
         _loading = false ;

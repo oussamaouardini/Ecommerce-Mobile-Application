@@ -7,7 +7,7 @@ import 'package:pfe/product/product.dart';
 
 void main() => runApp(MaterialApp(
   debugShowCheckedModeBanner: false,
-  home: home_screen(),
+  home: HomeScreen(),
  // home: GeneralShop(),
 
 ));

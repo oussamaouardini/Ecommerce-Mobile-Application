@@ -7,7 +7,6 @@ class ProductCategory{
 ProductCategory({this.category_id,this.category_name});
 
 ProductCategory.fromJson( Map<String, dynamic> jsonObject ){
-  print(jsonObject['category_name'].runtimeType);
   this.category_id = jsonObject['category_id'];
   this.category_name = jsonObject['category_name'];
 }

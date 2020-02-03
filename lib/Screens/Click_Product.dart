@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pfe/Component/horisontale_list.dart';
 import 'package:pfe/Screens/Home.dart';
 import 'package:pfe/Screens/logIn_screen.dart';
+import 'package:pfe/Screens/product_raiting.dart';
 import 'package:pfe/api/like_api.dart';
+import 'package:pfe/api/reviews.dart';
 import 'package:pfe/like/like.dart';
-import 'package:pfe/main.dart';
+import 'package:pfe/review/product_review.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:titled_navigation_bar/titled_navigation_bar.dart';
-
+import 'package:rating_bar/rating_bar.dart';
 import 'package:pfe/api/cart_api.dart';
 double baseHeight = 640.0;
 
@@ -57,13 +58,17 @@ class Product_details extends StatefulWidget {
 
   final product_details_oldPrice;
   final product_description;
+  final productReviewCount ;
+  final productCategory ;
 
   Product_details(
       {this.product_details_name,
         this.product_details_picture,
         this.product_details_oldPrice,
         this.product_details_price,this.product_description,
-        this.product_id
+        this.product_id,
+        this.productReviewCount,
+        this.productCategory
       });
 
 
@@ -75,11 +80,12 @@ class Product_details extends StatefulWidget {
 }
 
 class Post extends StatefulWidget{
-  final id ;
+  final id , productReviewCount;
   final product_name  ,product_description , product_picture  ;
   final  product_price , product_old ;
+  final productCategory ;
 
-  Post({this.id,this.product_name,this.product_description,this.product_picture,this.product_price,this.product_old});
+  Post({this.id,this.product_name,this.product_description,this.product_picture,this.product_price,this.product_old,this.productReviewCount,this.productCategory});
 
   @override
   PostState createState() => new PostState();
@@ -131,9 +137,9 @@ class PostState extends State<Post>{
         liked = !liked;
       });
     }else{
-      Navigator.push(context, MaterialPageRoute(builder: (context)=> login(product_id: widget.id,
+      Navigator.push(context, MaterialPageRoute(builder: (context)=> Login(product_id: widget.id,
       product_description: widget.product_description,product_details_name: widget.product_name,product_details_price: widget.product_price,
-        product_details_picture: widget.product_picture,product_details_oldPrice: widget.product_old,
+        product_details_picture: widget.product_picture,product_details_oldPrice: widget.product_old,productReviewCount: widget.productReviewCount,
       )));
     }
 
@@ -152,6 +158,7 @@ class PostState extends State<Post>{
     // TODO: implement initState
     super.initState();
     __llikes();
+    //print()
   }
 
 
@@ -176,9 +183,11 @@ class _Product_detailsState extends State<Product_details> {
   var third_color = Color(0xFF363837);
   var fourth_color = Color(0xFF4A8CD6);
   var fifth_color = Color(0xFFE7257E);
+  ReviewApi reviewApi = ReviewApi();
   int groupValue;
 
   bool isExpanded = false;
+  bool isExpandedreview = false ;
   int currentSizeIndex = 0;
   int currentColorIndex = 0;
   int _counter = 1;
@@ -199,6 +208,11 @@ class _Product_detailsState extends State<Product_details> {
   void _expand() {
     setState(() {
       isExpanded ? isExpanded = false : isExpanded = true;
+    });
+  }
+  void _expandReview() {
+    setState(() {
+      isExpandedreview ? isExpandedreview = false : isExpandedreview = true;
     });
   }
 
@@ -226,7 +240,6 @@ class _Product_detailsState extends State<Product_details> {
   static int userId ;
   static String api_token ;
   checkliked() async{
-    print('3aitana');
     pref = await SharedPreferences.getInstance() ;
     userId = pref.getInt('user_id');
     api_token = pref.get('api_token');
@@ -251,8 +264,7 @@ class _Product_detailsState extends State<Product_details> {
   bool loading = false ;
   @override
   Widget build(BuildContext context) {
-
-
+    print(widget.productCategory);
     return WillPopScope(
       onWillPop: (){
         return moveToLastScreen();
@@ -316,8 +328,8 @@ class _Product_detailsState extends State<Product_details> {
                           SizedBox(
                             width: screenAwareSize(5.0, context),
                           ),
-                          Text("(378 People)",
-                              style: TextStyle(color: Colors.black, fontSize: 16.0))
+                          Text('('+widget.productReviewCount.toString()+' People)',
+                              style: TextStyle(color: Colors.black, fontSize: 20.0))
                         ],
                       )
                     ],
@@ -645,12 +657,128 @@ class _Product_detailsState extends State<Product_details> {
                         product_price: widget.product_details_price,
                         product_old: widget.product_details_oldPrice,
                         product_picture: widget.product_details_picture,
+                        productCategory: widget.productCategory,
+                        productReviewCount: widget.productReviewCount,
                       ),
                   )
                 ],
               ),
             ),
+            Padding(
+              padding: EdgeInsets.only(left: screenAwareSize(18.0, context),top:5.0),
+              child: Row(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only( right: 5 ),
+                    child: Text(
+                      "CUSTOMER FEEDBACK",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w700
+                        //   fontSize: screenAwareSize(10.0, context),
+                        // fontFamily: "Montserrat-SemiBold"
+                      ),
+                    ),
+
+                  ),
+                  Expanded(child: Divider())
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: screenAwareSize(18.0, context),top:5.0),
+              child: ListTile(
+                title: Text("Product Raiting & Reviews "),
+               trailing: IconButton(icon: Icon(Icons.arrow_forward_ios,size: 16.0,), onPressed: (){
+                 Navigator.push(context, new MaterialPageRoute(builder: (context)=> new ProductRaiting(widget.product_id) ));
+               }),
+               subtitle: Row(
+                 children: <Widget>[
+                   Container(
+                     decoration: BoxDecoration(
+                    //   color: Colors.yellow,
+                       border: Border.all(
+                         color: Colors.amberAccent,
+                         width: 2.0
+                       ),
+                     ),
+
+                     child: Padding(
+                       padding: const EdgeInsets.all(5.0),
+                       child: Container(
+                         child: FutureBuilder(
+                           future: reviewApi.fetchReviews(widget.product_id, 3) ,
+                             builder: (BuildContext context, AsyncSnapshot<List<ProductReview>> snapShot) {
+                               switch (snapShot.connectionState) {
+                                 case ConnectionState.none:
+                                   __error('no connection!!!');
+                                   break;
+                                 case ConnectionState.waiting:
+                                 case ConnectionState.active:
+                                   return Center(
+                                     child: Icon(Icons.update),
+                                   );
+                                   break;
+                                 case ConnectionState.done:
+                                   if (snapShot.hasError) {
+                                     return __error(snapShot.error.toString());
+                                   } else {
+                                     return ColumnBuilder(
+                                       itemCount: 1,
+                                       itemBuilder: (BuildContext context, int index) {
+                              return Text(snapShot.data[index].avgStart.toString()+'/5',style: TextStyle(color: Colors.amber,fontWeight: FontWeight.bold),);
+                                         return _review(snapShot.data[index]);
+                                       },
+                                     );
+                                   }
+                                   break;
+                               }
+                               return Container();
+                             },
+                         ),
+                       ),
+                     ),
+                   ),
+                   Text('  ('+widget.productReviewCount.toString()+' raiting)',
+                       style: TextStyle(color: Colors.black)),
+                 ],
+               ),
+               // subtitle: ,
+              ),
+            ),
             Divider(),
+            Container(
+              child: FutureBuilder(
+                  future: reviewApi.fetchReviews(widget.product_id, 3) ,
+                  builder: (BuildContext context, AsyncSnapshot<List<ProductReview>> snapShot) {
+                    switch (snapShot.connectionState) {
+                      case ConnectionState.none:
+                        __error('no connection!!!');
+                        break;
+                      case ConnectionState.waiting:
+                      case ConnectionState.active:
+                        return _showLoading();
+                        break;
+                      case ConnectionState.done:
+                        if (snapShot.hasError) {
+                          return __error(snapShot.error.toString());
+                        } else {
+                          return Container(
+                            height: 230.0,
+                            child: ListView.builder(
+                              itemCount: snapShot.data.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return _review(snapShot.data[index]);
+                              },
+                            ),
+                          );
+                        }
+                        break;
+                    }
+                    return Container();
+                  },
+              ),
+            ),
  /// ====================================================================================Related Products row ==============*********************
             Padding(
               padding: EdgeInsets.all(10),
@@ -684,9 +812,110 @@ class _Product_detailsState extends State<Product_details> {
   }
   Future<void> moveToLastScreen()
   {
-    Navigator.push(context, new MaterialPageRoute(builder: (context)=> new home_screen() ));
+    Navigator.push(context, new MaterialPageRoute(builder: (context)=> new HomeScreen() ));
     return null;
   }
+
+
+  __drawCard(dynamic item) {
+    return Card(
+      child: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Text(item.product_id.toString()),
+      ),
+    );
+  }
+
+  __error(String error) {
+    return Container(
+      child: Center(
+        child: Text(error),
+      ),
+    );
+  }
+
+  _review(ProductReview productReview ){
+    String st = productReview.stars.toString();
+    String review = productReview.review ;
+    return Container(
+    //  height: 150.0,
+      child: Card(
+        child:ListTile(
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    child: RatingBar.readOnly(
+                      initialRating: double.parse(st),
+                      isHalfAllowed: true,
+                      halfFilledIcon: Icons.star_half,
+                      filledIcon: Icons.star,
+                      emptyIcon: Icons.star_border,
+                      size: 15.0,
+                      filledColor: Colors.amber,
+                      emptyColor: Colors.grey.shade300,
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    left: 8.0,
+                    right: 8.0),
+                child: AnimatedCrossFade(
+                  firstChild: Text(
+                    review,
+                    maxLines: 1,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 13.0
+                      //    fontSize: screenAwareSize(10.0, context),
+                      //  fontFamily: "Montserrat-Medium"
+                    ),
+                  ),
+                  secondChild: Text(
+                    review,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15.0
+                      // fontFamily: "Montserrat-Medium"
+                    ),
+                  ),
+                  crossFadeState: isExpandedreview
+                      ? CrossFadeState.showSecond
+                      : CrossFadeState.showFirst,
+                  duration: kThemeAnimationDuration,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    left: 8.0,
+                    right: 8.0),
+                child: GestureDetector(
+                    onTap: _expandReview,
+                    child: Text(
+                      isExpandedreview ? "less" : "more..",
+                      style: TextStyle(
+                          color: Color(0xFF01B2C4), fontWeight: FontWeight.w700),
+                    )),
+              ),
+            ],
+          ),
+          subtitle: Padding(
+            padding:  EdgeInsets.only(
+                left: screenAwareSize(26.0, context),
+                right: screenAwareSize(18.0, context)),
+            child: Text('By  '+ productReview.reviewer.last_name),
+          ),
+        ) ,
+      ),
+    );
+  }
+
 }
 
 
@@ -697,6 +926,7 @@ Widget _showLoading(){
     ) ,
   );
 }
+
 
 
 Widget colorItem(
@@ -785,4 +1015,35 @@ Widget sizeItem(String size, bool isSelected, BuildContext context) {
       ),
     ),
   );
+}
+
+
+
+class ColumnBuilder extends StatelessWidget {
+  final IndexedWidgetBuilder itemBuilder;
+  final MainAxisAlignment mainAxisAlignment;
+  final MainAxisSize mainAxisSize;
+  final CrossAxisAlignment crossAxisAlignment;
+  final TextDirection textDirection;
+  final VerticalDirection verticalDirection;
+  final int itemCount;
+
+  const ColumnBuilder({
+    Key key,
+    @required this.itemBuilder,
+    @required this.itemCount,
+    this.mainAxisAlignment: MainAxisAlignment.start,
+    this.mainAxisSize: MainAxisSize.max,
+    this.crossAxisAlignment: CrossAxisAlignment.center,
+    this.textDirection,
+    this.verticalDirection: VerticalDirection.down,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return new Column(
+      children: new List.generate(this.itemCount,
+              (index) => this.itemBuilder(context, index)).toList(),
+    );
+  }
 }

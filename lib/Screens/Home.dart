@@ -3,9 +3,7 @@ import 'package:pfe/Component/Bar.dart';
 import 'package:pfe/Component/horisontale_list.dart';
 import 'package:pfe/Component/image_caroussel.dart';
 import 'package:pfe/Component/AllSports_list.dart';
-import 'package:pfe/Component/gridViewList.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pfe/Screens/favorite_screen.dart';
 import 'package:pfe/Screens/logIn_screen.dart';
 import 'package:pfe/general_config/size_config.dart';
 import 'Account.dart';
@@ -14,27 +12,23 @@ import 'package:titled_navigation_bar/titled_navigation_bar.dart';
 import 'package:pfe/api/getdata/get_products.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pfe/Component/drawer.dart';
-
-//import 'package:pfe/custom_widgets.dart';
+import 'package:pfe/general_config/functions.dart';
 const AppColor = Color(0xF2EEEF);
 const appPadding = 10.0 ;
 
-class home_screen extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   @override
-  _home_screenState createState() => _home_screenState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _home_screenState extends State<home_screen> {
+class _HomeScreenState extends State<HomeScreen> {
 
   final PageController _pageController = new PageController();
   final PageController _secondpageController = new PageController();
-
   int changePage = 0;
-
   int currentIndex = 0;
-
   int userId ;
-  String api_token ;
+  String apiToken ;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -50,18 +44,17 @@ class _home_screenState extends State<home_screen> {
           iconTheme: IconThemeData(color: Colors.black),
           leading: IconButton(icon: Icon(Icons.menu), onPressed: ()async{
             SharedPreferences pref = await SharedPreferences.getInstance();
-            int user_id =  pref.getInt('user_id');
-            String api_token = pref.getString('api_token');
-            if((user_id != null ) || (api_token != null) ){
+            int userId =  pref.getInt('user_id');
+            String apiToken = pref.getString('api_token');
+            if((userId != null ) || (apiToken != null) ){
               _scaffoldKey.currentState.openDrawer();
             }else{
               showDialog(context: context,
                   builder: (context){
-                    return alert();
+                    return Alert();
                   }
               );
             }
-
           }),
           elevation: 0.0,
           backgroundColor: AppColor,
@@ -70,69 +63,42 @@ class _home_screenState extends State<home_screen> {
           ),),
           actions: <Widget>[
             IconButton(icon: Icon(Icons.shopping_cart,color: Colors.black87), onPressed: () async {
-
-
               SharedPreferences pref = await SharedPreferences.getInstance();
-              int user_id =  pref.getInt('user_id');
-              String api_token = pref.getString('api_token');
-              if((user_id != null ) || (api_token != null) ){
+              int userId =  pref.getInt('user_id');
+              String apiToken = pref.getString('api_token');
+              if((userId != null ) || (apiToken != null) ){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>new Cart()));
               }else{
                 showDialog(context: context,
                     builder: (context){
-                      return alert();
+                      return Alert();
                     }
                 );
               }
-
-
-
             }),
             CircleAvatar(
               backgroundColor: Color(0xF2EEEF),
               child: IconButton(icon: Icon(Icons.person,color: Colors.black,),onPressed: ()async{
                 SharedPreferences pref = await SharedPreferences.getInstance();
-                int user_id =  pref.getInt('user_id');
-                String api_token = pref.getString('api_token');
-                if((user_id != null ) || (api_token != null) ){
+                int userId =  pref.getInt('user_id');
+                String apiToken = pref.getString('api_token');
+                if((userId != null ) || (apiToken != null) ){
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>new Account()));
                 }else{
                   showDialog(context: context,
                       builder: (context){
-                        return alert();
+                        return Alert();
                       }
                   );
                 }
-
-
               },),
             ),
           ],
         ),
-        /*
-        bottomNavigationBar: Container(
-          child:  BottomNavigationDotBar (// Usar -> "BottomNavigationDotBar"
-
-              items: <BottomNavigationDotBarItem>[
-                BottomNavigationDotBarItem(icon: Icons.home, onTap: () { /* Cualquier funcion - [abrir nueva venta] */ }),
-                BottomNavigationDotBarItem(icon: Icons.person, onTap: () { /* Cualquier funcion - [abrir nueva venta] */ }),
-                BottomNavigationDotBarItem(icon: Icons.favorite, onTap: () { /* Cualquier funcion - [abrir nueva venta] */ }),
-              ]
-          ),
-        ),*/
           bottomNavigationBar: TitledBottomNavigationBar(
-              currentIndex: 0, // Use this to update the Bar giving a position
+              currentIndex: 0,
               onTap: (index) async {
-                print("Selected Index: $index");
-                if(index==4){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>new Account()));
-                }else if(index==3){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>new Cart()));
-                }else if(index==2){
-                  SharedPreferences pref = await SharedPreferences.getInstance();
-                   int user_id =  pref.getInt('user_id');
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>new Favorite(user_id:user_id) ));
-                }
+                functions.route_bottom_bar(index, context);
               },
               items: [
                 TitledNavigationBarItem(title: 'Home', icon: Icons.home),
@@ -144,7 +110,6 @@ class _home_screenState extends State<home_screen> {
           ),
         drawer: drawerr(),
         body: Padding(
-
           padding: const EdgeInsets.only(top:5),
           child: Container(
             color: Color(0xF2EEEF),
@@ -403,7 +368,7 @@ class _home_screenState extends State<home_screen> {
                     ],
                   ),
                 ),
-                 All_Sports_List(),
+                 AllSportsList(),
                 SizedBox(
                   height: 20.0,
                 ),
@@ -422,8 +387,8 @@ class _home_screenState extends State<home_screen> {
   }
 }
 
-class alert extends StatelessWidget {
-  const alert({
+class Alert extends StatelessWidget {
+  const Alert({
     Key key,
   }) : super(key: key);
 

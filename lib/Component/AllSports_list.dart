@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pfe/Screens/product_category.dart';
 
-class All_Sports_List extends StatelessWidget {
+class AllSportsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -10,36 +11,44 @@ class All_Sports_List extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         children: <Widget>[
           Item(
-            image_location: 'images/iconsImgs/run.png',
+            imageLocation: 'images/iconsImgs/run.png',
             name: 'Running',
+            id: 1,
           ),
           Item(
-            image_location: 'images/iconsImgs/hiking.png',
+            imageLocation: 'images/iconsImgs/hiking.png',
             name: 'Hicking',
+            id: 2,
           ),
           Item(
-            image_location: 'images/iconsImgs/foot.png',
+            imageLocation: 'images/iconsImgs/foot.png',
             name: 'Football',
+            id: 3,
           ),
           Item(
-            image_location: 'images/iconsImgs/tennis.png',
+            imageLocation: 'images/iconsImgs/tennis.png',
             name: 'Tennis',
+            id: 4,
           ),
           Item(
-            image_location: 'images/iconsImgs/fishing.png',
+            imageLocation: 'images/iconsImgs/fishing.png',
             name: 'Fishing',
+            id: 5,
           ),
           Item(
-            image_location: 'images/iconsImgs/cardio.png',
+            imageLocation: 'images/iconsImgs/cardio.png',
             name: 'Cardio',
+            id: 6,
           ),
           Item(
-            image_location: 'images/iconsImgs/swim.png',
+            imageLocation: 'images/iconsImgs/swim.png',
             name: 'Swimming',
+            id: 7,
           ),
           Item(
-            image_location: 'images/iconsImgs/surf.png',
+            imageLocation: 'images/iconsImgs/surf.png',
             name: 'Surfing',
+            id: 8,
           ),
 
         ],
@@ -52,14 +61,16 @@ class All_Sports_List extends StatelessWidget {
 
 class Item extends StatelessWidget {
 
-  final image_location ;
+  final imageLocation ;
+  final id ;
   final name ;
-  Item({this.image_location,this.name});
+  Item({this.imageLocation,this.name,this.id});
 
   @override
   Widget build(BuildContext context) {
     return  InkWell(
       onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> new ProductCategory(categoryId: this.id,categoryName: this.name,)));
       },
       child: Container(
         margin: EdgeInsets.all(10.0),
@@ -67,11 +78,10 @@ class Item extends StatelessWidget {
         width: 190.0,
         decoration: new BoxDecoration(
           borderRadius: BorderRadius.circular(80.0),
-        //  borderRadius: BorderRadius.all(Radius.circular(50.0)),
-          //color: Colors.red,
           image: DecorationImage(
             image: new AssetImage(
-                image_location),
+                imageLocation
+            ),
             fit: BoxFit.fill,
           ),
         ),

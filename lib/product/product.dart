@@ -7,13 +7,13 @@ import 'package:pfe/exceptions/exceptions.dart';
 class Product {
 
 
-  int product_id;
+  int product_id,productReviewCount;
 
   String product_title, product_description;
 
   ProductUnit productUnit;
 
-  double product_price, product_total, product_discount;
+  double product_price, product_total, product_discount ;
 
   ProductCategory productCategory;
 
@@ -26,7 +26,7 @@ class Product {
   Product(this.product_id, this.product_title, this.product_description,
       this.productUnit,
       this.product_price, this.product_total, this.product_discount,
-      this.productCategory, this.tags, this.images, this.reviews);
+      this.productCategory, this.tags, this.images, this.reviews,this.productReviewCount);
 
 
   Product.fromJson(Map<String, dynamic> jsonObject){
@@ -49,6 +49,7 @@ class Product {
 
 
      this.product_id = jsonObject['product_id'];
+    this.productReviewCount = jsonObject['product_reviews_count'];
     this.product_title = jsonObject['product_title'];
     this.product_description = jsonObject['product_description'];
        this.product_price=double.tryParse(jsonObject['product_price']);

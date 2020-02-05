@@ -702,42 +702,6 @@ class _Product_detailsState extends State<Product_details> {
                          width: 2.0
                        ),
                      ),
-
-                     child: Padding(
-                       padding: const EdgeInsets.all(5.0),
-                       child: Container(
-                         child: FutureBuilder(
-                           future: reviewApi.fetchReviews(widget.product_id, 3) ,
-                             builder: (BuildContext context, AsyncSnapshot<List<ProductReview>> snapShot) {
-                               switch (snapShot.connectionState) {
-                                 case ConnectionState.none:
-                                   __error('no connection!!!');
-                                   break;
-                                 case ConnectionState.waiting:
-                                 case ConnectionState.active:
-                                   return Center(
-                                     child: Icon(Icons.update),
-                                   );
-                                   break;
-                                 case ConnectionState.done:
-                                   if (snapShot.hasError) {
-                                     return __error(snapShot.error.toString());
-                                   } else {
-                                     return ColumnBuilder(
-                                       itemCount: 1,
-                                       itemBuilder: (BuildContext context, int index) {
-                              return Text(snapShot.data[index].avgStart.toString()+'/5',style: TextStyle(color: Colors.amber,fontWeight: FontWeight.bold),);
-                                         return _review(snapShot.data[index]);
-                                       },
-                                     );
-                                   }
-                                   break;
-                               }
-                               return Container();
-                             },
-                         ),
-                       ),
-                     ),
                    ),
                    Text('  ('+widget.productReviewCount.toString()+' raiting)',
                        style: TextStyle(color: Colors.black)),
@@ -747,39 +711,7 @@ class _Product_detailsState extends State<Product_details> {
               ),
             ),
             Divider(),
-            Container(
-              child: FutureBuilder(
-                  future: reviewApi.fetchReviews(widget.product_id, 3) ,
-                  builder: (BuildContext context, AsyncSnapshot<List<ProductReview>> snapShot) {
-                    switch (snapShot.connectionState) {
-                      case ConnectionState.none:
-                        __error('no connection!!!');
-                        break;
-                      case ConnectionState.waiting:
-                      case ConnectionState.active:
-                        return _showLoading();
-                        break;
-                      case ConnectionState.done:
-                        if (snapShot.hasError) {
-                          return __error(snapShot.error.toString());
-                        } else {
-                          return Container(
-                            height: 230.0,
-                            child: ListView.builder(
-                              itemCount: snapShot.data.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return _review(snapShot.data[index]);
-                              },
-                            ),
-                          );
-                        }
-                        break;
-                    }
-                    return Container();
-                  },
-              ),
-            ),
- /// ====================================================================================Related Products row ==============*********************
+ /// ==================================================================================== Related Products row ==============*********************
             Padding(
               padding: EdgeInsets.all(10),
               child:Row(

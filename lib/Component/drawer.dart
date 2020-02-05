@@ -9,21 +9,21 @@ import 'package:pfe/general_config/size_config.dart';
 
 
 
-class drawerr extends StatefulWidget {
+class Drawerr extends StatefulWidget {
 
   @override
-  _drawerrState createState() => _drawerrState();
+  _DrawerrState createState() => _DrawerrState();
 }
 
-class _drawerrState extends State<drawerr> {
+class _DrawerrState extends State<Drawerr> {
 
   static SharedPreferences pref ;
   static int userId ;
-  static String api_token ;
+  static String apiToken ;
   checkUser() async{
     pref = await SharedPreferences.getInstance() ;
     userId = pref.getInt('user_id');
-    api_token = pref.get('api_token');
+    apiToken = pref.get('api_token');
   }
 
   UserApi userApi = UserApi();
@@ -41,7 +41,7 @@ class _drawerrState extends State<drawerr> {
       child: Column(
         children: <Widget>[
           Container(
-            child: ((api_token == null) && (userId == null) ) ? _drawNoUser():FutureBuilder(
+            child: ((apiToken == null) && (userId == null) ) ? _drawNoUser():FutureBuilder(
                 future: userApi.fetchUser(userId),
                 builder: (BuildContext context, AsyncSnapshot<User> snapShot) {
                   switch (snapShot.connectionState) {
@@ -167,9 +167,9 @@ class _drawerrState extends State<drawerr> {
                     ),
                   ),
                   Container(
-                    child: ((userId != null) && (api_token != null) ) ? InkWell(
+                    child: ((userId != null) && (apiToken != null) ) ? InkWell(
                       onTap: () async{
-                        if((userId == null)||( api_token == null )){
+                        if((userId == null)||( apiToken == null )){
 
                         }else{
                           SharedPreferences prefs = await SharedPreferences.getInstance();

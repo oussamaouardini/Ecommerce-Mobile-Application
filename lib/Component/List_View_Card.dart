@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class cardlist extends StatelessWidget {
+class CardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

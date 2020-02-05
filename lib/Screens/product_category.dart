@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:pfe/Component/List_View_Card.dart';
-import 'package:pfe/api/cart_api.dart';
 import 'package:pfe/custom_widgets.dart';
 import 'Home.dart';
-import 'package:pfe/cart/cart.dart';
 import 'package:pfe/general_config/functions.dart';
 import 'package:pfe/general_config/size_config.dart';
 import 'package:pfe/Screens/Click_Product.dart';
+
 const appBarColor = Color(0xFF01B2C4);
 class ProductCategory extends StatefulWidget {
   final categoryId ;
@@ -186,26 +184,6 @@ class _ProductCategoryState extends State<ProductCategory> {
                   ],
                 ),
               ),
-//              Row(
-//                children: <Widget>[
-//                  Column(
-//                    children: <Widget>[
-//                      IconButton(icon: Icon(Icons.play_arrow),
-//                          onPressed: () async{
-//                            setState(() {
-//                              isLoading = true ;
-//                            });
-//                          //  await likeApi.removeUserLike(user_id, like.product.product_id);
-//                            setState(() {
-//                              isLoading = false ;
-//                            });
-//
-//                          }),
-//
-//                    ],
-//                  )
-//                ],
-//              )
             ],
           ),
         ),

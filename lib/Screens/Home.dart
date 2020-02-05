@@ -108,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 TitledNavigationBarItem(title: 'Profile', icon: Icons.person_outline),
               ]
           ),
-        drawer: drawerr(),
+        drawer: Drawerr(),
         body: Padding(
           padding: const EdgeInsets.only(top:5),
           child: Container(
@@ -230,60 +230,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   Bar(first: 'Man',second: 'Women',third: 'Kids',firstIcon: FontAwesomeIcons.male,secondIcon: FontAwesomeIcons.female,thirdIcon: FontAwesomeIcons.child,pageController: _pageController,),
                 SizedBox(height: 20,),
                 Container(
-                  height: SizeConfig.blockSizeVertical*54,
+                  height: SizeConfig.blockSizeVertical*60,
                   child: PageView(
                     physics: NeverScrollableScrollPhysics(),
                     controller: _pageController,
                     children: <Widget>[
                       Container(
-                        child: get_products(),
+                        child: getProducts(categoryId: 9,categoryName: 'Man',),
                       ),
                       Container(
-                      //  child: get_products(),
-                        child: CustomScrollView(
-                       //   controller: ScrollController.initialScrollOffset,
-                          slivers: <Widget>[
-                            SliverGrid(
-                              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent: 200.0,
-                                mainAxisSpacing: 10.0,
-                                crossAxisSpacing: 10.0,
-                                childAspectRatio: 4.0,
-                              ),
-                              delegate: SliverChildBuilderDelegate(
-                                    (BuildContext context, int index) {
-                                  return Container(
-                                    alignment: Alignment.center,
-                                    color: Colors.teal[100 * (index % 9)],
-                                    child: Text('grid item $index'),
-                                  );
-                                },
-                                childCount: 20,
-                              ),
-                            )
-                          ],
-                        )
+                        child: getProducts(categoryId: 10,categoryName: 'Women',),
                       ),
-//                    SliverGrid(
-//                      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-//                        maxCrossAxisExtent: 200.0,
-//                        mainAxisSpacing: 10.0,
-//                        crossAxisSpacing: 10.0,
-//                        childAspectRatio: 4.0,
-//                      ),
-//                      delegate: SliverChildBuilderDelegate(
-//                            (BuildContext context, int index) {
-//                          return Container(
-//                            alignment: Alignment.center,
-//                            color: Colors.teal[100 * (index % 9)],
-//                            child: Text('grid item $index'),
-//                          );
-//                        },
-//                        childCount: 20,
-//                      ),
-//                    ),
                       Container(
-                        child: get_products(),
+                        child: getProducts(categoryId: 11,categoryName: 'Kids',),
                       ),
                     ],
                   ),
@@ -316,19 +275,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 Bar(first: 'Man',second: 'Women',third: 'Kids',firstIcon: FontAwesomeIcons.male,secondIcon: FontAwesomeIcons.female,thirdIcon: FontAwesomeIcons.child,pageController: _secondpageController,),
                 SizedBox(height: 20,),
                 Container(
-                  height: SizeConfig.blockSizeVertical*54,
+                  height: SizeConfig.blockSizeVertical*60,
                   child: PageView(
                     physics: NeverScrollableScrollPhysics(),
                     controller: _secondpageController,
                     children: <Widget>[
                       Container(
-                        child: get_products(),
+                        child: getProducts(categoryId: 9,categoryName: 'Man',),
                       ),
                       Container(
-                        child: get_products(),
+                        child: getProducts(categoryId: 10,categoryName: 'Women',),
                       ),
                       Container(
-                        child: get_products(),
+                        child: getProducts(categoryId: 11,categoryName: 'Kids',),
                       ),
                     ],
                   ),

@@ -2,53 +2,86 @@ import 'package:flutter/widgets.dart';
 import 'package:pfe/custom_widgets.dart';
 import 'package:pfe/Screens/Click_Product.dart';
 import 'package:pfe/general_config/size_config.dart';
+import 'package:pfe/Screens/product_category.dart' as pcateg ;
 
 bool hassan = true;
 
-class get_products extends StatefulWidget {
+class getProducts extends StatefulWidget {
+  final categoryId ;
+  final categoryName ;
+
+  getProducts({this.categoryId,this.categoryName});
+
   @override
-  _get_productsState createState() => _get_productsState();
+  _getProductsState createState() => _getProductsState();
 }
 
-class _get_productsState extends State<get_products> {
+class _getProductsState extends State<getProducts> {
   ProductApi productApi = new ProductApi();
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Container(
-     // height: SizeConfig.safeBlockVertical*30,
-      child: FutureBuilder(
-          future: productApi.fetchProducts(1),
-          builder: (BuildContext context, AsyncSnapshot snapShot) {
-            switch (snapShot.connectionState) {
-              case ConnectionState.none:
-                __error('no connection!!!');
-                break;
-              case ConnectionState.waiting:
-              case ConnectionState.active:
-                return loading();
-                break;
-              case ConnectionState.done:
-                if (snapShot.hasError) {
-                  return __error(snapShot.error.toString());
-                } else {
-                  return GridView.builder(
-                    addAutomaticKeepAlives: true,
-                    itemCount: snapShot.data.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2
-                    ),
-                    itemBuilder: (BuildContext context, int index) {
-                      return _product(snapShot.data[index]);
-                    },
-                  );
+    return Column(
+      children: <Widget>[
+        Container(
+          height: SizeConfig.safeBlockVertical*52,
+          child: FutureBuilder(
+              future: productApi.fetchProducts(1),
+              builder: (BuildContext context, AsyncSnapshot snapShot) {
+                switch (snapShot.connectionState) {
+                  case ConnectionState.none:
+                    __error('no connection!!!');
+                    break;
+                  case ConnectionState.waiting:
+                  case ConnectionState.active:
+                    return loading();
+                    break;
+                  case ConnectionState.done:
+                    if (snapShot.hasError) {
+                      return __error(snapShot.error.toString());
+                    } else {
+                      return GridView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        addAutomaticKeepAlives: true,
+                        itemCount: snapShot.data.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2
+                        ),
+                        itemBuilder: (BuildContext context, int index) {
+                          if(index > 3 ){
+                            return null;
+                          }else{
+                            return _product(snapShot.data[index]);
+                          }
+
+                        },
+                      );
+                    }
+                    break;
                 }
-                break;
-            }
-            return Container();
-          }
+                return Container();
+              }
+              ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top:5.0),
+          child: InkWell(
+            onTap: () async {
+           //   Navigator.push(context, MaterialPageRoute(builder: (context)=> new ProductCategory    ));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> new  pcateg.ProductCategory(categoryId: widget.categoryId ,categoryName: widget.categoryName,)));
+            //  ProductCategory
+
+            },
+            child: Column(
+              children: <Widget>[
+                Text('Show More'),
+                Icon(Icons.keyboard_arrow_down),
+              ],
+            ),
           ),
+        )
+      ],
     );
   }
 
@@ -98,7 +131,8 @@ class _get_productsState extends State<get_products> {
             image: product.images.length > 0
                 ? NetworkImage(product.images[0])
                 : NetworkImage(
-                    'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'),
+                    'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+            ),
           )
         ],
       ),

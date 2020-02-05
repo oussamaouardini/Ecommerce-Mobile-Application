@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:pfe/Screens/edit_account.dart';
 import 'package:titled_navigation_bar/titled_navigation_bar.dart';
 
 
 const appBarColor = Color(0xFF01B2C4);
 const AppColor = Color(0xFFDBDBDB);
 class Account extends StatefulWidget {
+
+  final firstName ;
+  final lastName ;
+  final email ;
+  final password ;
+  final memberSince , shippingAdress , mobile;
+
+
+  Account({this.firstName, this.lastName, this.email, this.password,this.memberSince,this.shippingAdress,this.mobile});
+
   @override
   _AccountState createState() => _AccountState();
 }
@@ -48,9 +59,12 @@ class _AccountState extends State<Account> {
           Card(
            // color: Colors.yellowAccent,
             child: ListTile(
-              title: Text('hamid Ouballa'),
-              subtitle: Text('med.ouballa@gmail.com'),
-              trailing: FlutterLogo(size: 56.0),
+              title: Text(widget.firstName + ' '+widget.lastName),
+              subtitle: Text(widget.email),
+              trailing: IconButton(icon: Icon(Icons.perm_identity),
+              iconSize: 50,
+                onPressed: (){},
+              ),
             ),
           ),
           ///  My Orders Setting --------------------------------------------------------------
@@ -131,23 +145,33 @@ class _AccountState extends State<Account> {
                       Icon(Icons.person_outline),
                       Text("Profile Settings",style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.w700),)
                     ],),
-                    trailing: Text("Edit"),
+                    trailing: InkWell(
+                        child: Text("Edit"),
+                      onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfilePage()));
+                      },
+
+                    ),
                   ),
                   ListTile(
                     title: Text("Full name"),
-                    trailing: Text("Hamid Ouballa"),
+                    trailing: Text(widget.firstName+' '+widget.lastName),
                   ),
                   ListTile(
                     title: Text("Email"),
-                    trailing: Text("med.ouballa@gmail.com"),
+                    trailing: Text(widget.email),
                   ),
                   ListTile(
-                    title: Text("Gender"),
-                    trailing: Text("Male"),
+                    title: Text("Mobile"),
+                    trailing: widget.mobile != null ?  Text(widget.mobile) : Text('Add phone Number'),
                   ),
                   ListTile(
-                    title: Text("Birth day"),
-                    trailing: Text("2001-12-13"),
+                    title: Text("shipping Address"),
+                    trailing: widget.shippingAdress != null ?  Text(widget.shippingAdress) : Text('Add address'),
+                  ),
+                  ListTile(
+                    title: Text("Member Since"),
+                    trailing: Text(widget.memberSince),
                   ),
                 ],
               ),

@@ -742,7 +742,7 @@ class _Product_detailsState extends State<Product_details> {
 
     );
   }
-  Future<void> moveToLastScreen()
+  Future<void> moveToLastScreen() async
   {
     Navigator.push(context, new MaterialPageRoute(builder: (context)=> new HomeScreen() ));
     return null;

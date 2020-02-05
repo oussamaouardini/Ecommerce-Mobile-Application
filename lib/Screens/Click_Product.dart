@@ -744,7 +744,15 @@ class _Product_detailsState extends State<Product_details> {
   }
   Future<void> moveToLastScreen() async
   {
-    Navigator.push(context, new MaterialPageRoute(builder: (context)=> new HomeScreen() ));
+
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+     bool log  =  sharedPreferences.getBool('login');
+    if( log == true ){
+      sharedPreferences.setBool('login', false);
+      Navigator.push(context, new MaterialPageRoute(builder: (context)=> new HomeScreen() ));
+    }else{
+      Navigator.of(context).pop();
+    }
     return null;
   }
 

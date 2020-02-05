@@ -5,6 +5,7 @@ import 'package:pfe/Screens/Click_Product.dart';
 import 'package:pfe/api/authentication.dart';
 import 'package:pfe/custom_widgets.dart';
 import 'package:pfe/Screens/Home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 
@@ -197,6 +198,8 @@ class _LoginState extends State<Login> {
       setState(() {
         _loading = false ;
       });
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      sharedPreferences.setBool('login', true);
       Navigator.push(context, MaterialPageRoute(builder:(context)=> new Product_details(
         product_id: widget.product_id,
         product_details_name: widget.product_details_name,

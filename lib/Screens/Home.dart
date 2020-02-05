@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:pfe/Component/Bar.dart';
 import 'package:pfe/Component/horisontale_list.dart';
@@ -41,6 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    User currentuser ;
     return WillPopScope(
       onWillPop: () {
         return moveToLastScreen();
@@ -56,7 +59,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 SharedPreferences pref = await SharedPreferences.getInstance();
                 int userId = pref.getInt('user_id');
                 String apiToken = pref.getString('api_token');
+
                 if ((userId != null) || (apiToken != null)) {
+                //  currentuser = await userApi.fetchUser(userId);
                   _scaffoldKey.currentState.openDrawer();
                 } else {
                   showDialog(
@@ -107,7 +112,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   String apiToken = pref.getString('api_token');
                   if ((userId != null) || (apiToken != null)) {
                     User user = await userApi.fetchUser(userId);
-                    print(user.mobile);
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -146,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
               TitledNavigationBarItem(
                   title: 'Profile', icon: Icons.person_outline),
             ]),
-        drawer: Drawerr(),
+        drawer:Drawerr(),
         body: Padding(
           padding: const EdgeInsets.only(top: 5),
           child: Container(

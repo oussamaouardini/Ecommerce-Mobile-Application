@@ -13,6 +13,7 @@ class User {
       [this.api_token, this.user_id , this.password , this.memberSince , this.shippingAddress, this.mobile ]);
 
   User.fromJson(Map<String, dynamic> jsonObject) {
+
     this.user_id = jsonObject['user_id'];
     this.first_name = jsonObject['first_name'];
     this.last_name = jsonObject['last_name'];
@@ -21,7 +22,7 @@ class User {
     this.password = jsonObject['password'];
     this.memberSince = jsonObject['member_since'];
     this.mobile = jsonObject['mobile'];
-    this.shippingAddress = jsonObject['shipping_address'] ;
+    this.shippingAddress = jsonObject['address'] ;
 
   }
 }

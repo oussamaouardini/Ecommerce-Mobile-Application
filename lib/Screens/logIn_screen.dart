@@ -1,16 +1,9 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:pfe/Screens/Click_Product.dart';
 import 'package:pfe/api/authentication.dart';
 import 'package:pfe/custom_widgets.dart';
 import 'package:pfe/Screens/Home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-
-
-
-
 
 class Login extends StatefulWidget {
   final product_details_name;

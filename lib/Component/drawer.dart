@@ -11,6 +11,11 @@ import 'package:pfe/general_config/size_config.dart';
 
 class Drawerr extends StatefulWidget {
 
+//  final name ;
+//  final email ;
+//
+//  Drawerr(this.name, this.email);
+
   @override
   _DrawerrState createState() => _DrawerrState();
 }

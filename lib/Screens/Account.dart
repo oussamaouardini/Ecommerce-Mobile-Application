@@ -21,8 +21,12 @@ class Account extends StatefulWidget {
 }
 
 class _AccountState extends State<Account> {
+
   @override
   Widget build(BuildContext context) {
+    setState(() {
+
+    });
     return Scaffold(
       backgroundColor:AppColor ,
       appBar: AppBar(
@@ -44,7 +48,6 @@ class _AccountState extends State<Account> {
       bottomNavigationBar: TitledBottomNavigationBar(
           currentIndex: 4, // Use this to update the Bar giving a position
           onTap: (index){
-            print("Selected Index: $index");
           },
           items: [
             TitledNavigationBarItem(title: 'Home', icon: Icons.home),
@@ -148,7 +151,10 @@ class _AccountState extends State<Account> {
                     trailing: InkWell(
                         child: Text("Edit"),
                       onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfilePage()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfilePage(
+                            widget.firstName,widget.lastName,widget.email,widget.shippingAdress,
+                            widget.mobile,
+                          )));
                       },
 
                     ),

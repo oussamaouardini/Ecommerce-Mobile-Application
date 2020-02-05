@@ -44,7 +44,12 @@ class ApiUtl {
   static String PRODUCTREVIEWS(int id) {
     return MAIN_API_URL +'product/' + id.toString() + '/review';
   }
-
+  static String EDITUSER(int id) {
+    return MAIN_API_URL +'edituser/' + id.toString();
+  }
+  static String GETUSER(int id) {
+    return MAIN_API_URL +'getuser/' + id.toString();
+  }
 
 
 }

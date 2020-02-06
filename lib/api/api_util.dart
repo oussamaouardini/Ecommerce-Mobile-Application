@@ -1,3 +1,5 @@
+import 'package:pfe/custom_widgets.dart';
+
 class ApiUtl {
   //local Url
   static const String MAIN_API_URL = "http://10.0.2.2:8000/api/";
@@ -50,6 +52,12 @@ class ApiUtl {
   static String GETUSER(int id) {
     return MAIN_API_URL +'getuser/' + id.toString();
   }
+  static String FILTER() {
+    return MAIN_API_URL +'filter';
+  }
 
+  static String PRODUCTBYID(int id) {
+    return MAIN_API_URL +'products/'+id.toString();
+  }
 
 }

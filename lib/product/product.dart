@@ -44,10 +44,6 @@ class Product {
       throw PropoertyIsRequired('Product ID');
     }
 
-
-
-
-
      this.product_id = jsonObject['product_id'];
     this.productReviewCount = jsonObject['product_reviews_count'];
     this.product_title = jsonObject['product_title'];
@@ -60,6 +56,25 @@ class Product {
        _setTags(jsonObject['product_tags']);
       _setImages(jsonObject['product_images']);
    // _setReviews(jsonObject['product_reviews']);
+    //   this.productUnit =jsonObject['product_id'];
+
+  }
+
+  Product.fromHelper(Map<String, dynamic> jsonObject){
+
+
+    this.product_id = jsonObject['id'];
+    this.productReviewCount = jsonObject['product_reviews_count'];
+    this.product_title = jsonObject['product_title'];
+    this.product_description = jsonObject['product_description'];
+    this.product_price=double.tryParse(jsonObject['product_price']);
+    this.product_total= double.tryParse(jsonObject['product_total']);
+    this.product_discount=double.tryParse(jsonObject['product_discount']);
+    this.productCategory =
+        ProductCategory.fromJson(jsonObject['product_category']);
+    _setTags(jsonObject['product_tags']);
+    _setImages(jsonObject['product_images']);
+    // _setReviews(jsonObject['product_reviews']);
     //   this.productUnit =jsonObject['product_id'];
 
   }

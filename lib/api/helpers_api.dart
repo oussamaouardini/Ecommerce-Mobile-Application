@@ -8,12 +8,11 @@ import 'package:pfe/utility/country_state.dart';
 import 'api_util.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 
 class HelpersApi {
-
-
 
 
   Map<String, String> _headers = {'Accept': 'application/json'};
@@ -162,4 +161,48 @@ class HelpersApi {
         break ;
     }
   }
+
+
+
+  Future<List<dynamic>> filter(List<dynamic> tab) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String apiToken = sharedPreferences.getString('api_token');
+    int user_id = sharedPreferences.getInt('user_id');
+
+    Map<String, String> _Authheaders = {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ' + apiToken
+    };
+
+    Map<String, String> body = {
+      'tab': jsonEncode(tab),
+    };
+    print(ApiUtl.FILTER());
+    http.Response response = await http.post(ApiUtl.FILTER(),
+        headers: _Authheaders, body: body );
+    List<dynamic> products = [];
+    if ((response.statusCode == 201) || (response.statusCode == 200)) {
+      // registration successfully
+      var bodyy =  jsonDecode(response.body) ;
+      for(int i = 0 ; i < tab.length ; i++ ){
+        for(int j = 0 ; j < bodyy[i]['data'].length ; j++ ){
+          http.Response response2 = await http.get(ApiUtl.PRODUCTBYID(bodyy[i]['data'][j]['id']),
+              headers: _headers );
+          if ((response2.statusCode == 201) || (response2.statusCode == 200)) {
+            var bodies =  jsonDecode(response2.body);
+          //  print(bodies['data']);
+            products.add(
+                Product.fromJson(bodies['data'])
+            );
+          }
+        }
+      }
+      return products ;
+    } else {
+      // edit failed
+      return null;
+    }
+  }
+
+
 }

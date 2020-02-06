@@ -150,7 +150,9 @@ class _HomeScreenState extends State<HomeScreen> {
               TitledNavigationBarItem(
                   title: 'Profile', icon: Icons.person_outline),
             ]),
-        drawer:Drawerr(),
+      //  drawer:Drawerr(),
+        drawer: Drawerr() ,
+        endDrawer:  ExpansionTileSample(),
         body: Padding(
           padding: const EdgeInsets.only(top: 5),
           child: Container(
@@ -187,23 +189,29 @@ class _HomeScreenState extends State<HomeScreen> {
                             padding: const EdgeInsets.only(right: 8.0),
                             child: MaterialButton(
                               onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: Text("All Filters"),
-                                        content: Text('chose the Quantity'),
-                                        actions: <Widget>[
-                                          MaterialButton(
-                                            onPressed: () {
-                                              Navigator.of(context)
-                                                  .pop(context);
-                                            },
-                                            child: Text('Close'),
-                                          )
-                                        ],
-                                      );
-                                    });
+                                _scaffoldKey.currentState.openEndDrawer();
+//                                showDialog(
+//                                    context: context,
+//                                    builder: (context) {
+//                                      return AlertDialog(
+//                                        title: Text("All Filters"),
+//                                        content: Text('chose the Quantity'),
+//                                        actions: <Widget>[
+//                                          MaterialButton(
+//                                            onPressed: () {
+//                                              Navigator.of(context)
+//                                                  .pop(context);
+//                                            },
+//                                            child: Text('Close'),
+//                                          )
+//                                        ],
+//                                      );
+//                                    });
+//                              return Container(
+//                                height: 80.0,
+//                                color: Colors.red,
+//                                width: 45.0,
+//                              );
                               },
                               child: Icon(
                                 FontAwesomeIcons.slidersH,

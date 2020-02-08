@@ -4,9 +4,15 @@ import 'package:pfe/api/cart_api.dart';
 import 'package:pfe/custom_widgets.dart';
 import 'Home.dart';
 import 'package:pfe/cart/cart.dart';
+import 'package:pfe/cart/cart.dart' as car;
 
 const appBarColor = Color(0xFF01B2C4);
 class Cart extends StatefulWidget {
+
+  dynamic total ;
+
+  Cart(this.total);
+
   @override
   _CartState createState() => _CartState();
 }
@@ -77,7 +83,7 @@ class _CartState extends State<Cart> {
             children: <Widget>[
               Expanded(child: ListTile(
                 title: Text('Total :'),
-                subtitle: (isloading == true)? CircularProgressIndicator(): Text("\$"+total.toString()),
+                subtitle: (isloading == true)? CircularProgressIndicator(): Text("\$"+widget.total.toString()),
               )),
               Expanded(
                   child: MaterialButton(onPressed: (){},
@@ -103,7 +109,7 @@ class _CartState extends State<Cart> {
     );
   }
 
-  Widget _drawProduct(CartItem cartItem){
+  Widget _drawProduct(car.CartItem cartItem){
     return Padding(
       padding: const EdgeInsets.only(left:8.0),
       child: Row(
@@ -158,7 +164,9 @@ class _CartState extends State<Cart> {
                           isloading = true ;
                         });
                         await cartApi.addProductTocart(cartItem.product.product_id, 1);
+                        car.Cart carr = await  cartApi.fetchCart();
                         setState(() {
+                          widget.total =  carr.total.toString() ;
                           isloading = false ;
                         });
 
@@ -171,7 +179,9 @@ class _CartState extends State<Cart> {
                           isloading = true ;
                         });
                         await cartApi.RemoveProductFromCart(cartItem.product.product_id, 1);
+                        car.Cart carr = await  cartApi.fetchCart();
                         setState(() {
+                          widget.total =  carr.total.toString() ;
                           isloading = false ;
                         });
                       }),

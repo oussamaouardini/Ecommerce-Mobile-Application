@@ -9,14 +9,50 @@ import 'package:meta/meta.dart';
 ///*****************************  ******************************************************************************************
 
 
+class drawer extends StatefulWidget {
+  @override
+  _drawerState createState() => _drawerState();
+}
+
+class _drawerState extends State<drawer> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: SizeConfig.blockSizeHorizontal*80,
+      height: MediaQuery.of(context).size.height,
+      color: Colors.white,
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          DrawerHeader(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: NetworkImage('https://upload.wikimedia.org/wikipedia/commons/f/fc/Lineas_de_nasca.jpg'),
+                    fit: BoxFit.cover)),
+            child: Text("Header"),
+          ),
+          ListTile(
+            title: Text("Home"),
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+          )
+        ],
+      ),
+    );
+  }
+}
+
+
 
 
 class Drawerr extends StatefulWidget {
 
-//  final name ;
 //  final email ;
+//  final name ;
 //
-//  Drawerr(this.name, this.email);
+//
+//  Drawerr(this.email, this.name);
 
   @override
   _DrawerrState createState() => _DrawerrState();

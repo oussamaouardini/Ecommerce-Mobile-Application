@@ -18,7 +18,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pfe/Component/drawer.dart';
 import 'package:pfe/general_config/functions.dart';
 import 'package:pfe/user/user_api.dart';
-
+import 'package:pfe/api/cart_api.dart';
+import 'package:pfe/cart/cart.dart' as cart;
 const AppColor = Color(0xF2EEEF);
 const appPadding = 10.0;
 
@@ -88,8 +89,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   int userId = pref.getInt('user_id');
                   String apiToken = pref.getString('api_token');
                   if ((userId != null) || (apiToken != null)) {
+
+                    CartApi cartApi = CartApi() ;
+                    cart.Cart car = await  cartApi.fetchCart();
+
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => new Cart()));
+                        MaterialPageRoute(builder: (context) => new Cart(car.total)));
                   } else {
                     showDialog(
                         context: context,
@@ -150,8 +155,8 @@ class _HomeScreenState extends State<HomeScreen> {
               TitledNavigationBarItem(
                   title: 'Profile', icon: Icons.person_outline),
             ]),
-      //  drawer:Drawerr(),
-        drawer: Drawerr() ,
+        drawer:Drawerr(),
+      //  drawer: drawer() ,
         endDrawer:  ExpansionTileSample(),
         body: Padding(
           padding: const EdgeInsets.only(top: 5),

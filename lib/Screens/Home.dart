@@ -7,6 +7,7 @@ import 'package:pfe/Component/image_caroussel.dart';
 import 'package:pfe/Component/AllSports_list.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pfe/Screens/logIn_screen.dart';
+import 'package:pfe/Screens/search_product.dart';
 import 'package:pfe/custom_widgets.dart';
 import 'package:pfe/general_config/size_config.dart';
 import 'Account.dart';
@@ -20,6 +21,7 @@ import 'package:pfe/general_config/functions.dart';
 import 'package:pfe/user/user_api.dart';
 import 'package:pfe/api/cart_api.dart';
 import 'package:pfe/cart/cart.dart' as cart;
+import 'dart:core';
 const AppColor = Color(0xF2EEEF);
 const appPadding = 10.0;
 
@@ -40,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String apiToken;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
         key: _scaffoldKey,
         backgroundColor: Color(0xFFF0EDED),
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: IconThemeData(color: Colors.white),
           leading: IconButton(
               icon: Icon(Icons.menu),
               onPressed: () async {
@@ -73,16 +76,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
               }),
           elevation: 0.0,
-          backgroundColor: AppColor,
-          title: Text(
-            'HOME',
-            style: TextStyle(
-              color: Colors.black87,
-            ),
-          ),
+          backgroundColor: Color(0XFF191919),
+          title: Image.network("https://cdn.discordapp.com/attachments/671407027871940609/675722336691027978/logo.png"),
+          centerTitle: true,
           actions: <Widget>[
             IconButton(
-                icon: Icon(Icons.shopping_cart, color: Colors.black87),
+                icon: Icon(Icons.shopping_cart, color: Colors.white),
                 onPressed: () async {
                   SharedPreferences pref =
                       await SharedPreferences.getInstance();
@@ -104,11 +103,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                 }),
             CircleAvatar(
-              backgroundColor: Color(0xF2EEEF),
+              backgroundColor: Color(0XFF191919),
               child: IconButton(
                 icon: Icon(
                   Icons.person,
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
                 onPressed: () async {
                   SharedPreferences pref =
@@ -176,10 +175,20 @@ class _HomeScreenState extends State<HomeScreen> {
                           IconButton(
                             splashColor: Colors.grey,
                             icon: Icon(Icons.search, color: Colors.black87),
-                            onPressed: () {},
+                            onPressed: () async {
+                              if(searchController.text.isEmpty ){
+
+                              }else{
+                                ProductApi productApi = ProductApi() ;
+                                List<Product> product = await productApi.fetchProductByName(searchController.text.toString()) ;
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context)=> new SearchProduct(product) ));
+                              }
+
+                            },
                           ),
                           Expanded(
                             child: TextField(
+                              controller:searchController,
                               cursorColor: Colors.black,
                               keyboardType: TextInputType.text,
                               textInputAction: TextInputAction.go,
@@ -288,14 +297,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
 
                 ///  BAR---Recommended For You Section =========
-                Bar(
-                  first: 'Man',
-                  second: 'Women',
-                  third: 'Kids',
-                  firstIcon: FontAwesomeIcons.male,
-                  secondIcon: FontAwesomeIcons.female,
-                  thirdIcon: FontAwesomeIcons.child,
-                  pageController: _pageController,
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Bar(
+                        first: 'Man',
+                        second: 'Women',
+                        third: 'Kids',
+                        firstIcon: FontAwesomeIcons.male,
+                        secondIcon: FontAwesomeIcons.female,
+                        thirdIcon: FontAwesomeIcons.child,
+                        pageController: _pageController,
+                      ),
+                    ),
+                    Container(
+                      color: Colors.blue,
+                      height: SizeConfig.blockSizeHorizontal*13.7,
+                      width: SizeConfig.blockSizeHorizontal*15,
+                    )
+                  ],
                 ),
                 SizedBox(
                   height: 20,

@@ -67,6 +67,26 @@ Future<Product> fetchProduct( int product_id  ) async{
     return products ;
 
   }
+  Future<List<Product>> fetchProductByName( String productName  ) async{
+
+
+    String url = ApiUtl.PRODUCTBYNAMELike(productName);
+    http.Response response = await http.get(url,headers: headers);
+
+    List<Product> products = [];
+    if(response.statusCode == 200){
+      var body =  jsonDecode(response.body);
+       for(var item in body['data'] ){
+        products.add(
+            Product.fromJson(item)
+        );
+      }
+       return products ;
+    }else{
+      return null ;
+    }
+
+  }
 
 
 

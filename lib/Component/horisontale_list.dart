@@ -12,37 +12,52 @@ class Horizintal_list extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Color(0xF2EEEF),
-
       height: 350.0,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: <Widget>[
           Category(
-            image_location: 'images/AllSports/run100.png',
+            image_location: 'images/flashseles/blue.png',
+            image_caption: 'shirt',
+          ),Category(
+            image_location: 'images/flashseles/choes.png',
+            image_caption: 'shirt',
+          ),Category(
+            image_location: 'images/flashseles/colone.png',
+            image_caption: 'shirt',
+          ),Category(
+            image_location: 'images/flashseles/girl.jpg',
+            image_caption: 'shirt',
+          ),Category(
+            image_location: 'images/flashseles/girlpink.jpg',
+            image_caption: 'shirt',
+          ),Category(
+            image_location: 'images/flashseles/green.png',
+            image_caption: 'shirt',
+          ),Category(
+            image_location: 'images/flashseles/pink.jpg',
+            image_caption: 'shirt',
+          ),Category(
+            image_location: 'images/flashseles/ramos.png',
+            image_caption: 'shirt',
+          ),Category(
+            image_location: 'images/flashseles/red.png',
+            image_caption: 'shirt',
+          ),Category(
+            image_location: 'images/flashseles/shoes1.png',
             image_caption: 'shirt',
           ),
           Category(
-            image_location: 'images/cats/dress.png',
-            image_caption: 'dress',
+            image_location: 'images/AllSports/run100.png',
+            image_caption: 'shirt',
           ),
+
           Category(
-            image_location: 'images/cats/jeans.png',
-            image_caption: 'Pants',
-          ),
-          Category(
-            image_location: 'images/cats/formal.png',
-            image_caption: 'formal',
-          ),
-          Category(
-            image_location: 'images/cats/informal.png',
-            image_caption: 'informal',
-          ),
-          Category(
-            image_location: 'images/cats/shoe.png',
+            image_location: 'images/flashseles/shoes2.png',
             image_caption: 'shoes',
           ),
           Category(
-            image_location: 'images/cats/accessories.png',
+            image_location: 'images/flashseles/slip.png',
             image_caption: 'accessories',
           ),
         ],

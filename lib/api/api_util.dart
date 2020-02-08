@@ -59,5 +59,8 @@ class ApiUtl {
   static String PRODUCTBYID(int id) {
     return MAIN_API_URL +'products/'+id.toString();
   }
+  static String PRODUCTBYNAMELike(String name) {
+    return MAIN_API_URL +'products/search/'+name.toString();
+  }
 
 }

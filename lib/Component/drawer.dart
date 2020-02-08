@@ -84,6 +84,7 @@ class _DrawerrState extends State<Drawerr> {
       child: Column(
         children: <Widget>[
           Container(
+            color: Color(0XFF191919),
             child: ((apiToken == null) && (userId == null) ) ? _drawNoUser():FutureBuilder(
                 future: userApi.fetchUser(userId),
                 builder: (BuildContext context, AsyncSnapshot<User> snapShot) {
@@ -257,7 +258,7 @@ class _DrawerrState extends State<Drawerr> {
 
   Widget _drawUser( User user ){
     return UserAccountsDrawerHeader(
-      accountName: Text( user.first_name +''+user.last_name ),
+      accountName: Text( user.first_name +' '+user.last_name ),
       accountEmail: Text(user.email),
       currentAccountPicture: GestureDetector(
         child: CircleAvatar(
@@ -268,7 +269,7 @@ class _DrawerrState extends State<Drawerr> {
           ),
         ),
       ),
-      decoration: BoxDecoration(color: Colors.grey),
+      decoration: BoxDecoration(color:Color(0XFF191919)),
     );
   }
   Widget _drawNoUser(){

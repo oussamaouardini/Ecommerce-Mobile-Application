@@ -264,7 +264,6 @@ class _Product_detailsState extends State<Product_details> {
   bool loading = false ;
   @override
   Widget build(BuildContext context) {
-    print(widget.productCategory);
     return WillPopScope(
       onWillPop: (){
         return moveToLastScreen();
@@ -692,21 +691,8 @@ class _Product_detailsState extends State<Product_details> {
                trailing: IconButton(icon: Icon(Icons.arrow_forward_ios,size: 16.0,), onPressed: (){
                  Navigator.push(context, new MaterialPageRoute(builder: (context)=> new ProductRaiting(widget.product_id) ));
                }),
-               subtitle: Row(
-                 children: <Widget>[
-                   Container(
-                     decoration: BoxDecoration(
-                    //   color: Colors.yellow,
-                       border: Border.all(
-                         color: Colors.amberAccent,
-                         width: 2.0
-                       ),
-                     ),
-                   ),
-                   Text('  ('+widget.productReviewCount.toString()+' raiting)',
-                       style: TextStyle(color: Colors.black)),
-                 ],
-               ),
+               subtitle: Text('  ('+widget.productReviewCount.toString()+' raiting)',
+                   style: TextStyle(color: Colors.black)),
                // subtitle: ,
               ),
             ),

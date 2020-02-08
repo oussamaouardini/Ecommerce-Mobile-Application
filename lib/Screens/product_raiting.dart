@@ -13,6 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:titled_navigation_bar/titled_navigation_bar.dart';
 import 'package:rating_bar/rating_bar.dart';
 import 'package:pfe/api/cart_api.dart';
+import 'package:readmore/readmore.dart';
 class ProductRaiting extends StatefulWidget {
    final productId ;
 
@@ -79,7 +80,7 @@ class _ProductRaitingState extends State<ProductRaiting> {
   }
 
   _review(ProductReview productReview ){
-    String st = productReview.stars.toString();
+    var st = productReview.stars;
     String review = productReview.review ;
     return Container(
       //  height: 150.0,
@@ -94,7 +95,7 @@ class _ProductRaitingState extends State<ProductRaiting> {
                 children: <Widget>[
                   Container(
                     child: RatingBar.readOnly(
-                      initialRating: double.parse(st),
+                      initialRating: st.toDouble(),
                       isHalfAllowed: true,
                       halfFilledIcon: Icons.star_half,
                       filledIcon: Icons.star,
@@ -106,46 +107,13 @@ class _ProductRaitingState extends State<ProductRaiting> {
                   ),
                 ],
               ),
-              Padding(
-                padding: EdgeInsets.only(
-                    left: 8.0,
-                    right: 8.0),
-                child: AnimatedCrossFade(
-                  firstChild: Text(
-                    review,
-                    maxLines: 1,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 13.0
-                      //    fontSize: screenAwareSize(10.0, context),
-                      //  fontFamily: "Montserrat-Medium"
-                    ),
-                  ),
-                  secondChild: Text(
-                    review,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15.0
-                      // fontFamily: "Montserrat-Medium"
-                    ),
-                  ),
-                  crossFadeState: isExpandedreview
-                      ? CrossFadeState.showSecond
-                      : CrossFadeState.showFirst,
-                  duration: kThemeAnimationDuration,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                    left: 8.0,
-                    right: 8.0),
-                child: GestureDetector(
-                    onTap: _expandReview,
-                    child: Text(
-                      isExpandedreview ? "less" : "more..",
-                      style: TextStyle(
-                          color: Color(0xFF01B2C4), fontWeight: FontWeight.w700),
-                    )),
+              ReadMoreText(
+                review,
+                trimLines: 2,
+                colorClickableText: Colors.pink,
+                trimMode: TrimMode.Line,
+                trimCollapsedText: '...Show more',
+                trimExpandedText: ' show less',
               ),
             ],
           ),

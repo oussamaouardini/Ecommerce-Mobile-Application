@@ -11,7 +11,6 @@ import 'package:pfe/Screens/search_product.dart';
 import 'package:pfe/custom_widgets.dart';
 import 'package:pfe/general_config/size_config.dart';
 import 'Account.dart';
-import 'package:encrypt/encrypt.dart' as encrypt;
 import 'shoping_cart.dart';
 import 'package:titled_navigation_bar/titled_navigation_bar.dart';
 import 'package:pfe/api/getdata/get_products.dart';

@@ -3,7 +3,7 @@ import 'reviewer.dart';
 class ProductReview{
 
 int review_id , stars ;
-double avgStart ;
+dynamic avgStart ;
 
 String review ;
 Reviewer reviewer ;

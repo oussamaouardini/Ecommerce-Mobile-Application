@@ -3,18 +3,19 @@ import 'package:flutter/rendering.dart';
 import 'package:pfe/Screens/Click_Product.dart';
 import 'dart:math';
 
+bool hassan = true;
 
-bool hassan = true ;
 class Products extends StatefulWidget {
+  final tagSection;
 
-  final tagSection ;
   Products({this.tagSection});
+
   @override
   _ProductsState createState() => _ProductsState();
 }
 
 class _ProductsState extends State<Products> {
-  var Product_List = [
+  var productList = [
     {
       'name': "blazer",
       'picture': "images/products/blazer1.jpeg",
@@ -65,52 +66,29 @@ class _ProductsState extends State<Products> {
     },
   ];
 
-
-
   @override
   void initState() {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     return GridView.builder(
       addAutomaticKeepAlives: false,
-      itemCount: Product_List.length,
+      itemCount: productList.length,
       gridDelegate:
-      SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
       itemBuilder: (BuildContext context, int index) {
         return Single_product(
-          product_name: Product_List[index]['name'],
-          product_pic: Product_List[index]['picture'],
-          product_price: Product_List[index]['price'],
-          product_old_price: Product_List[index]['old_price'],
+          product_name: productList[index]['name'],
+          product_pic: productList[index]['picture'],
+          product_price: productList[index]['price'],
+          product_old_price: productList[index]['old_price'],
         );
       },
     );
   }
 }
-
-
-/*
-GridView.builder(
-            //physics: bondary_bottom ? const  NeverScrollableScrollPhysics() : const AlwaysScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: Product_List.length,
-            gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-            itemBuilder: (BuildContext context, int index) {
-              return Single_product(
-                product_name: Product_List[index]['name'],
-                product_pic: Product_List[index]['picture'],
-                product_price: Product_List[index]['price'],
-                product_old_price: Product_List[index]['old_price'],
-              );
-            },
-      ),
- */
 
 class Single_product extends StatelessWidget {
   final product_name;
@@ -121,35 +99,34 @@ class Single_product extends StatelessWidget {
 
   final product_old_price;
 
- static Random random =  new Random();
+  static Random random = new Random();
   int randNb = random.nextInt(100);
+
   Single_product(
       {this.product_name,
       this.product_pic,
       this.product_price,
       this.product_old_price});
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Card(
         child: Hero(
-          // Todo :: Make sure you establish the product tag very good
-            tag: product_name+'$randNb',
+            // Todo :: Make sure you establish the product tag very good
+            tag: product_name + '$randNb',
             child: Material(
               child: InkWell(
                 onTap: () {
-                  hassan = false ;
+                  hassan = false;
 
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Product_details(product_details_name: product_name,
-                    product_details_picture: product_pic,
-                    product_details_price: product_price,
-                    product_details_oldPrice: product_old_price,)));
-
-
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Product_details(
+                            product_details_name: product_name,
+                            product_details_picture: product_pic,
+                            product_details_price: product_price,
+                            product_details_oldPrice: product_old_price,
+                          )));
                 },
                 child: GridTile(
                     footer: Container(
@@ -186,8 +163,6 @@ class Single_product extends StatelessWidget {
   }
 }
 
-
-
 class Sp extends StatelessWidget {
   final product_name;
 
@@ -199,9 +174,9 @@ class Sp extends StatelessWidget {
 
   Sp(
       {this.product_name,
-        this.product_pic,
-        this.product_price,
-        this.product_old_price});
+      this.product_pic,
+      this.product_price,
+      this.product_old_price});
 
   @override
   Widget build(BuildContext context) {

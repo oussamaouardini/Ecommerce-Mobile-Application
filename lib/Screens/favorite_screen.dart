@@ -2,99 +2,75 @@ import 'package:flutter/material.dart';
 import 'package:pfe/api/like_api.dart';
 import 'package:pfe/like/like.dart';
 
-
-
-
 class Favorite extends StatefulWidget {
-  final user_id ;
-  Favorite({this.user_id});
+  final userId;
+
+  Favorite({this.userId});
+
   @override
   _FavoriteState createState() => _FavoriteState();
 }
 
 class _FavoriteState extends State<Favorite> {
+  static int userId;
 
-  static int user_id ;
-  bool isloading = false ;
-  LikeApi likeApi = LikeApi() ;
+  bool isLoading = false;
+
+  LikeApi likeApi = LikeApi();
+
   @override
   Widget build(BuildContext context) {
-    user_id = widget.user_id ;
+    userId = widget.userId;
     return Scaffold(
-      appBar: AppBar(),
-      body: (isloading == false) ? FutureBuilder(
-          future: likeApi.fetchUserLikes(user_id),
-          builder: (BuildContext context, AsyncSnapshot<List<Like>> snapShot) {
-            switch (snapShot.connectionState) {
-              case ConnectionState.none:
-              case ConnectionState.waiting:
-              case ConnectionState.active:
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-                break;
-              case ConnectionState.done:
-                if (snapShot.hasError) {
-                  return Text('Error');
-                } else {
-                  if(snapShot.hasData){
-                    return ListView.builder(
-                        itemCount:snapShot.data.length ,
-                        itemBuilder: (BuildContext context , int position){
-                          return _drawProduct(snapShot.data[position]);
+        appBar: AppBar(),
+        body: (isLoading == false)
+            ? FutureBuilder(
+                future: likeApi.fetchUserLikes(userId),
+                builder:
+                    (BuildContext context, AsyncSnapshot<List<Like>> snapShot) {
+                  switch (snapShot.connectionState) {
+                    case ConnectionState.none:
+                    case ConnectionState.waiting:
+                    case ConnectionState.active:
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                      break;
+                    case ConnectionState.done:
+                      if (snapShot.hasError) {
+                        return Text('Error');
+                      } else {
+                        if (snapShot.hasData) {
+                          return ListView.builder(
+                              itemCount: snapShot.data.length,
+                              itemBuilder:
+                                  (BuildContext context, int position) {
+                                return _drawProduct(snapShot.data[position]);
+                              });
+                        } else {
+                          return Text("NO data");
                         }
-                    );
-                  }else{
-                    return Text("NO data");
+                      }
+                      break;
                   }
-                }
-                break;
-            }
-            return Container();
-          }): _showLoading()
-    );
+                  return Container();
+                })
+            : _showLoading());
   }
 
-  Widget _showLoading(){
+  Widget _showLoading() {
     return Container(
-      child:Center(
+      child: Center(
         child: CircularProgressIndicator(),
-      ) ,
-    );
-  }
-
-  Widget __drawProduct(Like like){
-    return Container(
-      child: ListView(
-        children: <Widget>[
-          ListTile(
-            leading: FlutterLogo(size: 60.0),
-            title: Text('ff'),
-            subtitle: Text('\$ '+like.product.product_price.toString()),
-            trailing: Column(
-              children: <Widget>[
-
-                Expanded(child: IconButton(
-                  icon: Icon(Icons.favorite ,color: Colors.red, ),
-                  onPressed: (){},
-                ))
-
-              ],
-            ),
-            // isThreeLine: true,
-          ),
-
-        ],
       ),
     );
   }
 
-
-  Widget _drawProduct(Like like){
+  Widget _drawProduct(Like like) {
     return Padding(
-      padding: const EdgeInsets.only(left:8.0,top: 8.0),
+      padding: const EdgeInsets.only(left: 8.0, top: 8.0),
       child: Row(
-        mainAxisAlignment:MainAxisAlignment.spaceBetween ,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Flexible(
             child: Column(
@@ -106,16 +82,14 @@ class _FavoriteState extends State<Favorite> {
                       width: 90,
                       height: 90,
                       decoration: BoxDecoration(
-                        //  color: Colors.red,
+                          //  color: Colors.red,
                           image: DecorationImage(
-                            fit: BoxFit.cover,
-                            // image: NetworkImage(cartItem.product.featured_image()),
-                            image: AssetImage(
-                              'images/IMG_1266.JPG',
-
-                            ),
-                          )
-                      ),
+                        fit: BoxFit.cover,
+                        // image: NetworkImage(cartItem.product.featured_image()),
+                        image: AssetImage(
+                          'images/IMG_1266.JPG',
+                        ),
+                      )),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -123,8 +97,10 @@ class _FavoriteState extends State<Favorite> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(like.product.product_title),
-                          SizedBox(height: 5.0,),
-                          Text('\$ '+like.product.product_price.toString())
+                          SizedBox(
+                            height: 5.0,
+                          ),
+                          Text('\$ ' + like.product.product_price.toString())
                         ],
                       ),
                     )
@@ -137,18 +113,21 @@ class _FavoriteState extends State<Favorite> {
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  IconButton(icon: Icon(Icons.favorite,color: Colors.red,),
-                      onPressed: () async{
+                  IconButton(
+                      icon: Icon(
+                        Icons.favorite,
+                        color: Colors.red,
+                      ),
+                      onPressed: () async {
                         setState(() {
-                          isloading = true ;
+                          isLoading = true;
                         });
-                        await likeApi.removeUserLike(user_id, like.product.product_id);
+                        await likeApi.removeUserLike(
+                            userId, like.product.product_id);
                         setState(() {
-                          isloading = false ;
+                          isLoading = false;
                         });
-
                       }),
-
                 ],
               )
             ],

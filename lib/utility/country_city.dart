@@ -1,12 +1,12 @@
 class CountryCity {
-  int city_id;
+  int cityId;
 
-  String city_name;
+  String cityName;
 
-  CountryCity(this.city_id, this.city_name);
+  CountryCity(this.cityId, this.cityName);
 
   CountryCity.fromJson(Map<String, dynamic> jsonObject) {
-    this.city_id = jsonObject["city_id"];
-    this.city_name = jsonObject["city_name"];
+    this.cityId = jsonObject["city_id"];
+    this.cityName = jsonObject["city_name"];
   }
 }

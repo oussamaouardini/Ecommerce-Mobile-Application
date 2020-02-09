@@ -6,6 +6,10 @@ import 'Home.dart';
 import 'package:pfe/cart/cart.dart';
 import 'package:pfe/cart/cart.dart' as car;
 
+
+
+int i = 0 ;
+
 const appBarColor = Color(0xFF01B2C4);
 class Cart extends StatefulWidget {
 
@@ -25,6 +29,7 @@ class _CartState extends State<Cart> {
 
   @override
   Widget build(BuildContext context) {
+    i = 0 ;
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -59,13 +64,18 @@ class _CartState extends State<Cart> {
                   break;
                 case ConnectionState.done:
                   if (snapShot.hasError) {
-                    return Text('Error');
+                    return _showError(snapShot.error.toString());
                   } else {
                     if(snapShot.hasData){
                       return ListView.builder(
                         itemCount:snapShot.data.cartItems.length ,
                           itemBuilder: (BuildContext context , int position){
-                          return _drawProduct(snapShot.data.cartItems[position]);
+
+                          if(snapShot.data.cartItems[position].quantity == 0.0   ){
+                            return null ;
+                          }else{
+                            return _drawProduct(snapShot.data.cartItems[position]);
+                          }
                           }
                           );
                     }else{
@@ -105,6 +115,19 @@ class _CartState extends State<Cart> {
     return Container(
       child:Center(
         child: CircularProgressIndicator(),
+      ) ,
+    );
+  }
+  Widget _showError(String error){
+    return Container(
+      child:Column(
+        children: <Widget>[
+          Center(
+            child: Icon(Icons.error_outline,size: 80.0,),
+          ),
+          Text("Sorry Something Went Wrong"),
+          Text(error.toString())
+        ],
       ) ,
     );
   }
@@ -163,7 +186,7 @@ class _CartState extends State<Cart> {
                         setState(() {
                           isloading = true ;
                         });
-                        await cartApi.addProductTocart(cartItem.product.product_id, 1);
+                        await cartApi.addProductToCart(cartItem.product.product_id, 1);
                         car.Cart carr = await  cartApi.fetchCart();
                         setState(() {
                           widget.total =  carr.total.toString() ;
@@ -178,7 +201,7 @@ class _CartState extends State<Cart> {
                         setState(() {
                           isloading = true ;
                         });
-                        await cartApi.RemoveProductFromCart(cartItem.product.product_id, 1);
+                        await cartApi.removeProductFromCart(cartItem.product.product_id, 1);
                         car.Cart carr = await  cartApi.fetchCart();
                         setState(() {
                           widget.total =  carr.total.toString() ;

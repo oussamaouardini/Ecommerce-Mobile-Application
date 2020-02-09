@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:pfe/Component/Bar.dart';
 import 'package:pfe/Component/horisontale_list.dart';
@@ -21,6 +20,7 @@ import 'package:pfe/user/user_api.dart';
 import 'package:pfe/api/cart_api.dart';
 import 'package:pfe/cart/cart.dart' as cart;
 import 'dart:core';
+
 const AppColor = Color(0xF2EEEF);
 const appPadding = 10.0;
 
@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
   UserApi userApi = UserApi();
 
   final PageController _pageController = new PageController();
-  final PageController _secondpageController = new PageController();
+  final PageController _secondPageController = new PageController();
   int changePage = 0;
   int currentIndex = 0;
   int userId;
@@ -46,7 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    User currentuser ;
     return WillPopScope(
       onWillPop: () {
         return moveToLastScreen();
@@ -64,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 String apiToken = pref.getString('api_token');
 
                 if ((userId != null) || (apiToken != null)) {
-                //  currentuser = await userApi.fetchUser(userId);
+                  //  currentuser = await userApi.fetchUser(userId);
                   _scaffoldKey.currentState.openDrawer();
                 } else {
                   showDialog(
@@ -76,7 +75,8 @@ class _HomeScreenState extends State<HomeScreen> {
               }),
           elevation: 0.0,
           backgroundColor: Color(0XFF191919),
-          title: Image.network("https://cdn.discordapp.com/attachments/671407027871940609/675722336691027978/logo.png"),
+          title: Image.network(
+              "https://cdn.discordapp.com/attachments/671407027871940609/675722336691027978/logo.png"),
           centerTitle: true,
           actions: <Widget>[
             IconButton(
@@ -87,12 +87,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   int userId = pref.getInt('user_id');
                   String apiToken = pref.getString('api_token');
                   if ((userId != null) || (apiToken != null)) {
+                    CartApi cartApi = CartApi();
+                    cart.Cart car = await cartApi.fetchCart();
 
-                    CartApi cartApi = CartApi() ;
-                    cart.Cart car = await  cartApi.fetchCart();
-
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => new Cart(car.total)));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => new Cart(car.total)));
                   } else {
                     showDialog(
                         context: context,
@@ -100,7 +101,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           return Alert();
                         });
                   }
-                }),
+                }
+                ),
             CircleAvatar(
               backgroundColor: Color(0XFF191919),
               child: IconButton(
@@ -119,13 +121,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => new Account(
-                                  firstName: user.first_name,
-                                  lastName: user.last_name,
+                                  firstName: user.firstName,
+                                  lastName: user.lastName,
                                   email: user.email,
                                   password: user.password,
-                              memberSince: user.memberSince,
-                              mobile: user.mobile,
-                              shippingAdress: user.shippingAddress,
+                                  memberSince: user.memberSince,
+                                  mobile: user.mobile,
+                                  shippingAddress: user.shippingAddress,
                                 )));
                   } else {
                     showDialog(
@@ -142,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
         bottomNavigationBar: TitledBottomNavigationBar(
             currentIndex: 0,
             onTap: (index) async {
-              functions.route_bottom_bar(index, context);
+              Functions.routeBottomBar(index, context);
             },
             items: [
               TitledNavigationBarItem(title: 'Home', icon: Icons.home),
@@ -153,9 +155,9 @@ class _HomeScreenState extends State<HomeScreen> {
               TitledNavigationBarItem(
                   title: 'Profile', icon: Icons.person_outline),
             ]),
-        drawer:Drawerr(),
-      //  drawer: drawer() ,
-        endDrawer:  ExpansionTileSample(),
+        drawer: Drawerr(),
+        //  drawer: drawer() ,
+        endDrawer: ExpansionTileSample(),
         body: Padding(
           padding: const EdgeInsets.only(top: 5),
           child: Container(
@@ -175,19 +177,21 @@ class _HomeScreenState extends State<HomeScreen> {
                             splashColor: Colors.grey,
                             icon: Icon(Icons.search, color: Colors.black87),
                             onPressed: () async {
-                              if(searchController.text.isEmpty ){
-
-                              }else{
-                                ProductApi productApi = ProductApi() ;
-                                List<Product> product = await productApi.fetchProductByName(searchController.text.toString()) ;
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context)=> new SearchProduct(product) ));
+                              if (searchController.text.isEmpty) {
+                              } else {
+                                ProductApi productApi = ProductApi();
+                                List<Product> product =
+                                    await productApi.fetchProductByName(
+                                        searchController.text.toString());
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        new SearchProduct(product)));
                               }
-
                             },
                           ),
                           Expanded(
                             child: TextField(
-                              controller:searchController,
+                              controller: searchController,
                               cursorColor: Colors.black,
                               keyboardType: TextInputType.text,
                               textInputAction: TextInputAction.go,
@@ -203,28 +207,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: MaterialButton(
                               onPressed: () {
                                 _scaffoldKey.currentState.openEndDrawer();
-//                                showDialog(
-//                                    context: context,
-//                                    builder: (context) {
-//                                      return AlertDialog(
-//                                        title: Text("All Filters"),
-//                                        content: Text('chose the Quantity'),
-//                                        actions: <Widget>[
-//                                          MaterialButton(
-//                                            onPressed: () {
-//                                              Navigator.of(context)
-//                                                  .pop(context);
-//                                            },
-//                                            child: Text('Close'),
-//                                          )
-//                                        ],
-//                                      );
-//                                    });
-//                              return Container(
-//                                height: 80.0,
-//                                color: Colors.red,
-//                                width: 45.0,
-//                              );
                               },
                               child: Icon(
                                 FontAwesomeIcons.slidersH,
@@ -239,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: const EdgeInsets.only(
                       right: appPadding, left: appPadding),
-                  child: ImageCarousel,
+                  child: imageCarousel,
                 ),
 
                 /// Flash Seles Section  ==========================================================
@@ -269,7 +251,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-                Horizintal_list(),
+                HorizontalList(),
 
                 /// Recommended For You Section ==========================================================
                 Padding(
@@ -310,9 +292,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     Container(
-                      color: Colors.blue,
-                      height: SizeConfig.blockSizeHorizontal*13.7,
-                      width: SizeConfig.blockSizeHorizontal*15,
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(40.0), bottomLeft: Radius.circular(40.0) )
+                      ),
+                      height: SizeConfig.blockSizeHorizontal * 13.7,
+                      width: SizeConfig.blockSizeHorizontal * 15,
+                      child: Icon(FontAwesomeIcons.slidersH,),
                     )
                   ],
                 ),
@@ -379,7 +365,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   firstIcon: FontAwesomeIcons.male,
                   secondIcon: FontAwesomeIcons.female,
                   thirdIcon: FontAwesomeIcons.child,
-                  pageController: _secondpageController,
+                  pageController: _secondPageController,
                 ),
                 SizedBox(
                   height: 20,
@@ -388,7 +374,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: SizeConfig.blockSizeVertical * 60,
                   child: PageView(
                     physics: NeverScrollableScrollPhysics(),
-                    controller: _secondpageController,
+                    controller: _secondPageController,
                     children: <Widget>[
                       Container(
                         child: getProducts(
@@ -524,3 +510,4 @@ class Alert extends StatelessWidget {
     );
   }
 }
+

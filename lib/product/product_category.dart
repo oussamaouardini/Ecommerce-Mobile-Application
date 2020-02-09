@@ -1,14 +1,14 @@
 class ProductCategory{
 
-  int category_id ;
-  String category_name ;
+  int categoryId ;
+  String categoryName ;
 
 
-ProductCategory({this.category_id,this.category_name});
+ProductCategory({this.categoryId,this.categoryName});
 
 ProductCategory.fromJson( Map<String, dynamic> jsonObject ){
-  this.category_id = jsonObject['category_id'];
-  this.category_name = jsonObject['category_name'];
+  this.categoryId = jsonObject['category_id'];
+  this.categoryName = jsonObject['category_name'];
 }
 
 

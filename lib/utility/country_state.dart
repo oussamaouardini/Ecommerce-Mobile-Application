@@ -1,12 +1,12 @@
 class CountryState {
-  int state_id;
+  int stateId;
 
-  String state_name;
+  String stateName;
 
-  CountryState(this.state_id, this.state_name);
+  CountryState(this.stateId, this.stateName);
 
   CountryState.fromJson(Map<String, dynamic> jsonObject) {
-    this.state_id = jsonObject['state_id'];
-    this.state_name = jsonObject['state_name'];
+    this.stateId = jsonObject['state_id'];
+    this.stateName = jsonObject['state_name'];
   }
 }

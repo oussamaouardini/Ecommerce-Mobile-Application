@@ -2,16 +2,16 @@ import 'reviewer.dart';
 
 class ProductReview{
 
-int review_id , stars ;
+int reviewId , stars ;
 dynamic avgStart ;
 
 String review ;
 Reviewer reviewer ;
 
-ProductReview(this.review_id, this.stars, this.review, this.reviewer);
+ProductReview(this.reviewId, this.stars, this.review, this.reviewer);
 
 ProductReview.fromJson(Map<String,dynamic> jsonObject ){
-  this.review_id = jsonObject['review_id'];
+  this.reviewId = jsonObject['review_id'];
   this.stars = jsonObject['stars'];
   this.review = jsonObject['review'];
   this.reviewer = Reviewer.fromJson(jsonObject['reviewer']);

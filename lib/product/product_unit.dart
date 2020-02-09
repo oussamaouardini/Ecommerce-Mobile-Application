@@ -1,17 +1,17 @@
 class ProductUnit{
 
 
-  int unit_id ;
-  String unit_name , unit_code ;
+  int unitId ;
+  String unitName , unitCode ;
 
 
-ProductUnit({this.unit_id,this.unit_name,this.unit_code});
+ProductUnit({this.unitId,this.unitName,this.unitCode});
 
 ProductUnit.fromJson(Map<String,dynamic> jsonObject ){
 
-  this.unit_id = jsonObject['unit_id'];
-  this.unit_name = jsonObject['unit_name'];
-  this.unit_code = jsonObject['unit_code'];
+  this.unitId = jsonObject['unit_id'];
+  this.unitName = jsonObject['unit_name'];
+  this.unitCode = jsonObject['unit_code'];
 
 
 }

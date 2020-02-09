@@ -1,13 +1,13 @@
 class Country {
-  int country_id;
+  int countryId;
 
-  String country_name, capital, currency;
+  String countryName, capital, currency;
 
-  Country(this.country_id, this.country_name, this.capital, this.currency);
+  Country(this.countryId, this.countryName, this.capital, this.currency);
 
   Country.fromJson(Map<String, dynamic> jsonObject) {
-    this.country_id = jsonObject['country_id'];
-    this.country_name = jsonObject['country_name'];
+    this.countryId = jsonObject['country_id'];
+    this.countryName = jsonObject['country_name'];
     this.capital = jsonObject['capital'];
     this.currency = jsonObject['currency'];
   }

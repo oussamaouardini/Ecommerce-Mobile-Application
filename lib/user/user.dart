@@ -1,29 +1,17 @@
-import 'package:pfe/product/product_category.dart';
-import 'package:pfe/product/product_unit.dart';
-import 'package:pfe/product/product_tag.dart';
-import 'package:pfe/review/product_review.dart';
-import 'package:pfe/exceptions/exceptions.dart';
-
 class User {
+  int userId;
 
+  String firstName, lastName, email, mobile, shippingAddress;
 
-  int user_id;
+  User(this.userId, this.firstName, this.lastName, this.email, this.mobile,
+      this.shippingAddress);
 
-  String first_name, last_name , email ,mobile ,shipping_address;
-
-
-  User(this.user_id, this.first_name, this.last_name, this.email, this.mobile,
-      this.shipping_address);
-
-  User.fromJson(Map<String, dynamic> jsonObject){
-
-    this.user_id = jsonObject['user_id'];
-    this.first_name = jsonObject['first_name'];
-    this.last_name = jsonObject['last_name'];
-    this.email=jsonObject['email'];
-    this.mobile= jsonObject['mobile'];
-    this.shipping_address=jsonObject['shipping_address'];
-
+  User.fromJson(Map<String, dynamic> jsonObject) {
+    this.userId = jsonObject['user_id'];
+    this.firstName = jsonObject['first_name'];
+    this.lastName = jsonObject['last_name'];
+    this.email = jsonObject['email'];
+    this.mobile = jsonObject['mobile'];
+    this.shippingAddress = jsonObject['shipping_address'];
   }
-
 }

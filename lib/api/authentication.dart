@@ -51,7 +51,7 @@ class Authentication {
       var body = jsonDecode(response.body );
       var data = body['data'];
       User user = User.fromJson(data);
-      await _saveUser(user.user_id,user.api_token);
+      await _saveUser(user.userId,user.apiToken);
       return user ;
     }else{
       // registration failed

@@ -6,32 +6,30 @@ class CardList extends StatelessWidget {
     return Container(
       child: ListView(
         children: <Widget>[
-           ListTile(
-                leading: FlutterLogo(size: 60.0),
-                title: Text('Addidas Phantom'),
-                subtitle: Text(
-                    '\$63'
+          ListTile(
+            leading: FlutterLogo(size: 60.0),
+            title: Text('Addidas Phantom'),
+            subtitle: Text('\$63'),
+            trailing: Column(
+              children: <Widget>[
+                Expanded(
+                    child: IconButton(
+                  icon: Icon(Icons.add_circle_outline),
+                  onPressed: () {},
+                )),
+                SizedBox(
+                  height: 20,
                 ),
-                trailing: Column(
-                  children: <Widget>[
-                    Expanded(child: IconButton(
-                      icon: Icon(Icons.add_circle_outline),
-                      onPressed: (){},
-                    )),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Expanded(child: Text("1")),
-                    Expanded(child: IconButton(
-                      icon: Icon(Icons.remove_circle  ),
-                      onPressed: (){},
-                    ))
-
-                  ],
-                ),
-               // isThreeLine: true,
-              ),
-
+                Expanded(child: Text("1")),
+                Expanded(
+                    child: IconButton(
+                  icon: Icon(Icons.remove_circle),
+                  onPressed: () {},
+                ))
+              ],
+            ),
+            // isThreeLine: true,
+          ),
         ],
       ),
     );

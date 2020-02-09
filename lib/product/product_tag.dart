@@ -1,14 +1,14 @@
 class ProductTag{
 
-int tag_id ;
-String tag_name ;
+int tagId ;
+String tagName ;
 
-ProductTag({this.tag_id,this.tag_name});
+ProductTag({this.tagId,this.tagName});
 
 
 ProductTag.fromJson(Map<String,dynamic> jsonObject ){
-this.tag_id = jsonObject['tag_id'];
-this.tag_name = jsonObject['tag_name'];
+this.tagId = jsonObject['tag_id'];
+this.tagName = jsonObject['tag_name'];
 }
 
 

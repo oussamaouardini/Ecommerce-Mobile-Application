@@ -1,24 +1,24 @@
 class User {
-  String first_name;
-  String last_name;
+  String firstName;
+  String lastName;
   String email;
-  String api_token;
-  int user_id;
+  String apiToken;
+  int userId;
 
   String password;
   String memberSince , shippingAddress ;
   String mobile;
 
-  User(this.first_name, this.last_name, this.email,
-      [this.api_token, this.user_id , this.password , this.memberSince , this.shippingAddress, this.mobile ]);
+  User(this.firstName, this.lastName, this.email,
+      [this.apiToken, this.userId , this.password , this.memberSince , this.shippingAddress, this.mobile ]);
 
   User.fromJson(Map<String, dynamic> jsonObject) {
 
-    this.user_id = jsonObject['user_id'];
-    this.first_name = jsonObject['first_name'];
-    this.last_name = jsonObject['last_name'];
+    this.userId = jsonObject['user_id'];
+    this.firstName = jsonObject['first_name'];
+    this.lastName = jsonObject['last_name'];
     this.email = jsonObject['email'];
-    this.api_token = jsonObject['api_token'];
+    this.apiToken = jsonObject['api_token'];
     this.password = jsonObject['password'];
     this.memberSince = jsonObject['member_since'];
     this.mobile = jsonObject['mobile'];

@@ -50,27 +50,32 @@ class AllSportsList extends StatelessWidget {
             name: 'Surfing',
             id: 8,
           ),
-
         ],
       ),
     );
   }
 }
 
-
-
 class Item extends StatelessWidget {
+  final imageLocation;
 
-  final imageLocation ;
-  final id ;
-  final name ;
-  Item({this.imageLocation,this.name,this.id});
+  final id;
+
+  final name;
+
+  Item({this.imageLocation, this.name, this.id});
 
   @override
   Widget build(BuildContext context) {
-    return  InkWell(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> new ProductCategory(categoryId: this.id,categoryName: this.name,)));
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => new ProductCategory(
+                      categoryId: this.id,
+                      categoryName: this.name,
+                    )));
       },
       child: Container(
         margin: EdgeInsets.all(10.0),
@@ -79,28 +84,29 @@ class Item extends StatelessWidget {
         decoration: new BoxDecoration(
           borderRadius: BorderRadius.circular(80.0),
           image: DecorationImage(
-            image: new AssetImage(
-                imageLocation
-            ),
+            image: new AssetImage(imageLocation),
             fit: BoxFit.fill,
           ),
         ),
         child: Stack(
           children: <Widget>[
-            Opacity(opacity: 0.6,
+            Opacity(
+              opacity: 0.6,
               child: Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10.0),
-                  color: Colors.black45
-                ),
+                    color: Colors.black45),
               ),
             ),
             Container(
-              child: Center(child: Text(name,style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 40.0,
-                  fontWeight: FontWeight.bold
-              ),)),
+              child: Center(
+                  child: Text(
+                name,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 40.0,
+                    fontWeight: FontWeight.bold),
+              )),
             )
           ],
         ),

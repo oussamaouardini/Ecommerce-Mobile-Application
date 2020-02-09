@@ -1,13 +1,13 @@
 class Reviewer{
 
-  String first_name, last_name , formated_name ;
+  String firstName, lastName , formatedName ;
 
-  Reviewer(this.first_name, this.last_name, this.formated_name);
+  Reviewer(this.firstName, this.lastName, this.formatedName);
 
   Reviewer.fromJson(  Map<String,dynamic>  jsonObject ){
-    this.first_name = jsonObject['first_name'];
-    this.last_name = jsonObject['last_name'];
-    this.formated_name = jsonObject['formated_name'];
+    this.firstName = jsonObject['first_name'];
+    this.lastName = jsonObject['last_name'];
+    this.formatedName = jsonObject['formated_name'];
   }
 
 }

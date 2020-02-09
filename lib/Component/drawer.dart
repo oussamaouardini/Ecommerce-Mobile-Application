@@ -219,7 +219,7 @@ class _DrawerrState extends State<Drawerr> {
                           SharedPreferences prefs = await SharedPreferences.getInstance();
                           prefs.remove('api_token');
                           prefs.remove('user_id');
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> logout()  ));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> LogOut()  ));
                         }
 
                       },
@@ -258,7 +258,7 @@ class _DrawerrState extends State<Drawerr> {
 
   Widget _drawUser( User user ){
     return UserAccountsDrawerHeader(
-      accountName: Text( user.first_name +' '+user.last_name ),
+      accountName: Text( user.firstName +' '+user.lastName ),
       accountEmail: Text(user.email),
       currentAccountPicture: GestureDetector(
         child: CircleAvatar(

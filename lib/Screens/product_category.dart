@@ -76,7 +76,7 @@ class _ProductCategoryState extends State<ProductCategory> {
       bottomNavigationBar: TitledBottomNavigationBar(
           currentIndex: 0,
           onTap: (index) async {
-            functions.route_bottom_bar(index, context);
+            Functions.routeBottomBar(index, context);
           },
           items: [
             TitledNavigationBarItem(title: 'Home', icon: Icons.home),

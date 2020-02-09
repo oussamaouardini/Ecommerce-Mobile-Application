@@ -1,51 +1,55 @@
 import 'package:flutter/material.dart';
-
 import 'package:pfe/Screens/Home.dart';
 
-
-class logout extends StatefulWidget {
+class LogOut extends StatefulWidget {
   @override
-  _logoutState createState() => _logoutState();
+  _LogOutState createState() => _LogOutState();
 }
 
-class _logoutState extends State<logout> {
+class _LogOutState extends State<LogOut> {
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.delayed(
-      const Duration(seconds: 2),
-        (){
-          Navigator.push(context, new MaterialPageRoute(builder: (context)=> new HomeScreen() ));
-        }
-    );
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.push(context,
+          new MaterialPageRoute(builder: (context) => new HomeScreen()));
+    });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0XFF191919),
       body: Container(
         width: double.infinity,
-        color: Colors.white,
-        child:Column(
+        color: Color(0XFF191919),
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            FlutterLogo(
-              size: 100.0,
+            Container(
+              child: Text(
+                "Bingo",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 40.0,
+                    fontWeight: FontWeight.w600),
+              ),
             ),
-
             Column(
               children: <Widget>[
                 CircularProgressIndicator(
-                 // backgroundColor: Colors.red,
+                  backgroundColor: Colors.white,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
-                  child: Text("Loggin out...",style: TextStyle(
-
-                    color: Colors.cyan,
-                    fontSize: 20.0,
-
-                  ),),
+                  child: Text(
+                    "Loggin out...",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w600),
+                  ),
                 )
               ],
             )

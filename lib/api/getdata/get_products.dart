@@ -2,15 +2,16 @@ import 'package:flutter/widgets.dart';
 import 'package:pfe/custom_widgets.dart';
 import 'package:pfe/Screens/Click_Product.dart';
 import 'package:pfe/general_config/size_config.dart';
-import 'package:pfe/Screens/product_category.dart' as pcateg ;
+import 'package:pfe/Screens/product_category.dart' as pcateg;
 
 bool hassan = true;
 
 class getProducts extends StatefulWidget {
-  final categoryId ;
-  final categoryName ;
+  final categoryId;
 
-  getProducts({this.categoryId,this.categoryName});
+  final categoryName;
+
+  getProducts({this.categoryId, this.categoryName});
 
   @override
   _getProductsState createState() => _getProductsState();
@@ -25,7 +26,7 @@ class _getProductsState extends State<getProducts> {
     return Column(
       children: <Widget>[
         Container(
-          height: SizeConfig.safeBlockVertical*52,
+          height: SizeConfig.safeBlockVertical * 52,
           child: FutureBuilder(
               future: productApi.fetchProducts(1),
               builder: (BuildContext context, AsyncSnapshot snapShot) {
@@ -46,32 +47,34 @@ class _getProductsState extends State<getProducts> {
                         addAutomaticKeepAlives: true,
                         itemCount: snapShot.data.length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2
-                        ),
+                            crossAxisCount: 2),
                         itemBuilder: (BuildContext context, int index) {
-                          if(index > 3 ){
+                          if (index > 3) {
                             return null;
-                          }else{
+                          } else {
                             return _product(snapShot.data[index]);
                           }
-
                         },
                       );
                     }
                     break;
                 }
                 return Container();
-              }
-              ),
+              }),
         ),
         Padding(
-          padding: const EdgeInsets.only(top:5.0),
+          padding: const EdgeInsets.only(top: 5.0),
           child: InkWell(
             onTap: () async {
-           //   Navigator.push(context, MaterialPageRoute(builder: (context)=> new ProductCategory    ));
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> new  pcateg.ProductCategory(categoryId: widget.categoryId ,categoryName: widget.categoryName,)));
-            //  ProductCategory
-
+              //   Navigator.push(context, MaterialPageRoute(builder: (context)=> new ProductCategory    ));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => new pcateg.ProductCategory(
+                            categoryId: widget.categoryId,
+                            categoryName: widget.categoryName,
+                          )));
+              //  ProductCategory
             },
             child: Column(
               children: <Widget>[
@@ -94,8 +97,7 @@ class _getProductsState extends State<getProducts> {
       product_pic: item.featured_image(),
       product_description: item.product_description,
       product_id: item.product_id,
-          productCountReview: item.productReviewCount,
-
+      productCountReview: item.productReviewCount,
     ));
   }
 
@@ -131,8 +133,7 @@ class _getProductsState extends State<getProducts> {
             image: product.images.length > 0
                 ? NetworkImage(product.images[0])
                 : NetworkImage(
-                    'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
-            ),
+                    'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'),
           )
         ],
       ),
@@ -149,20 +150,20 @@ class Single_product extends StatelessWidget {
 
   final product_old_price;
   final product_description;
-  final productCountReview ;
+  final productCountReview;
 
   static Random random = new Random();
   int randNb = random.nextInt(100);
 
   Single_product({
-        this.product_name,
-        this.product_pic,
-        this.product_price,
-        this.product_old_price,
-        this.product_description,
-        this.product_id,
-        this.productCountReview ,
-      });
+    this.product_name,
+    this.product_pic,
+    this.product_price,
+    this.product_old_price,
+    this.product_description,
+    this.product_id,
+    this.productCountReview,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -174,7 +175,6 @@ class Single_product extends StatelessWidget {
             child: Material(
               child: InkWell(
                 onTap: () async {
-
                   hassan = false;
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => Product_details(
@@ -185,12 +185,11 @@ class Single_product extends StatelessWidget {
                             product_description: product_description,
                             product_id: product_id,
                             productReviewCount: productCountReview,
-
                           )));
                 },
                 child: GridTile(
                   footer: Container(
-                   // height: 30.0,
+                    // height: 30.0,
                     color: Colors.white70,
                     child: ListTile(
                       title: Padding(

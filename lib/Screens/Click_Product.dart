@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pfe/Component/horisontale_list.dart';
 import 'package:pfe/Screens/Home.dart';
+import 'package:pfe/Screens/creditcard.dart';
 import 'package:pfe/Screens/logIn_screen.dart';
 import 'package:pfe/Screens/product_raiting.dart';
 import 'package:pfe/Screens/shoping_cart.dart';
@@ -726,7 +727,9 @@ class _Product_detailsState extends State<Product_details> {
                       children: <Widget>[
                         Expanded(
                             child: MaterialButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(builder:(context) => new CreditCard()));
+                          },
                           color: Color(0xFF01B2C4),
                           textColor: Colors.white,
                           child: Text('By now'),

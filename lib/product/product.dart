@@ -5,7 +5,7 @@ import 'package:pfe/review/product_review.dart';
 import 'package:pfe/exceptions/exceptions.dart';
 
 class Product {
-  int product_id, productReviewCount;
+  int product_id, productReviewCount , nb_sales;
 
   String product_title, product_description;
 
@@ -32,7 +32,9 @@ class Product {
       this.tags,
       this.images,
       this.reviews,
-      this.productReviewCount);
+      this.productReviewCount,
+      this.nb_sales
+      );
 
   Product.fromJson(Map<String, dynamic> jsonObject) {
     if (jsonObject['product_id'] == null) {
@@ -50,6 +52,7 @@ class Product {
 
     this.product_id = jsonObject['product_id'];
     this.productReviewCount = jsonObject['product_reviews_count'];
+    this.nb_sales = jsonObject['product_nb_sales'];
     this.product_title = jsonObject['product_title'];
     this.product_description = jsonObject['product_description'];
     this.product_price = double.tryParse(jsonObject['product_price']);

@@ -755,6 +755,8 @@ class _Product_detailsState extends State<Product_details> {
                                     setState(() {
                                       _addingToCart = true;
                                     });
+                                    ProductApi productApi = ProductApi() ;
+                                    productApi.addNbSales(widget.product_id);
                                     await _cartApi.addProductToCart(
                                         widget.product_id, _counter);
                                     setState(() {

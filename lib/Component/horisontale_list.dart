@@ -1,84 +1,69 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:pfe/product/product.dart';
+import 'package:pfe/api/products_api.dart';
 
 const CardColor = Color(0xFFF6F6F6);
 const littleCardColor = Colors.white;
 const littleCardTextColor = Colors.black;
 
 class HorizontalList extends StatelessWidget {
+  ProductApi productApi = new ProductApi();
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Color(0xF2EEEF),
       height: 350.0,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: <Widget>[
-          Category(
-            imageLocation: 'images/flashseles/blue.png',
-            imageCaption: 'shirt',
-          ),
-          Category(
-            imageLocation: 'images/flashseles/choes.png',
-            imageCaption: 'shirt',
-          ),
-          Category(
-            imageLocation: 'images/flashseles/colone.png',
-            imageCaption: 'shirt',
-          ),
-          Category(
-            imageLocation: 'images/flashseles/girl.jpg',
-            imageCaption: 'shirt',
-          ),
-          Category(
-            imageLocation: 'images/flashseles/girlpink.jpg',
-            imageCaption: 'shirt',
-          ),
-          Category(
-            imageLocation: 'images/flashseles/green.png',
-            imageCaption: 'shirt',
-          ),
-          Category(
-            imageLocation: 'images/flashseles/pink.jpg',
-            imageCaption: 'shirt',
-          ),
-          Category(
-            imageLocation: 'images/flashseles/ramos.png',
-            imageCaption: 'shirt',
-          ),
-          Category(
-            imageLocation: 'images/flashseles/red.png',
-            imageCaption: 'shirt',
-          ),
-          Category(
-            imageLocation: 'images/flashseles/shoes1.png',
-            imageCaption: 'shirt',
-          ),
-          Category(
-            imageLocation: 'images/AllSports/run100.png',
-            imageCaption: 'shirt',
-          ),
-          Category(
-            imageLocation: 'images/flashseles/shoes2.png',
-            imageCaption: 'shoes',
-          ),
-          Category(
-            imageLocation: 'images/flashseles/slip.png',
-            imageCaption: 'accessories',
-          ),
-        ],
+      child: FutureBuilder(
+          future: productApi.fetchProductsales(),
+          builder: (BuildContext context, AsyncSnapshot snapShot) {
+            switch (snapShot.connectionState) {
+              case ConnectionState.none:
+                __error('no connection!!!');
+                break;
+              case ConnectionState.waiting:
+              case ConnectionState.active:
+                return loading();
+                break;
+              case ConnectionState.done:
+                if (snapShot.hasError) {
+                  return __error(snapShot.error.toString());
+                } else {
+                  return ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    addAutomaticKeepAlives: true,
+                    itemCount: snapShot.data.length,
+                    itemBuilder: (BuildContext context, int index) {
+                        return Category(product: snapShot.data[index],);
+                    },
+                  );
+                }
+                break;
+            }
+            return Container();
+          }),
+    );
+  }
+  __error(String error) {
+    return Container(
+      child: Center(
+        child: Text(error),
       ),
+    );
+  }
+
+  loading() {
+    return Center(
+      child: CircularProgressIndicator(),
     );
   }
 }
 
 class Category extends StatelessWidget {
-  final imageLocation;
 
-  final imageCaption;
-
-  Category({this.imageCaption, this.imageLocation});
+  final Product product ;
+  Category({this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -96,8 +81,8 @@ class Category extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: GridTile(
-                      child: Image.asset(
-                    imageLocation,
+                      child: Image.network(
+                    product.featured_image(),
                     fit: BoxFit.fill,
                   )),
                 ),
@@ -106,7 +91,8 @@ class Category extends StatelessWidget {
                 top: 190,
                 left: 19,
                 child: LittleCard(
-                    imageLocation: imageLocation, imageName: imageCaption),
+                  product: this.product,
+                    ),
               ),
               Container(
                 height: 10,
@@ -119,10 +105,9 @@ class Category extends StatelessWidget {
 }
 
 class LittleCard extends StatelessWidget {
-  final imageLocation;
-  final imageName;
 
-  LittleCard({this.imageName, this.imageLocation});
+  final Product product ;
+  LittleCard({this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +124,7 @@ class LittleCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Text(
-                imageName,
+                product.product_title,
                 textAlign: TextAlign.left,
                 style: TextStyle(
                   color: Colors.white,
@@ -155,7 +140,7 @@ class LittleCard extends StatelessWidget {
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                      Text("150 sales",
+                      Text(this.product.nb_sales.toString(),
                           style: TextStyle(
 //                color: Colors.white
                               ))
@@ -177,7 +162,7 @@ class LittleCard extends StatelessWidget {
                             size: 20.0,
                             color: Colors.amber,
                           ),
-                          Text("4.5")
+                          Text(this.product.productReviewCount.toString())
                         ],
                       ),
                     ],
@@ -185,7 +170,6 @@ class LittleCard extends StatelessWidget {
                 ],
               ),
             ),
-
             /// nb Available
             Padding(
               padding: const EdgeInsets.all(10.0),

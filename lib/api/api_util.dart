@@ -62,5 +62,12 @@ class ApiUtl {
   static String PRODUCTBYNAMELike(String name) {
     return MAIN_API_URL +'products/search/'+name.toString();
   }
+  static String ADDNBSALES(int id) {
+    return MAIN_API_URL +'products/sales/'+id.toString();
+  }
+  static String FLASHSALES() {
+    return MAIN_API_URL +'products/product/sales';
+  }
+
 
 }

@@ -63,4 +63,31 @@ class ProductApi {
       return null;
     }
   }
+  Future<void> addNbSales(int id) async {
+    String url = ApiUtl.ADDNBSALES(id);
+    http.Response response = await http.get(url, headers: headers);
+
+    if (response.statusCode == 200) {
+      var body = jsonDecode(response.body);
+      return body ;
+    } else {
+      return null;
+    }
+  }
+  Future<List<Product>> fetchProductsales() async {
+    String url = ApiUtl.FLASHSALES();
+    http.Response response = await http.get(url, headers: headers);
+
+    List<Product> products = [];
+    if (response.statusCode == 200) {
+      var body = jsonDecode(response.body);
+      for (var item in body['data']) {
+        products.add(Product.fromJson(item));
+      }
+      return products;
+    }
+    return products;
+  }
+
+
 }

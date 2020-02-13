@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:pfe/product/product.dart';
 import 'package:pfe/api/products_api.dart';
@@ -10,6 +11,7 @@ const littleCardTextColor = Colors.black;
 
 class HorizontalList extends StatelessWidget {
   ProductApi productApi = new ProductApi();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,7 +37,9 @@ class HorizontalList extends StatelessWidget {
                     addAutomaticKeepAlives: true,
                     itemCount: snapShot.data.length,
                     itemBuilder: (BuildContext context, int index) {
-                        return Category(product: snapShot.data[index],);
+                      return Category(
+                        product: snapShot.data[index],
+                      );
                     },
                   );
                 }
@@ -45,6 +49,7 @@ class HorizontalList extends StatelessWidget {
           }),
     );
   }
+
   __error(String error) {
     return Container(
       child: Center(
@@ -61,8 +66,8 @@ class HorizontalList extends StatelessWidget {
 }
 
 class Category extends StatelessWidget {
+  final Product product;
 
-  final Product product ;
   Category({this.product});
 
   @override
@@ -92,7 +97,7 @@ class Category extends StatelessWidget {
                 left: 19,
                 child: LittleCard(
                   product: this.product,
-                    ),
+                ),
               ),
               Container(
                 height: 10,
@@ -105,8 +110,8 @@ class Category extends StatelessWidget {
 }
 
 class LittleCard extends StatelessWidget {
+  final Product product;
 
-  final Product product ;
   LittleCard({this.product});
 
   @override
@@ -134,13 +139,13 @@ class LittleCard extends StatelessWidget {
 
             ///  etoiles and nb sales
             Padding(
-              padding: const EdgeInsets.only(left: 10.0),
+              padding: const EdgeInsets.only(left: 10.0,right: 10),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                      Text(this.product.nb_sales.toString(),
+                      Text('  '+this.product.nb_sales.toString(),
                           style: TextStyle(
 //                color: Colors.white
                               ))
@@ -162,7 +167,7 @@ class LittleCard extends StatelessWidget {
                             size: 20.0,
                             color: Colors.amber,
                           ),
-                          Text(this.product.productReviewCount.toString())
+                          Text(' '+this.product.productReviewCount.toString()+'  ')
                         ],
                       ),
                     ],
@@ -170,11 +175,12 @@ class LittleCard extends StatelessWidget {
                 ],
               ),
             ),
+
             /// nb Available
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Text(
-                '150 Available',
+                '${this.product.productQuantity} Available',
                 textAlign: TextAlign.left,
                 style: TextStyle(color: Colors.white),
               ),
@@ -184,7 +190,7 @@ class LittleCard extends StatelessWidget {
               child: new LinearPercentIndicator(
                 width: 128.0,
                 lineHeight: 5.0,
-                percent: 0.3,
+                percent: this.product.productQuantity/100,
                 progressColor: Colors.blue,
               ),
             ),

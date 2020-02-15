@@ -193,6 +193,7 @@ class _SignUpPageState extends State<SignUpPage> {
   bool _loading = false;
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(

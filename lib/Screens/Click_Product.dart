@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pfe/Component/horisontale_list.dart';
 import 'package:pfe/Screens/Home.dart';
 import 'package:pfe/Screens/creditcard.dart';
+import 'package:pfe/Screens/log.dart';
 import 'package:pfe/Screens/logIn_screen.dart';
 import 'package:pfe/Screens/product_raiting.dart';
 import 'package:pfe/Screens/shoping_cart.dart';
@@ -146,13 +147,13 @@ class PostState extends State<Post> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => Login(
-                    product_id: widget.id,
-                    product_description: widget.product_description,
-                    product_details_name: widget.product_name,
-                    product_details_price: widget.product_price,
-                    product_details_picture: widget.product_picture,
-                    product_details_oldPrice: widget.product_old,
+              builder: (context) => LoginPage(
+                    productId: widget.id,
+                    productDescription: widget.product_description,
+                    productDetailsName: widget.product_name,
+                    productDetailsPrice: widget.product_price,
+                    productDetailsPicture: widget.product_picture,
+                    productDetailsOldPrice: widget.product_old,
                     productReviewCount: widget.productReviewCount,
                   )));
     }
@@ -751,7 +752,7 @@ class _Product_detailsState extends State<Product_details> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                LoginScreen()));
+                                                LogIn()));
                                   } else {
                                     setState(() {
                                       _addingToCart = true;

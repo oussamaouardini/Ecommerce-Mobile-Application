@@ -5,6 +5,7 @@ import 'package:pfe/Component/horisontale_list.dart';
 import 'package:pfe/Component/image_caroussel.dart';
 import 'package:pfe/Component/AllSports_list.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pfe/Screens/log.dart';
 import 'package:pfe/Screens/logIn_screen.dart';
 import 'package:pfe/Screens/search_product.dart';
 import 'package:pfe/Screens/sign_up.dart';
@@ -85,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: Icon(Icons.shopping_cart, color: Colors.white),
                 onPressed: () async {
                   SharedPreferences pref =
-                      await SharedPreferences.getInstance();
+                  await SharedPreferences.getInstance();
                   int userId = pref.getInt('user_id');
                   String apiToken = pref.getString('api_token');
                   if ((userId != null) || (apiToken != null)) {
@@ -104,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         });
                   }
                 }
-                ),
+            ),
             CircleAvatar(
               backgroundColor: Color(0XFF191919),
               child: IconButton(
@@ -114,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 onPressed: () async {
                   SharedPreferences pref =
-                      await SharedPreferences.getInstance();
+                  await SharedPreferences.getInstance();
                   int userId = pref.getInt('user_id');
                   String apiToken = pref.getString('api_token');
                   if ((userId != null) || (apiToken != null)) {
@@ -122,15 +123,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => new Account(
-                                  firstName: user.firstName,
-                                  lastName: user.lastName,
-                                  email: user.email,
-                                  password: user.password,
-                                  memberSince: user.memberSince,
-                                  mobile: user.mobile,
-                                  shippingAddress: user.shippingAddress,
-                                )));
+                            builder: (context) =>
+                            new Account(
+                              firstName: user.firstName,
+                              lastName: user.lastName,
+                              email: user.email,
+                              password: user.password,
+                              memberSince: user.memberSince,
+                              mobile: user.mobile,
+                              shippingAddress: user.shippingAddress,
+                            )));
                   } else {
                     showDialog(
                         context: context,
@@ -179,15 +181,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             splashColor: Colors.grey,
                             icon: Icon(Icons.search, color: Colors.black87),
                             onPressed: () async {
-                              if (searchController.text.isEmpty) {
-                              } else {
+                              if (searchController.text.isEmpty) {} else {
                                 ProductApi productApi = ProductApi();
                                 List<Product> product =
-                                    await productApi.fetchProductByName(
-                                        searchController.text.toString());
+                                await productApi.fetchProductByName(
+                                    searchController.text.toString());
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) =>
-                                        new SearchProduct(product)));
+                                    new SearchProduct(product)));
                               }
                             },
                           ),
@@ -200,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 15),
+                                  EdgeInsets.symmetric(horizontal: 15),
                                   hintText: "Search..."),
                             ),
                           ),
@@ -233,23 +234,29 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: <Widget>[
                       Expanded(
                           child: Row(
-                        children: <Widget>[
-                          Icon(
-                            FontAwesomeIcons.bullhorn,
-                            size: 30.0,
-                          ),
-                          Text(
-                            '  Flash Seles',
-                            style: TextStyle(
-                                fontSize: 20.0, fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      )),
+                            children: <Widget>[
+                              Icon(
+                                FontAwesomeIcons.bullhorn,
+                                size: 30.0,
+                              ),
+                              InkWell(
+                                onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=> new LogIn()));
+                                },
+                                child: Text(
+                                  '  Flash Seles',
+                                  style: TextStyle(
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              )
+                            ],
+                          )),
                       Expanded(
                           child: Text(
-                        'End in 07:56:00',
-                        textAlign: TextAlign.right,
-                      )),
+                            'End in 07:56:00',
+                            textAlign: TextAlign.right,
+                          )),
                     ],
                   ),
                 ),
@@ -262,19 +269,20 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: <Widget>[
                       Expanded(
                           child: Row(
-                        children: <Widget>[
-                          Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                            size: 30.0,
-                          ),
-                          Text(
-                            'Recommended For You',
-                            style: TextStyle(
-                                fontSize: 20.0, fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      )),
+                            children: <Widget>[
+                              Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                                size: 30.0,
+                              ),
+                              Text(
+                                'Recommended For You',
+                                style: TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          )),
                     ],
                   ),
                 ),
@@ -291,13 +299,17 @@ class _HomeScreenState extends State<HomeScreen> {
                         secondIcon: FontAwesomeIcons.female,
                         thirdIcon: FontAwesomeIcons.child,
                         pageController: _pageController,
-                        borderRadius: BorderRadius.only(bottomRight: Radius.circular(25.0),topRight: Radius.circular(25.0)),
+                        borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(25.0),
+                            topRight: Radius.circular(25.0)),
                       ),
                     ),
                     Container(
                       decoration: BoxDecoration(
-                        color: Constant.barColor,
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(40.0), bottomLeft: Radius.circular(40.0) )
+                          color: Constant.barColor,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(40.0),
+                              bottomLeft: Radius.circular(40.0))
                       ),
                       height: SizeConfig.blockSizeHorizontal * 13.7,
                       width: SizeConfig.blockSizeHorizontal * 15,
@@ -343,19 +355,20 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: <Widget>[
                       Expanded(
                           child: Row(
-                        children: <Widget>[
-                          Icon(
-                            FontAwesomeIcons.flag,
-                            color: Colors.amber,
-                            size: 30.0,
-                          ),
-                          Text(
-                            '  Brands',
-                            style: TextStyle(
-                                fontSize: 20.0, fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      )),
+                            children: <Widget>[
+                              Icon(
+                                FontAwesomeIcons.flag,
+                                color: Colors.amber,
+                                size: 30.0,
+                              ),
+                              Text(
+                                '  Brands',
+                                style: TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          )),
                     ],
                   ),
                 ),
@@ -366,7 +379,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     Container(
                       decoration: BoxDecoration(
                           color: Constant.barColor,
-                          borderRadius: BorderRadius.only(topRight: Radius.circular(40.0), bottomRight: Radius.circular(40.0) )
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(40.0),
+                              bottomRight: Radius.circular(40.0))
                       ),
                       height: SizeConfig.blockSizeHorizontal * 13.7,
                       width: SizeConfig.blockSizeHorizontal * 15,
@@ -381,7 +396,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         secondIcon: FontAwesomeIcons.female,
                         thirdIcon: FontAwesomeIcons.child,
                         pageController: _secondPageController,
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(40.0), bottomLeft: Radius.circular(40.0)),
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(40.0),
+                            bottomLeft: Radius.circular(40.0)),
                       ),
                     ),
 
@@ -423,32 +440,32 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: <Widget>[
                       Expanded(
                           child: Row(
-                        children: <Widget>[
-                          Icon(
-                            Icons.outlined_flag,
-                            // color: Colors.amber,
-                            size: 30.0,
-                          ),
-                          RichText(
-                            text: TextSpan(
-                              children: <TextSpan>[
-                                TextSpan(
-                                    text: 'ALL',
-                                    style: TextStyle(
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black)),
-                                TextSpan(
-                                    text: ' Sports',
-                                    style: TextStyle(
-                                        fontSize: 15.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black)),
-                              ],
-                            ),
-                          ),
-                        ],
-                      )),
+                            children: <Widget>[
+                              Icon(
+                                Icons.outlined_flag,
+                                // color: Colors.amber,
+                                size: 30.0,
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                        text: 'ALL',
+                                        style: TextStyle(
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black)),
+                                    TextSpan(
+                                        text: ' Sports',
+                                        style: TextStyle(
+                                            fontSize: 15.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black)),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          )),
                     ],
                   ),
                 ),
@@ -497,7 +514,7 @@ class Alert extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => new LoginScreen()));
+                            builder: (context) => new LogIn()));
                   },
                 ),
                 Text('or  '),
@@ -508,12 +525,10 @@ class Alert extends StatelessWidget {
                         fontWeight: FontWeight.w700, color: Colors.teal),
                   ),
                   onTap: () {
-
-
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => new  SignUpPage()));
+                            builder: (context) => new SignUpPage()));
                   },
                 )
               ],

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cuberto_bottom_bar/cuberto_bottom_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pfe/constants.dart';
+import 'package:pfe/custom_widgets.dart';
 
 class Bar extends StatefulWidget {
   final first;
@@ -11,6 +13,7 @@ class Bar extends StatefulWidget {
   final secondIcon;
   final thirdIcon;
   final pageController;
+  final BorderRadius borderRadius ;
 
   Bar(
       {this.first,
@@ -19,7 +22,7 @@ class Bar extends StatefulWidget {
       this.firstIcon,
       this.secondIcon,
       this.thirdIcon,
-      this.pageController});
+      this.pageController,this.borderRadius});
 
   @override
   _BarState createState() => _BarState();
@@ -32,7 +35,8 @@ class _BarState extends State<Bar> {
   Widget build(BuildContext context) {
     return Container(
       child: CubertoBottomBar(
-        barBackgroundColor: Color(0xFFF9CA24),
+        barBorderRadius: widget.borderRadius,
+        barBackgroundColor: Constant.barColor,
         inactiveIconColor: Color(0XFF191919),
         tabStyle: CubertoTabStyle.STYLE_FADED_BACKGROUND,
         selectedTab: currentPage,

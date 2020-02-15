@@ -28,13 +28,8 @@ class _LogOutState extends State<LogOut> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Container(
-              child: Text(
-                "Bingo",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 40.0,
-                    fontWeight: FontWeight.w600),
-              ),
+              child: Image.network(
+                  "https://cdn.discordapp.com/attachments/671407027871940609/675722336691027978/logo.png"),
             ),
             Column(
               children: <Widget>[

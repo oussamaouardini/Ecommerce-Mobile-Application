@@ -384,7 +384,13 @@ class _LoginScreenState extends State<LoginScreen> {
     String email = _emailController.text;
     String password = _passwordController.text;
     User user = await authentication.login(email, password);
-    if(user.userId != null){
+
+    if(user == null){
+      print("null");
+      setState(() {
+        _loading = false ;
+      });
+    }else if(user.userId != null){
       setState(() {
         _loading = false ;
       });

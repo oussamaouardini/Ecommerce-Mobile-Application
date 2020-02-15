@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pfe/Screens/filter_product.dart';
 import 'package:pfe/Screens/log_out.dart';
+import 'package:pfe/Screens/sign_up.dart';
 import 'package:pfe/custom_widgets.dart';
 import 'package:pfe/user/user_api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -117,7 +118,9 @@ class _DrawerrState extends State<Drawerr> {
               child: ListView(
                 children: <Widget>[
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SignUpPage(title: "Sign Up",) ));
+                    },
                     child: ListTile(
                       title: Text("Home"),
                       leading: Icon(

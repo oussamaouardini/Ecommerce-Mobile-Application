@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pfe/constants.dart';
 import 'package:pfe/custom_widgets.dart';
 import 'Home.dart';
 import 'package:pfe/general_config/functions.dart';
@@ -26,20 +27,14 @@ class _ProductCategoryState extends State<ProductCategory> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: appBarColor,
+        backgroundColor: Constant.appBarColor,
         title: ListTile(
-          title: InkWell(child: Text('Shoping Cart',style: TextStyle(
+          title: Text(widget.categoryName+' Category',style: TextStyle(
               color: Colors.white,
               fontSize: 20.0
           ),),
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>new HomeScreen()));
-            },),
         ),
 
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.search), onPressed: () {}),
-        ],
       ),
       body:Container(
         child:(isLoading == false) ? FutureBuilder(

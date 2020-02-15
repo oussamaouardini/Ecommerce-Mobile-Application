@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pfe/api/like_api.dart';
+import 'package:pfe/constants.dart';
 import 'package:pfe/like/like.dart';
 
 class Favorite extends StatefulWidget {
@@ -22,7 +23,10 @@ class _FavoriteState extends State<Favorite> {
   Widget build(BuildContext context) {
     userId = widget.userId;
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          backgroundColor: Constant.appBarColor,
+          title: Text('Favorite Product'),
+        ),
         body: (isLoading == false)
             ? FutureBuilder(
                 future: likeApi.fetchUserLikes(userId),

@@ -7,6 +7,7 @@ import 'package:pfe/Component/AllSports_list.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pfe/Screens/logIn_screen.dart';
 import 'package:pfe/Screens/search_product.dart';
+import 'package:pfe/Screens/sign_up.dart';
 import 'package:pfe/custom_widgets.dart';
 import 'package:pfe/general_config/size_config.dart';
 import 'Account.dart';
@@ -20,6 +21,7 @@ import 'package:pfe/user/user_api.dart';
 import 'package:pfe/api/cart_api.dart';
 import 'package:pfe/cart/cart.dart' as cart;
 import 'dart:core';
+import 'package:pfe/constants.dart';
 
 const AppColor = Color(0xF2EEEF);
 const appPadding = 10.0;
@@ -74,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
               }),
           elevation: 0.0,
-          backgroundColor: Color(0XFF191919),
+          backgroundColor: Constant.appBarColor,
           title: Image.network(
               "https://cdn.discordapp.com/attachments/671407027871940609/675722336691027978/logo.png"),
           centerTitle: true,
@@ -289,11 +291,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         secondIcon: FontAwesomeIcons.female,
                         thirdIcon: FontAwesomeIcons.child,
                         pageController: _pageController,
+                        borderRadius: BorderRadius.only(bottomRight: Radius.circular(25.0),topRight: Radius.circular(25.0)),
                       ),
                     ),
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.blue,
+                        color: Constant.barColor,
                         borderRadius: BorderRadius.only(topLeft: Radius.circular(40.0), bottomLeft: Radius.circular(40.0) )
                       ),
                       height: SizeConfig.blockSizeHorizontal * 13.7,
@@ -358,14 +361,31 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
 
                 ///  BAR---Recommended For You Section =========
-                Bar(
-                  first: 'Man',
-                  second: 'Women',
-                  third: 'Kids',
-                  firstIcon: FontAwesomeIcons.male,
-                  secondIcon: FontAwesomeIcons.female,
-                  thirdIcon: FontAwesomeIcons.child,
-                  pageController: _secondPageController,
+                Row(
+                  children: <Widget>[
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Constant.barColor,
+                          borderRadius: BorderRadius.only(topRight: Radius.circular(40.0), bottomRight: Radius.circular(40.0) )
+                      ),
+                      height: SizeConfig.blockSizeHorizontal * 13.7,
+                      width: SizeConfig.blockSizeHorizontal * 15,
+                      child: Icon(FontAwesomeIcons.slidersH,),
+                    ),
+                    Expanded(
+                      child: Bar(
+                        first: 'Man',
+                        second: 'Women',
+                        third: 'Kids',
+                        firstIcon: FontAwesomeIcons.male,
+                        secondIcon: FontAwesomeIcons.female,
+                        thirdIcon: FontAwesomeIcons.child,
+                        pageController: _secondPageController,
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(40.0), bottomLeft: Radius.circular(40.0)),
+                      ),
+                    ),
+
+                  ],
                 ),
                 SizedBox(
                   height: 20,
@@ -488,10 +508,12 @@ class Alert extends StatelessWidget {
                         fontWeight: FontWeight.w700, color: Colors.teal),
                   ),
                   onTap: () {
+
+
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => new LoginScreen()));
+                            builder: (context) => new  SignUpPage()));
                   },
                 )
               ],

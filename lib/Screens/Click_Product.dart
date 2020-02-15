@@ -8,6 +8,7 @@ import 'package:pfe/Screens/product_raiting.dart';
 import 'package:pfe/Screens/shoping_cart.dart';
 import 'package:pfe/api/like_api.dart';
 import 'package:pfe/api/reviews.dart';
+import 'package:pfe/constants.dart';
 import 'package:pfe/like/like.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:titled_navigation_bar/titled_navigation_bar.dart';
@@ -271,7 +272,7 @@ class _Product_detailsState extends State<Product_details> {
   bool _addingToCart = false;
 
   bool loading = false;
-  Widget appBarTitle = new Text("AppBar Title");
+  Widget appBarTitle = new Text("Details");
   Icon actionIcon = new Icon(Icons.search);
   final searchController = TextEditingController();
 
@@ -284,7 +285,7 @@ class _Product_detailsState extends State<Product_details> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0.0,
-          backgroundColor: appBarColor,
+          backgroundColor: Constant.appBarColor,
           leading: IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed: () {
@@ -326,7 +327,7 @@ class _Product_detailsState extends State<Product_details> {
                       );
                     } else {
                       this.actionIcon = new Icon(Icons.search);
-                      this.appBarTitle = new Text("AppBar Title");
+                      this.appBarTitle = new Text("Details");
                     }
                   });
                 }),

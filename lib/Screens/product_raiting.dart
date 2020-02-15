@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pfe/api/reviews.dart';
+import 'package:pfe/constants.dart';
 import 'package:pfe/review/product_review.dart';
 import 'package:rating_bar/rating_bar.dart';
 import 'package:readmore/readmore.dart';
@@ -19,7 +20,10 @@ class _ProductRaitingState extends State<ProductRaiting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Constant.appBarColor,
+        title: Text('Product Raiting'),
+      ),
       body: Container(
           child: FutureBuilder(
         future: reviewApi.fetchReviews(widget.productId, 10),

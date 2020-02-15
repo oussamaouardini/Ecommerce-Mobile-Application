@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:pfe/constants.dart';
 import 'package:pfe/custom_widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pfe/api/user_api.dart';
@@ -67,12 +68,13 @@ class MapScreenState extends State<ProfilePage>
 
     return new Scaffold(
         appBar: AppBar(
+          backgroundColor: Constant.appBarColor,
           title: Text('Edit Profile',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
                   fontFamily: 'sans-serif-light',
-                  color: Colors.black)),
+                  color: Colors.white)),
         ),
         body: (loading == true)
             ? Center(

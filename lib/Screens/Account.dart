@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pfe/Screens/edit_account.dart';
+import 'package:pfe/constants.dart';
 import 'package:pfe/user/user.dart';
 import 'package:titled_navigation_bar/titled_navigation_bar.dart';
 
@@ -37,7 +38,7 @@ class _AccountState extends State<Account> {
       backgroundColor: AppColor,
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: appBarColor,
+        backgroundColor: Constant.appBarColor,
         title: ListTile(
           title: InkWell(
             child: Text(
@@ -47,9 +48,6 @@ class _AccountState extends State<Account> {
             onTap: () {},
           ),
         ),
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.search), onPressed: () {}),
-        ],
       ),
       bottomNavigationBar: TitledBottomNavigationBar(
           currentIndex: 4, // Use this to update the Bar giving a position

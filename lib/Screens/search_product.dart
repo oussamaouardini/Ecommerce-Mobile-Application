@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pfe/api/helpers_api.dart';
+import 'package:pfe/constants.dart';
 import 'package:pfe/product/product.dart';
 import 'package:pfe/Screens/Click_Product.dart';
 
@@ -24,7 +25,10 @@ class _SearchProductState extends State<SearchProduct> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          backgroundColor: Constant.appBarColor,
+          title: Text("search"),
+        ),
         body: ListView.builder(
             itemCount: widget.tab.length,
             itemBuilder: (BuildContext context, int position) {

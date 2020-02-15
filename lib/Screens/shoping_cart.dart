@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pfe/Component/List_View_Card.dart';
 import 'package:pfe/api/cart_api.dart';
+import 'package:pfe/constants.dart';
 import 'package:pfe/custom_widgets.dart';
 import 'Home.dart';
 import 'package:pfe/cart/cart.dart';
 import 'package:pfe/cart/cart.dart' as car;
-
-
+import 'package:pfe/Screens/search_product.dart';
 
 int i = 0 ;
 
@@ -27,25 +27,61 @@ class _CartState extends State<Cart> {
 
   dynamic total ;
 
+  Widget appBarTitle = new Text("Shoping Cart",style: TextStyle(
+      color: Colors.white,
+      fontSize: 20.0
+  ),);
+  Icon actionIcon = new Icon(Icons.search);
+  final searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     i = 0 ;
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: appBarColor,
-        title: ListTile(
-          title: InkWell(child: Text('Shoping Cart',style: TextStyle(
-            color: Colors.white,
-            fontSize: 20.0
-          ),),
-            onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>new HomeScreen()));
-          },),
-        ),
+        backgroundColor: Constant.appBarColor,
+        title: appBarTitle,
 
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.search), onPressed: () {}),
+          IconButton(
+              icon: actionIcon,
+              onPressed: () {
+                // this.actionIcon = new Icon(Icons.close);
+                setState(() {
+                  if (this.actionIcon.icon == Icons.search) {
+                    this.actionIcon = new Icon(Icons.close);
+                    this.appBarTitle = new TextField(
+                      controller: searchController,
+                      style: new TextStyle(
+                        color: Colors.white,
+                      ),
+                      decoration: new InputDecoration(
+                          prefixIcon: InkWell(
+                              onTap: () async {
+                                if (searchController.text.isEmpty) {
+                                } else {
+                                  ProductApi productApi = ProductApi();
+                                  List<Product> product =
+                                  await productApi.fetchProductByName(
+                                      searchController.text.toString());
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                          new SearchProduct(product)
+                                      ));
+                                }
+                              },
+                              child: new Icon(Icons.search,
+                                  color: Colors.white)),
+                          hintText: "Search...",
+                          hintStyle: new TextStyle(color: Colors.white)),
+                    );
+                  } else {
+                    this.actionIcon = new Icon(Icons.search);
+                    this.appBarTitle = new Text("Details");
+                  }
+                });
+              })
         ],
       ),
       body:Container(
@@ -101,7 +137,7 @@ class _CartState extends State<Cart> {
                       fontSize: 20.0,
                       color: Colors.white
                     ),),
-                    color: appBarColor,
+                    color: Constant.appBarColor,
                   )
               ),
             ],

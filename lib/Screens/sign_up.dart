@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:flutter/painting.dart';
 import 'package:pfe/Screens/Home.dart';
+import 'package:pfe/Screens/log.dart';
 import 'package:pfe/api/authentication.dart';
 import 'package:pfe/constants.dart';
 import 'package:pfe/customer/user.dart';
@@ -155,7 +156,7 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
           InkWell(
             onTap: () {
-             // Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => LogIn()));
               },
             child: Text(
               'Login',

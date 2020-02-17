@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:pfe/Screens/edit_account.dart';
 import 'package:pfe/constants.dart';
-import 'package:pfe/user/user.dart';
+import 'package:pfe/customer/user.dart';
+
 import 'package:titled_navigation_bar/titled_navigation_bar.dart';
 
 const appBarColor = Color(0xFF01B2C4);
 const AppColor = Color(0xFFDBDBDB);
 
 class Account extends StatefulWidget {
-  final firstName;
+  String firstName;
 
-  final lastName;
+  String lastName;
 
-  final email;
+  String email;
 
-  final password;
+  String password;
 
-  final memberSince, shippingAddress, mobile;
+  String memberSince, shippingAddress, mobile;
 
   Account(
       {this.firstName,
@@ -168,8 +169,8 @@ class _AccountState extends State<Account> {
                     ),
                     trailing: InkWell(
                       child: Text("Edit"),
-                      onTap: () {
-                        Navigator.push(
+                      onTap: () async{
+                         User returnedValue =  await Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ProfilePage(
@@ -179,6 +180,15 @@ class _AccountState extends State<Account> {
                                       widget.shippingAddress,
                                       widget.mobile,
                                     )));
+                         if(returnedValue != null){
+                           setState(() {
+                             widget.firstName = returnedValue.firstName ;
+                             widget.lastName = returnedValue.lastName ;
+                             widget.email = returnedValue.email ;
+                             widget.shippingAddress = returnedValue.shippingAddress ;
+                             widget.mobile = returnedValue.mobile ;
+                           });
+                         }
                       },
                     ),
                   ),

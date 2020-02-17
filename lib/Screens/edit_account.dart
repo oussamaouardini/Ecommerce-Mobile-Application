@@ -454,7 +454,7 @@ class MapScreenState extends State<ProfilePage>
 
       User user =
           await editUser.edit(firstName, lastName, email, address, mobile);
-      Navigator.of(context).pop();
+      Navigator.pop(context,user);
     }
   }
 }

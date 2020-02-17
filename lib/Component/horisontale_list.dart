@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:pfe/Screens/Click_Product.dart';
 import 'package:pfe/product/product.dart';
 import 'package:pfe/api/products_api.dart';
 
@@ -75,7 +76,18 @@ class Category extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => Product_details(
+                  product_details_name: this.product.product_title,
+                  product_details_picture: this.product.featured_image(),
+                  product_details_price: this.product.product_price,
+                  product_details_oldPrice: this.product.product_price,
+                  product_description: this.product.product_description,
+                  product_id: this.product.product_id,
+                  productReviewCount: this.product.productReviewCount,
+                )));
+          },
           child: Stack(
             children: <Widget>[
               Container(

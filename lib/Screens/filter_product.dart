@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pfe/api/helpers_api.dart';
+import 'package:pfe/constants.dart';
 import 'package:pfe/product/product.dart';
 import 'package:pfe/Screens/Click_Product.dart';
 
@@ -24,7 +25,10 @@ class _FilterProductState extends State<FilterProduct> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+          title: Text("Filter Product"),
+        backgroundColor: Constant.appBarColor,
+      ),
       body: FutureBuilder(
         future: helperApi.filter(widget.tab),
         builder: (BuildContext context, AsyncSnapshot snapShot) {

@@ -254,7 +254,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           )),
                       Expanded(
                           child: Text(
-                            'End in 07:56:00',
+                            '',
                             textAlign: TextAlign.right,
                           )),
                     ],

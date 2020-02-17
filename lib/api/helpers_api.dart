@@ -171,13 +171,13 @@ class HelpersApi {
 
     Map<String, String> _Authheaders = {
       'Accept': 'application/json',
-      'Authorization': 'Bearer ' + apiToken
+     // 'Authorization': 'Bearer ' + apiToken
     };
 
     Map<String, String> body = {
       'tab': jsonEncode(tab),
     };
-    print(ApiUtl.FILTER());
+  //  print(ApiUtl.FILTER());
     http.Response response = await http.post(ApiUtl.FILTER(),
         headers: _Authheaders, body: body );
     List<dynamic> products = [];
@@ -187,7 +187,7 @@ class HelpersApi {
       for(int i = 0 ; i < tab.length ; i++ ){
         for(int j = 0 ; j < bodyy[i]['data'].length ; j++ ){
           http.Response response2 = await http.get(ApiUtl.PRODUCTBYID(bodyy[i]['data'][j]['id']),
-              headers: _headers );
+              headers: _Authheaders );
           if ((response2.statusCode == 201) || (response2.statusCode == 200)) {
             var bodies =  jsonDecode(response2.body);
           //  print(bodies['data']);

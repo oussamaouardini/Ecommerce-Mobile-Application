@@ -23,7 +23,6 @@ import 'package:pfe/api/cart_api.dart';
 import 'package:pfe/cart/cart.dart' as cart;
 import 'dart:core';
 import 'package:pfe/constants.dart';
-
 const AppColor = Color(0xF2EEEF);
 const appPadding = 10.0;
 
@@ -392,7 +391,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         first: 'Man',
                         second: 'Women',
                         third: 'Kids',
-                        firstIcon: FontAwesomeIcons.male,
+                        firstIcon: Icons.home,
                         secondIcon: FontAwesomeIcons.female,
                         thirdIcon: FontAwesomeIcons.child,
                         pageController: _secondPageController,
@@ -401,7 +400,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             bottomLeft: Radius.circular(40.0)),
                       ),
                     ),
-
                   ],
                 ),
                 SizedBox(

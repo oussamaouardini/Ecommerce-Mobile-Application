@@ -393,7 +393,7 @@ class ExpansionTileSampleState extends State<ExpansionTileSample> {
   Map<String, bool> categoriesMen = {
     'Men\'s Sweater': false,
     'Men\'s Jacket': false,
-    'Men\'s Footware': false,
+    'Men\'s Footwar': false,
     'Men\'s Pants': false,
     'Men\'s T-Shirts': false,
     'Men\'s Sneakers': false,
@@ -401,7 +401,7 @@ class ExpansionTileSampleState extends State<ExpansionTileSample> {
   Map<String, bool> categoriesWomen = {
     'Women\'s Sweater': false,
     'Women\'s Jacket': false,
-    'Women\'s Footware': false,
+    'Women\'s Footwar': false,
     'Women\'s Pants': false,
     'Women\'s T-Shirts': false,
     'Women\'s Sneakers': false,
@@ -409,7 +409,7 @@ class ExpansionTileSampleState extends State<ExpansionTileSample> {
   Map<String, bool> categoriesChild = {
     'Child\'s Sweater': false,
     'Child\'s Jacket': false,
-    'Child\'s Footware': false,
+    'Child\'s Footwar': false,
     'Child\'s Pants': false,
     'Child\'s T-Shirts': false,
     'Child\'s Sneakers': false,

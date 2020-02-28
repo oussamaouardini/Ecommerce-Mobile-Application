@@ -26,7 +26,7 @@ class UserApi{
 
     if(response.statusCode == 200){
       var body =  jsonDecode(response.body);
-      User user =  User.fromJson(body['data']) ;
+      User user =  User.fromJson(body) ;
       return user ;
     }
 

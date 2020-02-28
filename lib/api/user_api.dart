@@ -26,7 +26,7 @@ class EditUser {
     if ((response.statusCode == 201) || (response.statusCode == 200)) {
       // registration successfully
       var body = jsonDecode(response.body);
-      var data = body['data'];
+      var data = body;
       return User.fromJson(data);
     } else {
       // edit failed

@@ -27,7 +27,7 @@ class LikeApi {
       case 200:
         var body = jsonDecode(response.body);
 
-        for (var item in body['data']) {
+        for (var item in body) {
           Likes.add(Like.fromJson(item));
         }
         return Likes;
@@ -64,7 +64,7 @@ class LikeApi {
       case 200:
         var body = jsonDecode(response.body);
 
-        for (var item in body['data']) {
+        for (var item in body) {
           Likes.add(Like.fromJson(item));
         }
         return Likes;
@@ -101,7 +101,7 @@ class LikeApi {
       case 200:
         var body = jsonDecode(response.body);
 
-        for (var item in body['data']) {
+        for (var item in body) {
           Likes.add(Like.fromJson(item));
         }
         return Likes;

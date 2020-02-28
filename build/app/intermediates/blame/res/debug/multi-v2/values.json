@@ -1,8 +1,27 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\Project_Android_Studio\\Ecome\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+            "outputFile": "D:\\Project_Android_Studio\\Complete_Ecome\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
             "map": [
+                {
+                    "source": "D:\\Project_Android_Studio\\Complete_Ecome\\android\\app\\src\\main\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "57",
+                        "endLines": "6",
+                        "endColumns": "12",
+                        "endOffsets": "353"
+                    },
+                    "to": {
+                        "startLines": "266",
+                        "startColumns": "4",
+                        "startOffsets": "15702",
+                        "endLines": "270",
+                        "endColumns": "12",
+                        "endOffsets": "15994"
+                    }
+                },
                 {
                     "source": "C:\\Users\\oussama ouardini\\.gradle\\caches\\transforms-1\\files-1.1\\coordinatorlayout-28.0.0.aar\\86be75c01c828e00c30b433746a5c43b\\res\\values\\values.xml",
                     "from": {
@@ -39,25 +58,6 @@
                         "endLines": "3,4,5,6,13,155,187,224,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,271,275,276,280,281,282,283",
                         "endColumns": "68,62,57,73,24,24,24,24,24,69,67,71,69,60,73,72,60,60,61,63,61,60,67,99,59,65,72,68,56,51,61,71,75,34,34,49,60,56,33,34,34,69,70,116,12,109,12,128,71,66",
                         "endOffsets": "180,243,301,375,673,9398,11463,13223,13600,13670,13738,13810,13880,13941,14015,14088,14149,14210,14272,14336,14398,14459,14527,14627,14687,14753,14826,14895,14952,15004,15066,15138,15214,15249,15284,15334,15395,15452,15486,15521,15556,15626,15697,16111,16312,16422,16623,16752,16824,16891"
-                    }
-                },
-                {
-                    "source": "D:\\Project_Android_Studio\\Ecome\\android\\app\\src\\main\\res\\values\\styles.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "57",
-                        "endLines": "6",
-                        "endColumns": "12",
-                        "endOffsets": "353"
-                    },
-                    "to": {
-                        "startLines": "266",
-                        "startColumns": "4",
-                        "startOffsets": "15702",
-                        "endLines": "270",
-                        "endColumns": "12",
-                        "endOffsets": "15994"
                     }
                 }
             ]

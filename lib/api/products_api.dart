@@ -55,7 +55,7 @@ class ProductApi {
     List<Product> products = [];
     if (response.statusCode == 200) {
       var body = jsonDecode(response.body);
-      for (var item in body['data']) {
+      for (var item in body) {
         products.add(Product.fromJson(item));
       }
       return products;
@@ -81,7 +81,7 @@ class ProductApi {
     List<Product> products = [];
     if (response.statusCode == 200) {
       var body = jsonDecode(response.body);
-      for (var item in body['data']) {
+      for (var item in body) {
         products.add(Product.fromJson(item));
       }
       return products;

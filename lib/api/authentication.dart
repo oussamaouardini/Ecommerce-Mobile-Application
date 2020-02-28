@@ -18,8 +18,7 @@ class Authentication {
     if(response.statusCode == 201){
       // registration successfully
       var body = jsonDecode(response.body );
-      var data = body['data'];
-
+      var data = body;
       User user = User.fromJson(data);
       await _saveUser(user.userId,user.apiToken);
       return user ;
@@ -44,7 +43,7 @@ class Authentication {
     if(response.statusCode == 200){
       // registration successfully
       var body = jsonDecode(response.body );
-      var data = body['data'];
+      var data = body;
       User user = User.fromJson(data);
       await _saveUser(user.userId,user.apiToken);
       return user ;

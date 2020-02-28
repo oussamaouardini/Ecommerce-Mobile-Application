@@ -9,9 +9,9 @@ class Product {
 
   String product_title, product_description;
 
-  ProductUnit productUnit;
 
-  double product_price, product_total, product_discount;
+
+  double product_price;
 
   ProductCategory productCategory;
 
@@ -24,10 +24,7 @@ class Product {
       this.product_id,
       this.product_title,
       this.product_description,
-      this.productUnit,
       this.product_price,
-      this.product_total,
-      this.product_discount,
       this.productCategory,
       this.tags,
       this.images,
@@ -56,12 +53,10 @@ class Product {
     this.productQuantity = jsonObject['product_quantity'];
     this.product_title = jsonObject['product_title'];
     this.product_description = jsonObject['product_description'];
+
     this.product_price = double.tryParse(jsonObject['product_price']);
-    this.product_total = double.tryParse(jsonObject['product_total']);
-    this.product_discount = double.tryParse(jsonObject['product_discount']);
     this.productCategory =
         ProductCategory.fromJson(jsonObject['product_category']);
-    _setTags(jsonObject['product_tags']);
     _setImages(jsonObject['product_images']);
     // _setReviews(jsonObject['product_reviews']);
     //   this.productUnit =jsonObject['product_id'];
@@ -73,25 +68,11 @@ class Product {
     this.product_title = jsonObject['product_title'];
     this.product_description = jsonObject['product_description'];
     this.product_price = double.tryParse(jsonObject['product_price']);
-    this.product_total = double.tryParse(jsonObject['product_total']);
-    this.product_discount = double.tryParse(jsonObject['product_discount']);
     this.productCategory =
         ProductCategory.fromJson(jsonObject['product_category']);
-    _setTags(jsonObject['product_tags']);
     _setImages(jsonObject['product_images']);
     // _setReviews(jsonObject['product_reviews']);
     //   this.productUnit =jsonObject['product_id'];
-  }
-
-  void _setTags(List<dynamic> jsonTags) {
-    this.tags = [];
-    if (jsonTags.length > 0) {
-      for (var item in jsonTags) {
-        if (item != null) {
-          this.tags.add(ProductTag.fromJson(item));
-        }
-      }
-    }
   }
 
   void _setImages(List<dynamic> jsonImages) {

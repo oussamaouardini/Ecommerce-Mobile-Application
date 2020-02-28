@@ -1,4 +1,4 @@
-#Sun Feb 23 05:56:17 WET 2020
-base.0=D\:\\Project_Android_Studio\\Ecome\\build\\app\\intermediates\\transforms\\dexMerger\\debug\\0
+#Fri Feb 28 15:39:05 WET 2020
+base.0=D\:\\Project_Android_Studio\\Complete_Ecome\\build\\app\\intermediates\\transforms\\dexMerger\\debug\\0
 path.0=classes.dex
 renamed.0=classes.dex

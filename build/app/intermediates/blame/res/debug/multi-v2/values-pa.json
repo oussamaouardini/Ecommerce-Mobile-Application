@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\Project_Android_Studio\\Ecome\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-pa\\values-pa.xml",
+            "outputFile": "D:\\Project_Android_Studio\\Complete_Ecome\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-pa\\values-pa.xml",
             "map": [
                 {
                     "source": "C:\\Users\\oussama ouardini\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\81549be8d361d86f2685b60320e22918\\res\\values-pa\\values-pa.xml",

@@ -1,3 +1,4 @@
+import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pfe/Component/horisontale_list.dart';
@@ -49,6 +50,24 @@ List<Color> colors = [
   Color(0xFF1AD12C),
   Color(0xFFD66400),
 ];
+
+Widget imageCarousel = new Container(
+  height: 200.0,
+  child: Carousel(
+    boxFit: BoxFit.cover,
+    autoplay: false,
+    animationCurve: Curves.easeIn,
+    animationDuration: Duration(milliseconds: 500),
+    dotSize: 6.0,
+    dotIncreasedColor: Color(0xFF01B2C4),
+    dotBgColor: Colors.transparent,
+    showIndicator: true,
+    indicatorBgPadding: 7.0,
+    images: productList,
+  ),
+);
+List productList = [];
+
 
 const appBarColor = Color(0xFF01B2C4);
 
@@ -342,11 +361,18 @@ class _Product_detailsState extends State<Product_details> {
                   if ((userId != null) || (apiToken != null)) {
                     CartApi cartApi = CartApi();
                     cart.Cart car = await cartApi.fetchCart();
-
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => new Cart(car.total)));
+                    if(car == null){
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Dialog(msg:"your Shopping card is empty");
+                          });
+                    }else{
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => new Cart(car.total)));
+                    }
                   } else {
                     showDialog(
                         context: context,
@@ -994,6 +1020,39 @@ class ColumnBuilder extends StatelessWidget {
     return new Column(
       children: new List.generate(
           this.itemCount, (index) => this.itemBuilder(context, index)).toList(),
+    );
+  }
+}
+
+class Dialog extends StatelessWidget {
+  final String msg ;
+  const Dialog({
+    Key key,
+    this.msg
+  }) ;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text(" Welcome"),
+      content: SizedBox(
+        height: 40.0,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text('${this.msg.toString()}?'),
+          ],
+        ),
+      ),
+      actions: <Widget>[
+        MaterialButton(
+          onPressed: () {
+            Navigator.of(context).pop(context);
+          },
+          child: Text('Close'),
+        )
+      ],
     );
   }
 }

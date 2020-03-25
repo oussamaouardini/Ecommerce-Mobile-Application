@@ -1,3 +1,4 @@
+import 'package:pfe/custom_widgets.dart';
 import 'package:pfe/product/product_category.dart';
 import 'package:pfe/product/product_unit.dart';
 import 'package:pfe/product/product_tag.dart';
@@ -58,6 +59,8 @@ class Product {
     this.productCategory =
         ProductCategory.fromJson(jsonObject['product_category']);
     _setImages(jsonObject['product_images']);
+
+
     // _setReviews(jsonObject['product_reviews']);
     //   this.productUnit =jsonObject['product_id'];
   }
@@ -71,16 +74,19 @@ class Product {
     this.productCategory =
         ProductCategory.fromJson(jsonObject['product_category']);
     _setImages(jsonObject['product_images']);
+
     // _setReviews(jsonObject['product_reviews']);
     //   this.productUnit =jsonObject['product_id'];
   }
 
-  void _setImages(List<dynamic> jsonImages) {
-    images = [];
+  void _setImages(String json) {
+    List<dynamic> jsonImages = [];
+    jsonImages = jsonDecode(json);
+    this.images = [];
     if (jsonImages.length > 0) {
       for (var image in jsonImages) {
         if (image != null) {
-          this.images.add(image['image_url']);
+          this.images.add(image);
         }
       }
     }
@@ -88,8 +94,8 @@ class Product {
 
   String featured_image() {
     if (this.images.length > 0) {
-      return this.images[0];
+      return "${ApiUtl.MAIN_IMAGES_URL}"+"${this.images[0]}";
     }
-    return 'https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823_960_720.jpg';
+    return 'https://cdn.discordapp.com/attachments/671407027871940609/692461617488723999/no-image-available.png';
   }
 }

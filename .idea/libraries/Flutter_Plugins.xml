@@ -3,6 +3,9 @@
     <CLASSES>
       <root url="file://C:/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.5.6+1" />
       <root url="file://C:/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_web-0.1.2+3" />
+      <root url="file://C:/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher_macos-0.0.1+4" />
+      <root url="file://C:/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher-5.4.2" />
+      <root url="file://C:/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher_web-0.1.1+1" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

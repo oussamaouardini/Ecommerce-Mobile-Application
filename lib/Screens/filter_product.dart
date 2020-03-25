@@ -91,8 +91,8 @@ class _FilterProductState extends State<FilterProduct> {
                               image: DecorationImage(
                             fit: BoxFit.cover,
                             // image: NetworkImage(cartItem.product.featured_image()),
-                            image: AssetImage(
-                              'images/IMG_1266.JPG',
+                            image: NetworkImage(
+                              product.featured_image()
                             ),
                           )),
                         ),

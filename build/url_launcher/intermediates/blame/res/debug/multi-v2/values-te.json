@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "D:\\Project_Android_Studio\\Complete_Ecome\\build\\url_launcher\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-te\\values-te.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\oussama ouardini\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\81549be8d361d86f2685b60320e22918\\res\\values-te\\values-te.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "D:\\Project_Android_Studio\\Complete_Ecome\\build\\url_launcher\\intermediates\\res\\merged\\debug\\values-te\\values-te.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\oussama ouardini\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\81549be8d361d86f2685b60320e22918\\res\\values-te\\values-te.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        }
+    ]
+}

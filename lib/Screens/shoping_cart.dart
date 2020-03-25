@@ -3,11 +3,12 @@ import 'package:pfe/Component/List_View_Card.dart';
 import 'package:pfe/api/cart_api.dart';
 import 'package:pfe/constants.dart';
 import 'package:pfe/custom_widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'Home.dart';
 import 'package:pfe/cart/cart.dart';
 import 'package:pfe/cart/cart.dart' as car;
 import 'package:pfe/Screens/search_product.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 int i = 0 ;
 
 const appBarColor = Color(0xFF01B2C4);
@@ -26,6 +27,29 @@ class _CartState extends State<Cart> {
   bool isloading = false ;
 
   dynamic total ;
+
+  void pay(String amount) async {
+
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String apiToken = sharedPreferences.getString('api_token');
+    int userId = sharedPreferences.getInt('user_id');
+    //car.Cart carr = await  cartApi.fetchCart();
+    String url = 'http://10.0.2.2:8000/charge/'+amount+'/'+userId.toString();
+
+
+    Map<String, String> _authHeaders = {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ' + apiToken
+    };
+
+    if(await canLaunch(url))
+    {
+      await launch(url,headers: _authHeaders);
+    }
+    else{
+      throw 'Could not launch $url';
+    }
+  }
 
   Widget appBarTitle = new Text("Shoping Cart",style: TextStyle(
       color: Colors.white,
@@ -132,7 +156,7 @@ class _CartState extends State<Cart> {
                 subtitle: (isloading == true)? CircularProgressIndicator(): Text("\$"+widget.total.toString()),
               )),
               Expanded(
-                  child: MaterialButton(onPressed: (){},
+                  child: MaterialButton(onPressed: () => pay(widget.total.toString()),
                     child: Text('check out',style: TextStyle(
                       fontSize: 20.0,
                       color: Colors.white
@@ -188,9 +212,8 @@ class _CartState extends State<Cart> {
                         image: DecorationImage(
                           fit: BoxFit.cover,
                          // image: NetworkImage(cartItem.product.featured_image()),
-                        image: AssetImage(
-                          'images/IMG_1266.JPG',
-
+                        image: NetworkImage(
+                          cartItem.product.featured_image()
                         ),
                         )
                       ),

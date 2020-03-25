@@ -8,6 +8,9 @@ MERGED from D:\Project_Android_Studio\Complete_Ecome\android\app\src\main\Androi
 MERGED from [:shared_preferences] D:\Project_Android_Studio\Complete_Ecome\build\shared_preferences\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:2:1-7:12
 MERGED from [:shared_preferences_web] D:\Project_Android_Studio\Complete_Ecome\build\shared_preferences_web\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:2:1-7:12
 MERGED from [:shared_preferences_macos] D:\Project_Android_Studio\Complete_Ecome\build\shared_preferences_macos\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:2:1-7:12
+MERGED from [:url_launcher] D:\Project_Android_Studio\Complete_Ecome\build\url_launcher\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:2:1-14:12
+MERGED from [:url_launcher_macos] D:\Project_Android_Studio\Complete_Ecome\build\url_launcher_macos\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:2:1-7:12
+MERGED from [:url_launcher_web] D:\Project_Android_Studio\Complete_Ecome\build\url_launcher_web\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:2:1-7:12
 MERGED from [com.android.support:support-fragment:28.0.0] C:\Users\oussama ouardini\.gradle\caches\transforms-1\files-1.1\support-fragment-28.0.0.aar\42304284009724e03fc876747bd3b135\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-core-ui:28.0.0] C:\Users\oussama ouardini\.gradle\caches\transforms-1\files-1.1\support-core-ui-28.0.0.aar\ae5069621ccff30ea73a1968ad360c1c\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-core-utils:28.0.0] C:\Users\oussama ouardini\.gradle\caches\transforms-1\files-1.1\support-core-utils-28.0.0.aar\14a0e884c0779c614284ed9e19d35741\AndroidManifest.xml:17:1-22:12
@@ -50,6 +53,8 @@ INJECTED from D:\Project_Android_Studio\Complete_Ecome\android\app\src\debug\And
 		ADDED from D:\Project_Android_Studio\Complete_Ecome\android\app\src\main\AndroidManifest.xml:1:11-69
 application
 ADDED from D:\Project_Android_Studio\Complete_Ecome\android\app\src\main\AndroidManifest.xml:11:5-34:19
+MERGED from [:url_launcher] D:\Project_Android_Studio\Complete_Ecome\build\url_launcher\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:7:5-12:19
+MERGED from [:url_launcher] D:\Project_Android_Studio\Complete_Ecome\build\url_launcher\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:7:5-12:19
 MERGED from [com.android.support:support-compat:28.0.0] C:\Users\oussama ouardini\.gradle\caches\transforms-1\files-1.1\support-compat-28.0.0.aar\81549be8d361d86f2685b60320e22918\AndroidManifest.xml:22:5-94
 MERGED from [com.android.support:support-compat:28.0.0] C:\Users\oussama ouardini\.gradle\caches\transforms-1\files-1.1\support-compat-28.0.0.aar\81549be8d361d86f2685b60320e22918\AndroidManifest.xml:22:5-94
 MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\oussama ouardini\.gradle\caches\transforms-1\files-1.1\versionedparcelable-28.0.0.aar\e43200bdf22c8c2758120f63eb955fe5\AndroidManifest.xml:22:5-23:19
@@ -102,6 +107,12 @@ MERGED from [:shared_preferences_web] D:\Project_Android_Studio\Complete_Ecome\b
 MERGED from [:shared_preferences_web] D:\Project_Android_Studio\Complete_Ecome\build\shared_preferences_web\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:5:5-44
 MERGED from [:shared_preferences_macos] D:\Project_Android_Studio\Complete_Ecome\build\shared_preferences_macos\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:5:5-44
 MERGED from [:shared_preferences_macos] D:\Project_Android_Studio\Complete_Ecome\build\shared_preferences_macos\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher] D:\Project_Android_Studio\Complete_Ecome\build\url_launcher\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher] D:\Project_Android_Studio\Complete_Ecome\build\url_launcher\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher_macos] D:\Project_Android_Studio\Complete_Ecome\build\url_launcher_macos\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher_macos] D:\Project_Android_Studio\Complete_Ecome\build\url_launcher_macos\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher_web] D:\Project_Android_Studio\Complete_Ecome\build\url_launcher_web\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher_web] D:\Project_Android_Studio\Complete_Ecome\build\url_launcher_web\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:5:5-44
 MERGED from [com.android.support:support-fragment:28.0.0] C:\Users\oussama ouardini\.gradle\caches\transforms-1\files-1.1\support-fragment-28.0.0.aar\42304284009724e03fc876747bd3b135\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-fragment:28.0.0] C:\Users\oussama ouardini\.gradle\caches\transforms-1\files-1.1\support-fragment-28.0.0.aar\42304284009724e03fc876747bd3b135\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-core-ui:28.0.0] C:\Users\oussama ouardini\.gradle\caches\transforms-1\files-1.1\support-core-ui-28.0.0.aar\ae5069621ccff30ea73a1968ad360c1c\AndroidManifest.xml:20:5-44
@@ -160,3 +171,11 @@ uses-permission#android.permission.INTERNET
 ADDED from D:\Project_Android_Studio\Complete_Ecome\android\app\src\debug\AndroidManifest.xml:6:5-66
 	android:name
 		ADDED from D:\Project_Android_Studio\Complete_Ecome\android\app\src\debug\AndroidManifest.xml:6:22-64
+activity#io.flutter.plugins.urllauncher.WebViewActivity
+ADDED from [:url_launcher] D:\Project_Android_Studio\Complete_Ecome\build\url_launcher\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:8:9-11:74
+	android:exported
+		ADDED from [:url_launcher] D:\Project_Android_Studio\Complete_Ecome\build\url_launcher\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:10:13-37
+	android:theme
+		ADDED from [:url_launcher] D:\Project_Android_Studio\Complete_Ecome\build\url_launcher\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:11:13-71
+	android:name
+		ADDED from [:url_launcher] D:\Project_Android_Studio\Complete_Ecome\build\url_launcher\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:9:13-74

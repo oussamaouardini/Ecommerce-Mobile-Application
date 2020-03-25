@@ -1,6 +1,10 @@
 import 'package:pfe/custom_widgets.dart';
 
 class ApiUtl {
+
+  //local Images
+  static const String MAIN_IMAGES_URL = "http://10.0.2.2:8000/productImages/";
+
   //local Url
   static const String MAIN_API_URL = "http://10.0.2.2:8000/api/";
 

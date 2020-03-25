@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "D:\\Project_Android_Studio\\Complete_Ecome\\build\\url_launcher\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\notification_bg_low_normal.9.png",
+        "source": "C:\\Users\\oussama ouardini\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\81549be8d361d86f2685b60320e22918\\res\\drawable-mdpi-v4\\notification_bg_low_normal.9.png"
+    },
+    {
+        "merged": "D:\\Project_Android_Studio\\Complete_Ecome\\build\\url_launcher\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\notification_bg_low_pressed.9.png",
+        "source": "C:\\Users\\oussama ouardini\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\81549be8d361d86f2685b60320e22918\\res\\drawable-mdpi-v4\\notification_bg_low_pressed.9.png"
+    },
+    {
+        "merged": "D:\\Project_Android_Studio\\Complete_Ecome\\build\\url_launcher\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\notify_panel_notification_icon_bg.png",
+        "source": "C:\\Users\\oussama ouardini\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\81549be8d361d86f2685b60320e22918\\res\\drawable-mdpi-v4\\notify_panel_notification_icon_bg.png"
+    },
+    {
+        "merged": "D:\\Project_Android_Studio\\Complete_Ecome\\build\\url_launcher\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\notification_bg_normal_pressed.9.png",
+        "source": "C:\\Users\\oussama ouardini\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\81549be8d361d86f2685b60320e22918\\res\\drawable-mdpi-v4\\notification_bg_normal_pressed.9.png"
+    },
+    {
+        "merged": "D:\\Project_Android_Studio\\Complete_Ecome\\build\\url_launcher\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\notification_bg_normal.9.png",
+        "source": "C:\\Users\\oussama ouardini\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\81549be8d361d86f2685b60320e22918\\res\\drawable-mdpi-v4\\notification_bg_normal.9.png"
+    }
+]

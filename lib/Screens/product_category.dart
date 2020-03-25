@@ -106,7 +106,7 @@ class _ProductCategoryState extends State<ProductCategory> {
           ),
           child: Card(
             child: ListTile(
-                leading: Image.asset('images/IMG_1266.JPG',),
+                leading: Image.network(product.featured_image()),
                 title: Text(product.product_title),
                 subtitle: Text(
                     '\$'+product.product_price.toString()
@@ -153,10 +153,7 @@ class _ProductCategoryState extends State<ProductCategory> {
                               image: DecorationImage(
                                 fit: BoxFit.cover,
                                 // image: NetworkImage(cartItem.product.featured_image()),
-                                image: AssetImage(
-                                  'images/IMG_1266.JPG',
-
-                                ),
+                                image: NetworkImage(product.featured_image()),
                               )
                           ),
                         ),

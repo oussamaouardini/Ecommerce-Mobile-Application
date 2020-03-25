@@ -3,6 +3,7 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/widgets.dart';
 
 List imageCarouselList = [
+  Image.network("http://10.0.2.2:8000/images/FR.png"),
   Image.network(
       'https://www.decathlon.in/content/opeco-2020/fit-utsav-w4-2020/images/nFitness-Landing-page-Main-BAnner.jpg'),
   Image.network(

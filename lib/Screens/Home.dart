@@ -92,10 +92,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     CartApi cartApi = CartApi();
                     cart.Cart car = await cartApi.fetchCart();
 
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => new Cart(car.total)));
+                    if(car == null){
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Dialog(msg:"your Shopping card is empty");
+                          });
+                    }else{
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => new Cart(car.total)));
+                    }
+
                   } else {
                     showDialog(
                         context: context,
@@ -531,6 +540,39 @@ class Alert extends StatelessWidget {
                 )
               ],
             )
+          ],
+        ),
+      ),
+      actions: <Widget>[
+        MaterialButton(
+          onPressed: () {
+            Navigator.of(context).pop(context);
+          },
+          child: Text('Close'),
+        )
+      ],
+    );
+  }
+}
+
+class Dialog extends StatelessWidget {
+  final String msg ;
+  const Dialog({
+    Key key,
+    this.msg
+  }) ;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text(" Welcome"),
+      content: SizedBox(
+        height: 40.0,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text('${this.msg.toString()}?'),
           ],
         ),
       ),

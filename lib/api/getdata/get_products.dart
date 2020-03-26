@@ -98,6 +98,7 @@ class _getProductsState extends State<getProducts> {
       product_description: item.product_description,
       product_id: item.product_id,
       productCountReview: item.productReviewCount,
+      carouselImages: item.images_Carousel(),
     ));
   }
 
@@ -151,6 +152,7 @@ class Single_product extends StatelessWidget {
   final product_old_price;
   final product_description;
   final productCountReview;
+  List carouselImages ;
 
   static Random random = new Random();
   int randNb = random.nextInt(100);
@@ -163,6 +165,7 @@ class Single_product extends StatelessWidget {
     this.product_description,
     this.product_id,
     this.productCountReview,
+    this.carouselImages
   });
 
   @override
@@ -185,6 +188,7 @@ class Single_product extends StatelessWidget {
                             product_description: product_description,
                             product_id: product_id,
                             productReviewCount: productCountReview,
+                            carousel: this.carouselImages,
                           )));
                 },
                 child: GridTile(
@@ -218,7 +222,7 @@ class Single_product extends StatelessWidget {
                     ),
                   ),
                   child: Image.network(
-                    'https://cdn2.newsok.biz/cache/lead630_blur-cee3691789e43fb1e475384d48db5c6f.jpg',
+                    '${this.product_pic}',
                     fit: BoxFit.cover,
                   ),
                 ),

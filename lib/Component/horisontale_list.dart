@@ -86,6 +86,7 @@ class Category extends StatelessWidget {
                   product_description: this.product.product_description,
                   product_id: this.product.product_id,
                   productReviewCount: this.product.productReviewCount,
+                  carousel: this.product.images_Carousel(),
                 )));
           },
           child: Stack(

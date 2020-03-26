@@ -84,6 +84,7 @@ class Product_details extends StatefulWidget {
   final productReviewCount;
 
   final productCategory;
+  List<dynamic> carousel ;
 
   Product_details(
       {this.product_details_name,
@@ -93,7 +94,8 @@ class Product_details extends StatefulWidget {
       this.product_description,
       this.product_id,
       this.productReviewCount,
-      this.productCategory});
+      this.productCategory,
+      this.carousel});
 
   static String id = 'Product_details';
 
@@ -403,13 +405,19 @@ class _Product_detailsState extends State<Product_details> {
                   Stack(
                     children: <Widget>[
                       Container(
-                        child: Image.network(widget.product_details_picture,
-                                    width: double.infinity,
-                                    fit: BoxFit.cover) ==
-                                null
-                            ? CircularProgressIndicator()
-                            : Image.network(widget.product_details_picture,
-                                width: double.infinity, fit: BoxFit.cover),
+                        height: 250.0,
+                        child: Carousel(
+                          boxFit: BoxFit.fill,
+                          autoplay: false,
+                          animationCurve: Curves.easeIn,
+                          animationDuration: Duration(milliseconds: 500),
+                          dotSize: 6.0,
+                          dotIncreasedColor: Color(0xFF01B2C4),
+                          dotBgColor: Colors.transparent,
+                          showIndicator: true,
+                          indicatorBgPadding: 7.0,
+                          images: widget.carousel,
+                        ),
                       ),
                       Positioned(
                         left: screenAwareSize(18.0, context),

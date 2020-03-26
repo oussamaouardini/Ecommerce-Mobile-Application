@@ -20,6 +20,7 @@ class Product {
 
   List<String> images;
   List<ProductReview> reviews;
+  List<dynamic> carouselImages ;
 
   Product(
       this.product_id,
@@ -31,7 +32,8 @@ class Product {
       this.images,
       this.reviews,
       this.productReviewCount,
-      this.nb_sales
+      this.nb_sales,
+      this.carouselImages
       );
 
   Product.fromJson(Map<String, dynamic> jsonObject) {
@@ -59,10 +61,8 @@ class Product {
     this.productCategory =
         ProductCategory.fromJson(jsonObject['product_category']);
     _setImages(jsonObject['product_images']);
+    images_Carousel();
 
-
-    // _setReviews(jsonObject['product_reviews']);
-    //   this.productUnit =jsonObject['product_id'];
   }
 
   Product.fromHelper(Map<String, dynamic> jsonObject) {
@@ -74,6 +74,7 @@ class Product {
     this.productCategory =
         ProductCategory.fromJson(jsonObject['product_category']);
     _setImages(jsonObject['product_images']);
+    images_Carousel();
 
     // _setReviews(jsonObject['product_reviews']);
     //   this.productUnit =jsonObject['product_id'];
@@ -90,6 +91,13 @@ class Product {
         }
       }
     }
+  }
+  List<dynamic> images_Carousel() {
+    this.carouselImages = [];
+    for(var image in this.images){
+      this.carouselImages.add(NetworkImage("${ApiUtl.MAIN_IMAGES_URL}"+"$image"));
+    }
+    return this.carouselImages ;
   }
 
   String featured_image() {

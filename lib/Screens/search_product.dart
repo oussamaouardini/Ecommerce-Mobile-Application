@@ -47,6 +47,7 @@ class _SearchProductState extends State<SearchProduct> {
                   product_details_oldPrice: product.product_price,
                   product_description: product.product_description,
                   product_id: product.product_id,
+              carousel: product.images_Carousel(),
                 )));
       },
       child: Card(
@@ -69,8 +70,8 @@ class _SearchProductState extends State<SearchProduct> {
                               image: DecorationImage(
                             fit: BoxFit.cover,
                             // image: NetworkImage(cartItem.product.featured_image()),
-                            image: AssetImage(
-                              'images/IMG_1266.JPG',
+                            image: NetworkImage(
+                              product.featured_image()
                             ),
                           )),
                         ),

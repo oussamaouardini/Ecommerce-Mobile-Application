@@ -45,8 +45,18 @@ class Functions {
         String apiToken = pref.getString('api_token');
         if ((userId != null) || (apiToken != null)) {
           cart.Cart car = await cartApi.fetchCart();
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => new Cart(car.total)));
+          if(car == null){
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return Dialog(msg:"your Shopping card is empty");
+                });
+          }else{
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => new Cart(car.total)));
+          }
         } else {
           showDialog(
               context: context,
@@ -76,5 +86,39 @@ class Functions {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => new HomeScreen()));
     }
+  }
+}
+
+
+class Dialog extends StatelessWidget {
+  final String msg ;
+  const Dialog({
+    Key key,
+    this.msg
+  }) ;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text(" Welcome"),
+      content: SizedBox(
+        height: 40.0,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text('${this.msg.toString()}?'),
+          ],
+        ),
+      ),
+      actions: <Widget>[
+        MaterialButton(
+          onPressed: () {
+            Navigator.of(context).pop(context);
+          },
+          child: Text('Close'),
+        )
+      ],
+    );
   }
 }

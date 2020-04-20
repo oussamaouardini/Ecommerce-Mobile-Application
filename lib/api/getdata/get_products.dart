@@ -3,7 +3,7 @@ import 'package:pfe/custom_widgets.dart';
 import 'package:pfe/Screens/Click_Product.dart';
 import 'package:pfe/general_config/size_config.dart';
 import 'package:pfe/Screens/product_category.dart' as pcateg;
-
+import 'package:pfe/IconsNew/addidas.dart';
 bool hassan = true;
 
 class getProducts extends StatefulWidget {
@@ -213,6 +213,7 @@ class Single_product extends StatelessWidget {
                             Expanded(
                               child: Text(
                                 product_name,
+                                maxLines: 1,
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             )

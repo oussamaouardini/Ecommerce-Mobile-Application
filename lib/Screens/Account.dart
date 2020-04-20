@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pfe/Screens/edit_account.dart';
 import 'package:pfe/constants.dart';
 import 'package:pfe/customer/user.dart';
+import 'package:pfe/general_config/functions.dart';
 
 import 'package:titled_navigation_bar/titled_navigation_bar.dart';
 
@@ -52,10 +53,11 @@ class _AccountState extends State<Account> {
       ),
       bottomNavigationBar: TitledBottomNavigationBar(
           currentIndex: 4, // Use this to update the Bar giving a position
-          onTap: (index) {},
+          onTap: (index) {
+            Functions.routeBottomBar(index, context);
+          },
           items: [
             TitledNavigationBarItem(title: 'Home', icon: Icons.home),
-            TitledNavigationBarItem(title: 'Search', icon: Icons.search),
             TitledNavigationBarItem(title: 'Favorite', icon: Icons.favorite),
             TitledNavigationBarItem(title: 'Orders', icon: Icons.shopping_cart),
             TitledNavigationBarItem(

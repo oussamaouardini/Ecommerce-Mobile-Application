@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:pfe/Screens/Home.dart';
+import 'package:pfe/Screens/favorite_screen.dart';
 import 'package:pfe/Screens/filter_product.dart';
 import 'package:pfe/Screens/log_out.dart';
 import 'package:pfe/Screens/sign_up.dart';
+import 'package:pfe/api/cart_api.dart';
 import 'package:pfe/custom_widgets.dart';
 import 'package:pfe/user/user_api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pfe/general_config/size_config.dart';
 import 'package:meta/meta.dart';
 ///*****************************  ******************************************************************************************
-
+import 'package:pfe/cart/cart.dart' as cart;
+import 'package:pfe/Screens/shoping_cart.dart';
 
 class drawer extends StatefulWidget {
   @override
@@ -119,7 +123,7 @@ class _DrawerrState extends State<Drawerr> {
                 children: <Widget>[
                   InkWell(
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SignUpPage(title: "Sign Up",) ));
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=> HomeScreen() ));
                     },
                     child: ListTile(
                       title: Text("Home"),
@@ -130,17 +134,34 @@ class _DrawerrState extends State<Drawerr> {
                     ),
                   ),
                   InkWell(
-                    onTap: () {},
-                    child: ListTile(
-                      title: Text("Notifications"),
-                      leading: Icon(
-                        Icons.notifications,
-                        //    color: Colors.red,
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {},
+                    onTap: () async {
+                      CartApi cartApi = CartApi();
+
+                      SharedPreferences pref = await SharedPreferences.getInstance();
+                      int userId = pref.getInt('user_id');
+                      String apiToken = pref.getString('api_token');
+                      if ((userId != null) || (apiToken != null)) {
+                        cart.Cart car = await cartApi.fetchCart();
+                        if(car == null){
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return Dialog(msg:"your Shopping card is empty");
+                              });
+                        }else{
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => new Cart(car.total)));
+                        }
+                      } else {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return Alert();
+                            });
+                      }
+                    },
                     child: ListTile(
                       title: Text("My orders"),
                       leading: Icon(
@@ -150,7 +171,25 @@ class _DrawerrState extends State<Drawerr> {
                     ),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () async {
+                      SharedPreferences pref = await SharedPreferences.getInstance();
+                      int userId = pref.getInt('user_id');
+                      String apiToken = pref.getString('api_token');
+                      if ((userId != null) || (apiToken != null)) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => new Favorite(
+                                  userId: userId,
+                                )));
+                      } else {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return Alert();
+                            });
+                      }
+                    },
                     child: ListTile(
                       title: Text("Wish List"),
                       leading: Icon(
@@ -204,7 +243,35 @@ class _DrawerrState extends State<Drawerr> {
                     ),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () async {
+                      UserApi userApi = UserApi();
+                      SharedPreferences pref =
+                          await SharedPreferences.getInstance();
+                      int userId = pref.getInt('user_id');
+                      String apiToken = pref.getString('api_token');
+                      if ((userId != null) || (apiToken != null)) {
+                        User user = await userApi.fetchUser(userId);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                new Account(
+                                  firstName: user.firstName,
+                                  lastName: user.lastName,
+                                  email: user.email,
+                                  password: user.password,
+                                  memberSince: user.memberSince,
+                                  mobile: user.mobile,
+                                  shippingAddress: user.shippingAddress,
+                                )));
+                      } else {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return Alert();
+                            });
+                      }
+                    },
                     child: ListTile(
                       title: Text("Settings"),
                       leading: Icon(
@@ -391,47 +458,31 @@ class ExpansionTileSampleState extends State<ExpansionTileSample> {
     'Jacket': false,
   };
   Map<String, bool> categoriesMen = {
-    'Men\'s Sweater': false,
-    'Men\'s Jacket': false,
-    'Men\'s Footwar': false,
-    'Men\'s Pants': false,
-    'Men\'s T-Shirts': false,
-    'Men\'s Sneakers': false,
+    'menSweater': false,
+    'menFootwar': false,
+    'menPants': false,
+    'menT-Shirts': false,
+    'menSneakers': false,
   };
   Map<String, bool> categoriesWomen = {
-    'Women\'s Sweater': false,
-    'Women\'s Jacket': false,
-    'Women\'s Footwar': false,
-    'Women\'s Pants': false,
-    'Women\'s T-Shirts': false,
-    'Women\'s Sneakers': false,
+    'womenSweater': false,
+    'womenFootwar': false,
+    'womenPants': false,
+    'womenT-Shirts': false,
+    'womenSneakers': false,
   };
   Map<String, bool> categoriesChild = {
-    'Child\'s Sweater': false,
-    'Child\'s Jacket': false,
-    'Child\'s Footwar': false,
-    'Child\'s Pants': false,
-    'Child\'s T-Shirts': false,
-    'Child\'s Sneakers': false,
+    'childSweater': false,
+    'childFootwar': false,
+    'childPants': false,
+    'childT-Shirts': false,
+    'childSneakers': false,
   };
   Map<String, bool> brands = {
     'Adidas': false,
     'Nike': false,
     'Puma': false,
     'Reebook': false,
-  };
-  Map<String, bool> colors = {
-    'Blue': false,
-    'Green': false,
-    'Blue Grey': false,
-    'Cyan': false,
-  };
-  Map<String, bool> size = {
-    'Extra Small': false,
-    'Small': false,
-    'Medium': false,
-    'Large': false,
-    'Extra Large': false,
   };
   @override
   Widget build(BuildContext context) {
@@ -454,6 +505,62 @@ class ExpansionTileSampleState extends State<ExpansionTileSample> {
                     ),
                     onTap:(){
 
+                      setState(() {
+                        categoriesMen = {
+                          'menSweater': false,
+                          'menFootwar': false,
+                          'menPants': false,
+                          'menT-Shirts': false,
+                          'menSneakers': false,
+                        };
+                        categoriesWomen = {
+                          'womenSweater': false,
+                          'womenFootwar': false,
+                          'womenPants': false,
+                          'womenT-Shirts': false,
+                          'womenSneakers': false,
+                        };
+                        categoriesChild = {
+                          'childSweater': false,
+                          'childFootwar': false,
+                          'childPants': false,
+                          'childT-Shirts': false,
+                          'childSneakers': false,
+                        };
+                        brands = {
+                          'Adidas': false,
+                          'Nike': false,
+                          'Puma': false,
+                          'Reebook': false,
+                        };
+                      });
+                       categoriesMen = {
+                        'menSweater': false,
+                        'menFootwar': false,
+                        'menPants': false,
+                        'menT-Shirts': false,
+                        'menSneakers': false,
+                      };
+                       categoriesWomen = {
+                        'womenSweater': false,
+                        'womenFootwar': false,
+                        'womenPants': false,
+                        'womenT-Shirts': false,
+                        'womenSneakers': false,
+                      };
+                       categoriesChild = {
+                        'childSweater': false,
+                        'childFootwar': false,
+                        'childPants': false,
+                        'childT-Shirts': false,
+                        'childSneakers': false,
+                      };
+                       brands = {
+                        'Adidas': false,
+                        'Nike': false,
+                        'Puma': false,
+                        'Reebook': false,
+                      };
                     },
                   )
                 ],
@@ -535,40 +642,6 @@ class ExpansionTileSampleState extends State<ExpansionTileSample> {
                         }).toList(),
                       ),
                     ),
-                    Container(
-                      child : ExpansionTile(
-                        initiallyExpanded: false,
-                        title: Text('Colors'),
-                        children: colors.keys.map((String key) {
-                          return new CheckboxListTile(
-                            title: new Text(key),
-                            value: colors[key],
-                            onChanged: (bool value) {
-                              setState(() {
-                                colors[key] = value;
-                              });
-                            },
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                    Container(
-                      child : ExpansionTile(
-                        initiallyExpanded: false,
-                        title: Text('Size'),
-                        children: size.keys.map((String key) {
-                          return new CheckboxListTile(
-                            title: new Text(key),
-                            value: size[key],
-                            onChanged: (bool value) {
-                              setState(() {
-                                size[key] = value;
-                              });
-                            },
-                          );
-                        }).toList(),
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -583,8 +656,6 @@ class ExpansionTileSampleState extends State<ExpansionTileSample> {
                     this.filter(categoriesMen, tab);
                     this.filter(categoriesWomen, tab);
                     this.filter(categoriesChild, tab);
-                    this.filter(size, tab);
-                    this.filter(colors, tab);
                     this.filter(brands, tab);
 
                   HelpersApi helperApi = HelpersApi();
@@ -626,4 +697,39 @@ class ExpansionTileSampleState extends State<ExpansionTileSample> {
     }
   }
 
+}
+
+
+
+class Dialog extends StatelessWidget {
+  final String msg ;
+  const Dialog({
+    Key key,
+    this.msg
+  }) ;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text(" Welcome"),
+      content: SizedBox(
+        height: 40.0,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text('${this.msg.toString()}?'),
+          ],
+        ),
+      ),
+      actions: <Widget>[
+        MaterialButton(
+          onPressed: () {
+            Navigator.of(context).pop(context);
+          },
+          child: Text('Close'),
+        )
+      ],
+    );
+  }
 }

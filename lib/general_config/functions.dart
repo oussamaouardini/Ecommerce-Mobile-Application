@@ -4,6 +4,8 @@ import 'package:pfe/Screens/Home.dart';
 import 'package:pfe/Screens/shoping_cart.dart';
 import 'package:pfe/Screens/favorite_screen.dart';
 import 'package:pfe/api/cart_api.dart';
+import 'package:pfe/customer/user.dart';
+import 'package:pfe/user/user_api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pfe/cart/cart.dart' as cart;
 
@@ -15,9 +17,6 @@ class Functions {
             context, MaterialPageRoute(builder: (context) => new HomeScreen()));
         break;
       case 1:
-        //
-        break;
-      case 2:
         SharedPreferences pref = await SharedPreferences.getInstance();
         int userId = pref.getInt('user_id');
         String apiToken = pref.getString('api_token');
@@ -37,7 +36,7 @@ class Functions {
         }
 
         break;
-      case 3:
+      case 2:
         CartApi cartApi = CartApi();
 
         SharedPreferences pref = await SharedPreferences.getInstance();
@@ -66,13 +65,27 @@ class Functions {
         }
 
         break;
-      case 4:
-        SharedPreferences pref = await SharedPreferences.getInstance();
+      case 3:
+        UserApi userApi = UserApi();
+        SharedPreferences pref =
+        await SharedPreferences.getInstance();
         int userId = pref.getInt('user_id');
         String apiToken = pref.getString('api_token');
         if ((userId != null) || (apiToken != null)) {
+          User user = await userApi.fetchUser(userId);
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => new Account()));
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                  new Account(
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
+                    password: user.password,
+                    memberSince: user.memberSince,
+                    mobile: user.mobile,
+                    shippingAddress: user.shippingAddress,
+                  )));
         } else {
           showDialog(
               context: context,

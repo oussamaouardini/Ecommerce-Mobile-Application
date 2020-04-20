@@ -102,7 +102,7 @@ class _FilterProductState extends State<FilterProduct> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                product.product_title,
+                                product.product_title.substring(0,15),
                                 style: TextStyle(
                                     fontWeight: FontWeight.w700,
                                     fontSize: 20.0),

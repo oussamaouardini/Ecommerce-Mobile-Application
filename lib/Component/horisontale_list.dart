@@ -144,6 +144,7 @@ class LittleCard extends StatelessWidget {
               child: Text(
                 product.product_title,
                 textAlign: TextAlign.left,
+                maxLines: 1,
                 style: TextStyle(
                   color: Colors.white,
                 ),

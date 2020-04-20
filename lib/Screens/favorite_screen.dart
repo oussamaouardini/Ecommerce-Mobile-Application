@@ -98,7 +98,7 @@ class _FavoriteState extends State<Favorite> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(like.product.product_title),
+                          Text(like.product.product_title.substring(0,15)),
                           SizedBox(
                             height: 5.0,
                           ),

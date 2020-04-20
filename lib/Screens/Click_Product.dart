@@ -392,7 +392,6 @@ class _Product_detailsState extends State<Product_details> {
             },
             items: [
               TitledNavigationBarItem(title: 'Home', icon: Icons.home),
-              TitledNavigationBarItem(title: 'Search', icon: Icons.search),
               TitledNavigationBarItem(title: 'Favorite', icon: Icons.favorite),
               TitledNavigationBarItem(
                   title: 'Orders', icon: Icons.shopping_cart),
@@ -763,9 +762,34 @@ class _Product_detailsState extends State<Product_details> {
                       children: <Widget>[
                         Expanded(
                             child: MaterialButton(
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(builder:(context) => new CreditCard()));
-                          },
+                              onPressed: () async {
+                                SharedPreferences pref =
+                                await SharedPreferences.getInstance();
+                                int userId = pref.getInt('user_id');
+                                String apiToken = pref.getString('api_token');
+                                if ((userId != null) || (apiToken != null)) {
+                                  CartApi cartApi = CartApi();
+                                  cart.Cart car = await cartApi.fetchCart();
+                                  if(car == null){
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return Dialog(msg:"your Shopping card is empty");
+                                        });
+                                  }else{
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => new Cart(car.total)));
+                                  }
+                                } else {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return Alert();
+                                      });
+                                }
+                              },
                           color: Color(0xFF01B2C4),
                           textColor: Colors.white,
                           child: Text('By now'),

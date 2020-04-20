@@ -6,7 +6,6 @@ import 'package:pfe/Component/image_caroussel.dart';
 import 'package:pfe/Component/AllSports_list.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pfe/Screens/log.dart';
-import 'package:pfe/Screens/logIn_screen.dart';
 import 'package:pfe/Screens/search_product.dart';
 import 'package:pfe/Screens/sign_up.dart';
 import 'package:pfe/custom_widgets.dart';
@@ -23,6 +22,10 @@ import 'package:pfe/api/cart_api.dart';
 import 'package:pfe/cart/cart.dart' as cart;
 import 'dart:core';
 import 'package:pfe/constants.dart';
+import 'package:pfe/IconsNew/addidas.dart' as Logo ;
+import 'package:pfe/IconsNew/hamid.dart' as LogoH ;
+import 'package:pfe/IconsNew/my_flutter_app_icons.dart' as LogoM ;
+
 const AppColor = Color(0xF2EEEF);
 const appPadding = 10.0;
 
@@ -160,7 +163,6 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             items: [
               TitledNavigationBarItem(title: 'Home', icon: Icons.home),
-              TitledNavigationBarItem(title: 'Search', icon: Icons.search),
               TitledNavigationBarItem(title: 'Favorite', icon: Icons.favorite),
               TitledNavigationBarItem(
                   title: 'Orders', icon: Icons.shopping_cart),
@@ -398,9 +400,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     Expanded(
                       child: Bar(
                         first: 'Man',
-                        second: 'Women',
-                        third: 'Kids',
-                        firstIcon: Icons.home,
+                        second: 'Woman',
+                        third: 'Child',
+                        firstIcon: FontAwesomeIcons.male,
                         secondIcon: FontAwesomeIcons.female,
                         thirdIcon: FontAwesomeIcons.child,
                         pageController: _secondPageController,

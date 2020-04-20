@@ -223,7 +223,7 @@ class _CartState extends State<Cart> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(cartItem.product.product_title),
+                          Text(cartItem.product.product_title.substring(0,20)),
                           SizedBox(height: 5.0,),
                           Text(
                               '\$ '+cartItem.product.product_price.toString()

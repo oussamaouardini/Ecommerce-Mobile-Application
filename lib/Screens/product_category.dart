@@ -75,7 +75,6 @@ class _ProductCategoryState extends State<ProductCategory> {
           },
           items: [
             TitledNavigationBarItem(title: 'Home', icon: Icons.home),
-            TitledNavigationBarItem(title: 'Search', icon: Icons.search),
             TitledNavigationBarItem(title: 'Favorite', icon: Icons.favorite),
             TitledNavigationBarItem(title: 'Orders', icon: Icons.shopping_cart),
             TitledNavigationBarItem(title: 'Profile', icon: Icons.person_outline),
@@ -162,7 +161,7 @@ class _ProductCategoryState extends State<ProductCategory> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(product.product_title,style: TextStyle(
+                              Text( product.product_title.length>15? product.product_title.substring(0,15):product.product_title.substring(0,10),style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 20.0
                               ),),

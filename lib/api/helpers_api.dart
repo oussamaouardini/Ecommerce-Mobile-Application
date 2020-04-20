@@ -186,13 +186,13 @@ class HelpersApi {
       var bodyy =  jsonDecode(response.body) ;
       for(int i = 0 ; i < tab.length ; i++ ){
         for(int j = 0 ; j < bodyy[i]['data'].length ; j++ ){
+
           http.Response response2 = await http.get(ApiUtl.PRODUCTBYID(bodyy[i]['data'][j]['id']),
               headers: _Authheaders );
           if ((response2.statusCode == 201) || (response2.statusCode == 200)) {
             var bodies =  jsonDecode(response2.body);
-          //  print(bodies['data']);
             products.add(
-                Product.fromJson(bodies['data'])
+                Product.fromJson(bodies)
             );
           }
         }
